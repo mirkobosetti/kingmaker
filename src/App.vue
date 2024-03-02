@@ -1,30 +1,43 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+    <div class="container">
+
+    <nav>
+      <router-link class="nav-button" to="/kingdom">Kingdom</router-link>
+      <router-link class="nav-button" to="/skills">Skills</router-link>
+      <router-link class="nav-button" to="/faa">Feats & Abilities</router-link>
+      <router-link class="nav-button" to="/city?name=city1">City 1</router-link>
+      <router-link class="nav-button" to="/city?name=city2">City 2</router-link>
+    </nav>
+
+    <router-view/>
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<style scoped>
+  .container {
+    margin: 0 auto;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-nav {
-  padding: 30px;
-}
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    width: 100%;
+    max-width: 100vw;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+  .nav-button {
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+  }
 </style>
