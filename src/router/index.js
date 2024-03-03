@@ -1,15 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import KingdomView from '../views/KingdomView.vue'
+import MapView from '../views/MapView.vue'
 
 const routes = [
   {
     path: '/',
-    redirect: '/kingdom'
+    redirect: '/map'
+  },
+  {
+    path: '/map',
+    name: 'map',
+    component: MapView
   },
   {
     path: '/kingdom',
     name: 'kingdom',
-    component: KingdomView
+    component: function () {
+      return import('../views/KingdomView.vue')
+    }
   },
   {
     path: '/skills',

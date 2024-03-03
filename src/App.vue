@@ -2,6 +2,7 @@
     <div class="container">
 
     <nav>
+      <router-link class="nav-button" to="/map">Map</router-link>
       <router-link class="nav-button" to="/kingdom">Kingdom</router-link>
       <router-link class="nav-button" to="/skills">Skills</router-link>
       <router-link class="nav-button" to="/faa">Feats & Abilities</router-link>
@@ -13,10 +14,17 @@
   </div>
 </template>
 
+<style>
+* {
+  box-sizing: border-box;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+</style>
+
 <style scoped>
   .container {
     margin: 0 auto;
-    max-width: 800px;
     display: flex;
     flex-direction: column;
     align-items: center;
