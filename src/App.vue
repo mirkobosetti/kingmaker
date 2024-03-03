@@ -1,51 +1,15 @@
 <template>
-    <div class="container">
+    <div class="mx-auto my-0 flex flex-col items-center">
 
-    <nav>
-      <router-link class="nav-button" to="/map">Map</router-link>
-      <router-link class="nav-button" to="/kingdom">Kingdom</router-link>
-      <router-link class="nav-button" to="/skills">Skills</router-link>
-      <router-link class="nav-button" to="/faa">Feats & Abilities</router-link>
-      <router-link class="nav-button" to="/city?name=city1">City 1</router-link>
-      <router-link class="nav-button" to="/city?name=city2">City 2</router-link>
+    <nav class="flex items-center justify-center gap-8 w-full flex-wrap mb-5">
+      <router-link class="py-2 px-5 bg-green-300 text-black rounded-md" to="/map">Map</router-link>
+      <router-link class="py-2 px-5 bg-green-300 text-black rounded-md" to="/kingdom">Kingdom</router-link>
+      <router-link class="py-2 px-5 bg-green-300 text-black rounded-md" to="/skills">Skills</router-link>
+      <router-link class="py-2 px-5 bg-green-300 text-black rounded-md" to="/faa">Feats & Abilities</router-link>
+      <router-link class="py-2 px-5 bg-green-300 text-black rounded-md" to="/city?name=city1">City 1</router-link>
+      <router-link class="py-2 px-5 bg-green-300 text-black rounded-md" to="/city?name=city2">City 2</router-link>
     </nav>
 
     <router-view/>
   </div>
 </template>
-
-<style>
-* {
-  box-sizing: border-box;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-</style>
-
-<style scoped>
-  .container {
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2em;
-    width: 100%;
-    max-width: 100vw;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-
-  .nav-button {
-    padding: 10px 20px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    text-decoration: none;
-    color: black;
-  }
-</style>

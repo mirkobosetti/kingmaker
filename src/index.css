@@ -1,0 +1,17 @@
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    margin: 8px !important;
+    background-image: url('assets/frompdf/13.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
