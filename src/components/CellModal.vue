@@ -1,10 +1,17 @@
 <template>
-  <div class="full-overlay">
-    <div class="modal">
-      <h2>{{ cellId }}</h2>
-      <p>{{ cellDescription }}</p>
-      <p>{{ cellType }}</p>
-      <button @click="$emit('close')">Close</button>
+  <div class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
+    <div class="bg-white p-5 rounded-md text-center shadow-lg">
+      <div class="text-red-500">ID: {{ cellId }}</div>
+      <textarea id="cellTextarea" :value="cellDescription" @input="emit('descriptionChanged', $event.target.value)" class="w-full h-32 p-2 mt-2" />
+      <div class="text-purple-500">
+        <select :value="cellType" @input="emit('typeChanged', $event.target.value)" class="bg-purple-100 p-1 rounded-md">
+          <option value="0">Unexplored</option>
+          <option value="1">Explored</option>
+          <option value="2">City</option>
+          <option value="3">Expanded</option>
+        </select>
+      </div>
+      <button @click="emit('close')" class="bg-red-500 text-white px-3 py-1 mt-2 rounded-md">Close</button>
     </div>
   </div>
 </template>
@@ -16,43 +23,5 @@ const props = defineProps({
   cellType: Number, // 0: unexplored, 1: explored, 2: city, 3: expanded
 });
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'descriptionChanged', 'typeChanged']);
 </script>
-
-<style scoped>
-.full-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  text-align: center;
-}
-
-.modal h2 {
-  margin-top: 0;
-}
-
-.modal button {
-  margin-top: 10px;
-}
-
-.modal button:hover {
-  cursor: pointer;
-}
-
-.modal button:active {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-</style>
