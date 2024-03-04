@@ -121,11 +121,11 @@ window.addEventListener('keydown', (e) => {
 }
 
 .exagon.explored {
-  background-color: rgba(0, 255, 0, 0.3);
+  background-color: #78903590;
 }
 
 .exagon.city,
 .exagon.expanded {
-  background-color: rgba(0, 0, 255, 0.3);
+  background-color: #27502590;
 }
 </style>

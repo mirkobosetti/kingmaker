@@ -3,6 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap');
+
 body {
     margin: 8px !important;
     background-image: url('assets/frompdf/13.png');
@@ -13,7 +16,8 @@ body {
 * {
     box-sizing: border-box;
     padding: 0;
-    font-family: Arial, sans-serif;
+    /* font-family: "Rowdies", sans-serif; */
+    font-family: "Protest Strike", sans-serif;
 }
 
 .darkgreen {
@@ -23,3 +27,11 @@ body {
 .lightgreen {
     color: #779035;
 }
+
+@layer base {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
