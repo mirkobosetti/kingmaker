@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto my-0 flex flex-col overflow-scroll">
+    <div class="mx-auto my-0 flex flex-col">
 
     <nav class="flex items-center justify-center gap-0 w-full flex-wrap py-5 fixed top-0 z-20 backdrop-blur-xl">
       <img src="@/assets/kingmaker.png" alt="kingmaker logo" class="w-48 fixed left-3" />
