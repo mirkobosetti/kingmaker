@@ -303,7 +303,7 @@
       </div>
     </div>
 
-    <div class="w-full flex gap-24 justify-center mt-12">
+    <div class="w-full flex gap-24 justify-center mt-12 items-start">
       <div class="flex flex-col justify-center items-center">
         <!-- commodities -->
         <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-3">

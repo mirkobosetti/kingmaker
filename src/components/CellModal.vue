@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
+  <div class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50">
     <div class="bg-white p-5 rounded-md text-center shadow-lg min-w-80">
       <div class="text-red-500">ID: {{ cellId }}</div>
       <textarea id="cellTextarea" :value="cellDescription" @input="emit('descriptionChanged', $event.target.value)" class="w-full h-32 p-2 mt-2" placeholder="Description" rows="3" cols="10" maxlength="50"></textarea>
