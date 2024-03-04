@@ -114,77 +114,77 @@
 
         <div class="flex w-full px-4 gap-1">
           <div class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center">corruption</div>
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input v-model="kingdom.ruins.corruption.score" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input v-model="kingdom.ruins.corruption.penality" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input v-model="kingdom.ruins.corruption.threshold" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
         </div>
         <div class="flex w-full px-4 gap-1">
           <div class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center">crime</div>
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input v-model="kingdom.ruins.crime.score" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input v-model="kingdom.ruins.crime.penality" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input v-model="kingdom.ruins.crime.threshold" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
         </div>
         <div class="flex w-full px-4 gap-1">
           <div class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center">decay</div>
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input v-model="kingdom.ruins.decay.score" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input v-model="kingdom.ruins.decay.penality" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input v-model="kingdom.ruins.decay.threshold" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
         </div>
         <div class="flex w-full px-4 gap-1">
-          <div class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center">stife</div>
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <div class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center">strife</div>
+          <input v-model="kingdom.ruins.strife.score" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input v-model="kingdom.ruins.strife.penality" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input v-model="kingdom.ruins.strife.threshold" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
         </div>
       </div>
 
       <div class="flex flex-col items-center">
         <div class="flex gap-2 w-full items-end">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">charter</span>
-          <select v-model="kingdom.charter" @change="kingdom.charterFreeAbilityBoost = ''" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl flex-1">
+          <select v-model="kingdom.charter" @change="kingdom.charterFreeAbilityBoost = ''" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl flex-1 uppercase">
             <option></option>
             <option v-for="charter in kingdom.charters" :value="charter">{{ charter }}</option>
           </select>
           <div v-if="kingdom.charter == 'exploration' || kingdom.charter == 'grant' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'culture'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'culture', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'culture' }">C</div>
-          <div v-if="kingdom.charter == 'conquest' || kingdom.charter == 'expansion' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'economy'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'economy', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'economy'  }">E</div>
-          <div v-if="kingdom.charter == 'expansion' || kingdom.charter == 'exploration' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'loyality'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'loyality', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'loyality'  }">L</div>
-          <div v-if="kingdom.charter == 'conquest' || kingdom.charter == 'grant' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'stability'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'stability', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'stability'  }">S</div>
+          <div v-if="kingdom.charter == 'conquest' || kingdom.charter == 'expansion' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'economy'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'economy', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'economy' }">E</div>
+          <div v-if="kingdom.charter == 'expansion' || kingdom.charter == 'exploration' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'loyality'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'loyality', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'loyality' }">L</div>
+          <div v-if="kingdom.charter == 'conquest' || kingdom.charter == 'grant' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'stability'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'stability', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'stability' }">S</div>
         </div>
         <div class="flex gap-2 w-full">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">heartland</span>
-          <select v-model="kingdom.heartland" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full">
+          <select v-model="kingdom.heartland" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full uppercase">
             <option></option>
             <option v-for="heartland in kingdom.heartlands" :value="heartland">{{ heartland }}</option>
           </select>
         </div>
         <div class="flex gap-2 w-full items-end">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">government</span>
-          <select v-model="kingdom.government" @change="kingdom.governmentFreeAbilityBoost = ''" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl flex-1">
+          <select v-model="kingdom.government" @change="kingdom.governmentFreeAbilityBoost = ''" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl flex-1 uppercase">
             <option></option>
             <option v-for="government in kingdom.governments" :value="government">{{ government }}</option>
-          </select>  
+          </select>
           <div v-if="kingdom.government == 'despotism' || kingdom.government == 'oligarchy' || kingdom.government == 'republic'" @click="kingdom.governmentFreeAbilityBoost = 'culture'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'culture', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'culture' }">C</div>
-          <div v-if="kingdom.government == 'feudalism' || kingdom.government == 'republic'|| kingdom.government == 'yeomanry'" @click="kingdom.governmentFreeAbilityBoost = 'economy'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'economy', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'economy'  }">E</div>
-          <div v-if="kingdom.government == 'despotism' || kingdom.government == 'feudalism' || kingdom.government == 'thaumocracy'" @click="kingdom.governmentFreeAbilityBoost = 'loyality'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'loyality', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'loyality'  }">L</div>
-          <div v-if="kingdom.government == 'oligarchy' || kingdom.government == 'thaumocracy' || kingdom.government == 'yeomanry'" @click="kingdom.governmentFreeAbilityBoost = 'stability'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'stability', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'stability'  }">S</div>
+          <div v-if="kingdom.government == 'feudalism' || kingdom.government == 'republic' || kingdom.government == 'yeomanry'" @click="kingdom.governmentFreeAbilityBoost = 'economy'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'economy', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'economy' }">E</div>
+          <div v-if="kingdom.government == 'despotism' || kingdom.government == 'feudalism' || kingdom.government == 'thaumocracy'" @click="kingdom.governmentFreeAbilityBoost = 'loyality'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'loyality', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'loyality' }">L</div>
+          <div v-if="kingdom.government == 'oligarchy' || kingdom.government == 'thaumocracy' || kingdom.government == 'yeomanry'" @click="kingdom.governmentFreeAbilityBoost = 'stability'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'stability', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'stability' }">S</div>
         </div>
         <div class="flex gap-2 w-full">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">capital city</span>
-          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full">
+          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full uppercase">
         </div>
-        <div class="flex gap-2 w-full mt-2">
-          <span class="text-lg text-darkgreen uppercase font-extrabold text-nowrap">experience points</span>
-          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full">
+        <div class="flex gap-2 w-full mt-4">
+          <span class="text-lg text-darkgreen uppercase font-extrabold text-nowrap -mb-1 flex items-end">experience points</span>
+          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full uppercase">
         </div>
         <div class="flex gap-2 w-full">
-          <span class="text-lg text-darkgreen uppercase font-extrabold text-nowrap">resource dice</span>
-          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full">
+          <span class="text-lg text-darkgreen uppercase font-extrabold text-nowrap -mb-1 flex items-end">resource dice</span>
+          <input v-model="kingdom.resourceDice" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full uppercase">
         </div>
 
         <div class="flex gap-2 w-full justify-center mt-5 items-end">
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">size</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.size" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">rp</span>
@@ -192,7 +192,7 @@
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">unrest</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.unrest" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">unrest penality</span>
@@ -200,7 +200,7 @@
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">consumption</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.consumption" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
           </div>
         </div>
 
@@ -330,7 +330,6 @@
         <!-- commodities -->
         <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-3">
           commodities
-          <!-- 11 e 16 -->
           <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
           <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
         </div>
@@ -338,42 +337,42 @@
         <div class="flex gap-2 w-full justify-center mt-4 items-end">
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">food</span>
-            <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.commodities.food.current" type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
             <div class="flex gap-0.5 items-end">
               <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
-              <input type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+              <input v-model="kingdom.commodities.food.max" type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
             </div>
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">lumber</span>
-            <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.commodities.lumber.current" type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
             <div class="flex gap-0.5 items-end">
               <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
-              <input type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+              <input v-model="kingdom.commodities.lumber.max" type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
             </div>
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">luxuries</span>
-            <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.commodities.luxuries.current" type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
             <div class="flex gap-0.5 items-end">
               <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
-              <input type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+              <input v-model="kingdom.commodities.luxuries.max" type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
             </div>
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">ore</span>
-            <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.commodities.ore.current" type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
             <div class="flex gap-0.5 items-end">
               <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
-              <input type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+              <input v-model="kingdom.commodities.ore.max" type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
             </div>
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">stone</span>
-            <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.commodities.stone.current" type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
             <div class="flex gap-0.5 items-end">
               <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
-              <input type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+              <input v-model="kingdom.commodities.stone.max" type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
             </div>
           </div>
         </div>

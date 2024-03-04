@@ -7,6 +7,10 @@ export const useKingdomStore = defineStore("kingdom", () => {
   const fame = ref(0);
   const infamy = ref(0);
   const name = ref("Ravanellum");
+  const size = ref(1);
+  const unrest = ref(0);
+  const consumption = ref(0);
+  const resourceDice = currentLevel.value + 4;
 
   const charters = ref([
     "conquest",
@@ -139,6 +143,52 @@ export const useKingdomStore = defineStore("kingdom", () => {
     },
   });
 
+  const ruins = ref({
+    corruption: {
+      score: 0,
+      penality: 0,
+      threshold: 10,
+    },
+    crime: {
+      score: 0,
+      penality: 0,
+      threshold: 10,
+    },
+    decay: {
+      score: 0,
+      penality: 0,
+      threshold: 10,
+    },
+    strife: {
+      score: 0,
+      penality: 0,
+      threshold: 10,
+    },
+  });
+
+  const commodities = ref({
+    food: {
+      current: 0,
+      max: 4,
+    },
+    lumber: {
+      current: 0,
+      max: 4,
+    },
+    luxuries: {
+      current: 0,
+      max: 4,
+    },
+    ore: {
+      current: 0,
+      max: 4,
+    },
+    stone: {
+      current: 0,
+      max: 4,
+    },
+  })
+
 
   return {
     currentLevel,
@@ -155,5 +205,11 @@ export const useKingdomStore = defineStore("kingdom", () => {
     government,
     governmentFreeAbilityBoost,
     ablityScores,
+    size,
+    unrest,
+    consumption,
+    ruins,
+    commodities,
+    resourceDice,
   };
 });
