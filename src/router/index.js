@@ -26,10 +26,10 @@ const routes = [
     }
   },
   {
-    path: '/faa',
-    name: 'faa',
+    path: '/feats',
+    name: 'feats',
     component: function () {
-      return import('../views/FAA.vue')
+      return import('../views/Feats.vue')
     }
   },
   {
