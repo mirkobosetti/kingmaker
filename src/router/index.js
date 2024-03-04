@@ -33,10 +33,10 @@ const routes = [
     }
   },
   {
-    path: '/city',
-    name: 'city',
+    path: '/cities',
+    name: 'cities',
     component: function () {
-      return import('../views/City.vue')
+      return import('../views/Cities.vue')
     }
   }
 ]

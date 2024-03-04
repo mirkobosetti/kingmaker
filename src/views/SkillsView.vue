@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col justify-center items-center mb-40 mt-6">
 
-    <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-80 mb-16">
-      skills
+    <Tooltip text="Every nation has its own distinct areas of specialization, the things in which it invests its time, talent, and treasure, and the pursuits and features for which the nation becomes renowned for—these are tracked as a kingdom’s skills. At 1st level, the maximum number of skills in which a kingdom can have trained proficiency is six: two determined by the kingdom’s initial choice of government (see page 509) and up to four others determined by leadership roles (page 510). As a kingdom levels up, it can acquire training in additional skills and increase proficiencies to expert, master, or legendary. Choices about proficiencies cannot be changed after they have been made." class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-80 mb-16">
+      SKILLS
       <!-- 11 e 16 -->
       <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
       <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
-    </div>
+    </Tooltip>
 
     <div v-for="(skill, i) in skills" :key="i" class="flex gap-3 justify-center items-center mt-3">
       <div class="uppercase text-darkgreen font-extrabold text-3xl min-w-56">{{ skill.name }}</div>
@@ -70,6 +70,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import Tooltip from '@/components/Tooltip.vue'
 
 const skills = ref([
   {

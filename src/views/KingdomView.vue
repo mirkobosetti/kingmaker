@@ -1,6 +1,11 @@
 <template>
-  <div class="flex flex-col justify-center items-center mb-40">
-    <img src="../assets/kingmaker.png" alt="kingmaker logo" class="w-64" />
+  <div class="flex flex-col justify-center items-center mb-40 mt-6">
+
+    <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-80 mb-16">
+      KINGDOM
+      <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
+      <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
+    </div>
 
     <div class="flex gap-3 items-end">
       <span class="text-3xl text-darkgreen uppercase font-extrabold">kingdom name</span>
@@ -68,7 +73,7 @@
         </div>
 
         <div class="flex flex-col w-full justify-center">
-          <div class="uppercase text-darkgreen text-lg font-extrabold w-full text-center">control dc</div>
+          <Tooltip class="uppercase text-darkgreen text-lg font-extrabold w-full text-center" text="The more powerful a kingdom grows, the more difficult it becomes to control it. The base Control DC for your kingdom is set by the kingdom’s level—fortunately, as you increase in level, your ability to successfully utilize your skills grows as well.">control dc</Tooltip>
           <div class="flex px-4 justify-evenly items-center">
             <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
 
@@ -402,3 +407,7 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import Tooltip from '@/components/Tooltip.vue';
+</script>

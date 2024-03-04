@@ -1,6 +1,7 @@
 <template>
     <div class="tooltip">
         <slot></slot>
+
         <span class="tooltiptext left-1/2 top-12 transform -translate-x-1/2 text-sm font-normal">{{ text }}</span>
     </div>
 </template>
@@ -16,6 +17,7 @@ defineProps({
     position: relative;
     display: inline-block;
     text-transform: none;
+    cursor: help;
 }
 
 .tooltip .tooltiptext {
