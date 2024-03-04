@@ -58,7 +58,7 @@
         </div>
         <div class="flex w-full px-4">
           <input :value="kingdom.ablityScores.loyalty.modifier()" disabled type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
-          <div class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center">loyality</div>
+          <div class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center">loyalty</div>
           <input :value="kingdom.ablityScores.loyalty.total()" disabled type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
         </div>
         <div class="flex w-full px-4">
@@ -75,12 +75,12 @@
         <div class="flex flex-col w-full justify-center">
           <Tooltip class="uppercase text-darkgreen text-lg font-extrabold w-full text-center" text="The more powerful a kingdom grows, the more difficult it becomes to control it. The base Control DC for your kingdom is set by the kingdom’s level—fortunately, as you increase in level, your ability to successfully utilize your skills grows as well.">control dc</Tooltip>
           <div class="flex px-4 justify-evenly items-center">
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input :value="kingdom.controlDC.total()" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
 
             <div>=</div>
 
             <div class="flex flex-col items-center">
-              <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-lightgreen text-xl w-24">
+              <input :value="kingdom.controlDC.base" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-lightgreen text-xl w-24">
               <span class="text-xs text-darkgreen uppercase font-extrabold">base</span>
             </div>
 
@@ -147,7 +147,7 @@
           </select>
           <div v-if="kingdom.charter == 'exploration' || kingdom.charter == 'grant' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'culture'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'culture', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'culture' }">C</div>
           <div v-if="kingdom.charter == 'conquest' || kingdom.charter == 'expansion' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'economy'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'economy', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'economy' }">E</div>
-          <div v-if="kingdom.charter == 'expansion' || kingdom.charter == 'exploration' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'loyality'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'loyality', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'loyality' }">L</div>
+          <div v-if="kingdom.charter == 'expansion' || kingdom.charter == 'exploration' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'loyalty'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'loyalty', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'loyalty' }">L</div>
           <div v-if="kingdom.charter == 'conquest' || kingdom.charter == 'grant' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'stability'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'stability', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'stability' }">S</div>
         </div>
         <div class="flex gap-2 w-full">
@@ -165,7 +165,7 @@
           </select>
           <div v-if="kingdom.government == 'despotism' || kingdom.government == 'oligarchy' || kingdom.government == 'republic'" @click="kingdom.governmentFreeAbilityBoost = 'culture'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'culture', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'culture' }">C</div>
           <div v-if="kingdom.government == 'feudalism' || kingdom.government == 'republic' || kingdom.government == 'yeomanry'" @click="kingdom.governmentFreeAbilityBoost = 'economy'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'economy', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'economy' }">E</div>
-          <div v-if="kingdom.government == 'despotism' || kingdom.government == 'feudalism' || kingdom.government == 'thaumocracy'" @click="kingdom.governmentFreeAbilityBoost = 'loyality'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'loyality', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'loyality' }">L</div>
+          <div v-if="kingdom.government == 'despotism' || kingdom.government == 'feudalism' || kingdom.government == 'thaumocracy'" @click="kingdom.governmentFreeAbilityBoost = 'loyalty'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'loyalty', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'loyalty' }">L</div>
           <div v-if="kingdom.government == 'oligarchy' || kingdom.government == 'thaumocracy' || kingdom.government == 'yeomanry'" @click="kingdom.governmentFreeAbilityBoost = 'stability'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'stability', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'stability' }">S</div>
         </div>
         <div class="flex gap-2 w-full">
@@ -211,117 +211,20 @@
           <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
         </div>
 
-        <div class="flex gap-3 px-4 mt-1">
+        <div class="flex gap-3 px-4 mt-1" v-for="leader in Object.values(kingdom.leaders)">
           <div class="flex flex-col gap-0.5">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">inv</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-10 h-10 bg-white text-lightgreen text-xl">
+            <input :value="kingdom.ablityScores[leader.scaling].modifier()" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-10 h-10 bg-white text-lightgreen text-xl">
           </div>
           <div>
-            <span class="text-2xl text-darkgreen uppercase font-extrabold text-wrap text-center">ruler</span>
+            <span class="text-2xl text-darkgreen uppercase font-extrabold text-wrap text-center">{{ leader.title }}</span>
             <div class="flex gap-1 items-end">
               <span class="text-xs text-darkgreen uppercase font-extrabold text-nowrap">character name</span>
-              <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full h-6">
+              <input v-model="leader.name" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full h-6">
             </div>
           </div>
         </div>
 
-        <div class="flex gap-3 px-4 mt-1">
-          <div class="flex flex-col gap-0.5">
-            <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">inv</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-10 h-10 bg-white text-lightgreen text-xl">
-          </div>
-          <div>
-            <span class="text-2xl text-darkgreen uppercase font-extrabold text-wrap text-center">counselor</span>
-            <div class="flex gap-1 items-end">
-              <span class="text-xs text-darkgreen uppercase font-extrabold text-nowrap">character name</span>
-              <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full h-6">
-            </div>
-          </div>
-        </div>
-
-        <div class="flex gap-3 px-4 mt-1">
-          <div class="flex flex-col gap-0.5">
-            <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">inv</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-10 h-10 bg-white text-lightgreen text-xl">
-          </div>
-          <div>
-            <span class="text-2xl text-darkgreen uppercase font-extrabold text-wrap text-center">general</span>
-            <div class="flex gap-1 items-end">
-              <span class="text-xs text-darkgreen uppercase font-extrabold text-nowrap">character name</span>
-              <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full h-6">
-            </div>
-          </div>
-        </div>
-
-        <div class="flex gap-3 px-4 mt-1">
-          <div class="flex flex-col gap-0.5">
-            <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">inv</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-10 h-10 bg-white text-lightgreen text-xl">
-          </div>
-          <div>
-            <span class="text-2xl text-darkgreen uppercase font-extrabold text-wrap text-center">emissary</span>
-            <div class="flex gap-1 items-end">
-              <span class="text-xs text-darkgreen uppercase font-extrabold text-nowrap">character name</span>
-              <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full h-6">
-            </div>
-          </div>
-        </div>
-
-        <div class="flex gap-3 px-4 mt-1">
-          <div class="flex flex-col gap-0.5">
-            <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">inv</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-10 h-10 bg-white text-lightgreen text-xl">
-          </div>
-          <div>
-            <span class="text-2xl text-darkgreen uppercase font-extrabold text-wrap text-center">magister</span>
-            <div class="flex gap-1 items-end">
-              <span class="text-xs text-darkgreen uppercase font-extrabold text-nowrap">character name</span>
-              <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full h-6">
-            </div>
-          </div>
-        </div>
-
-        <div class="flex gap-3 px-4 mt-1">
-          <div class="flex flex-col gap-0.5">
-            <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">inv</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-10 h-10 bg-white text-lightgreen text-xl">
-          </div>
-          <div>
-            <span class="text-2xl text-darkgreen uppercase font-extrabold text-wrap text-center">treasurer</span>
-            <div class="flex gap-1 items-end">
-              <span class="text-xs text-darkgreen uppercase font-extrabold text-nowrap">character name</span>
-              <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full h-6">
-            </div>
-          </div>
-        </div>
-
-        <div class="flex gap-3 px-4 mt-1">
-          <div class="flex flex-col gap-0.5">
-            <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">inv</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-10 h-10 bg-white text-lightgreen text-xl">
-          </div>
-          <div>
-            <span class="text-2xl text-darkgreen uppercase font-extrabold text-wrap text-center">viceroy</span>
-            <div class="flex gap-1 items-end">
-              <span class="text-xs text-darkgreen uppercase font-extrabold text-nowrap">character name</span>
-              <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full h-6">
-            </div>
-          </div>
-        </div>
-
-        <div class="flex gap-3 px-4 mt-1">
-          <div class="flex flex-col gap-0.5">
-            <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">inv</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-10 h-10 bg-white text-lightgreen text-xl">
-          </div>
-          <div>
-            <span class="text-2xl text-darkgreen uppercase font-extrabold text-wrap text-center">warden</span>
-            <div class="flex gap-1 items-end">
-              <span class="text-xs text-darkgreen uppercase font-extrabold text-nowrap">character name</span>
-              <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full h-6">
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 

@@ -11,6 +11,33 @@ export const useKingdomStore = defineStore("kingdom", () => {
   const unrest = ref(0);
   const consumption = ref(0);
   const resourceDice = currentLevel.value + 4;
+  const controlDC = ref({
+    base: 14,
+    total: function () {
+      if (currentLevel.value === 20) return 40;
+      if (currentLevel.value === 19) return 39;
+      if (currentLevel.value === 18) return 38;
+      if (currentLevel.value === 17) return 36;
+      if (currentLevel.value === 16) return 35;
+      if (currentLevel.value === 15) return 34;
+      if (currentLevel.value === 14) return 32;
+      if (currentLevel.value === 13) return 31;
+      if (currentLevel.value === 12) return 30;
+      if (currentLevel.value === 11) return 28;
+      if (currentLevel.value === 10) return 27;
+      if (currentLevel.value === 9) return 26;
+      if (currentLevel.value === 8) return 24;
+      if (currentLevel.value === 7) return 23;
+      if (currentLevel.value === 6) return 22;
+      if (currentLevel.value === 5) return 20;
+      if (currentLevel.value === 4) return 18;
+      if (currentLevel.value === 3) return 16;
+      if (currentLevel.value === 2) return 15;
+
+      return this.base;
+    },
+  
+  });
 
   const charters = ref([
     "conquest",
@@ -107,9 +134,9 @@ export const useKingdomStore = defineStore("kingdom", () => {
         if (government.value === 'republic') mod += 2;
         if (government.value === 'yeomanry') mod += 2;
 
-        if (charterFreeAbilityBoost.value === 'loyality') mod ++;
+        if (charterFreeAbilityBoost.value === 'loyalty') mod ++;
 
-        if (governmentFreeAbilityBoost.value === 'loyality') mod ++;
+        if (governmentFreeAbilityBoost.value === 'loyalty') mod ++;
 
         return mod;
       },
@@ -189,6 +216,48 @@ export const useKingdomStore = defineStore("kingdom", () => {
     },
   })
 
+  const leaders = ref({
+    ruler: {
+      title: 'Ruler',
+      name: 'Oscar',
+      scaling: 'loyalty'
+    },
+    counselor: {
+      title: 'Counselor',
+      name: '',
+      scaling: 'culture'
+    },
+    general: {
+      title: 'General',
+      name: 'Garcia',
+      scaling: 'stability'
+    },
+    emissary: {
+      title: 'Emissary',
+      name: '',
+      scaling: 'loyalty'
+    },
+    magister: {
+      title: 'Magister',
+      name: '',
+      scaling: 'culture'
+    },
+    treasurer: {
+      title: 'Treasurer',
+      name: 'Mirko',
+      scaling: 'economy'
+    },
+    viceroy: {
+      title: 'Viceroy',
+      name: 'Fabio',
+      scaling: 'economy'
+    },
+    warden: {
+      title: 'Warden',
+      name: '',
+      scaling: 'stability'
+    },
+  });
 
   return {
     currentLevel,
@@ -211,5 +280,7 @@ export const useKingdomStore = defineStore("kingdom", () => {
     ruins,
     commodities,
     resourceDice,
+    leaders,
+    controlDC,
   };
 });

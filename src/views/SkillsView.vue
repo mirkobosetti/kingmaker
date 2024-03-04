@@ -17,13 +17,13 @@
 
       <div class="flex flex-col w-20 relative">
         <span v-if="i === 0" class="text-darkgreen text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">Ability</span>
-        <span class="uppercase text-white bg-darkgreen font-extrabold text-xs w-full text-center">{{ skill.ability.name }}</span>
-        <input v-model="skill.ability.value" disabled type="text" class="outline-none border-2 border-green-800 text-center w-full h-8 bg-gray-200 text-lightgreen text-xl">
+        <span class="uppercase text-white bg-darkgreen font-extrabold text-xs w-full text-center">{{ skill.scaling }}</span>
+        <input :value="kingdom.ablityScores[skill.scaling].modifier()" disabled type="text" class="outline-none border-2 border-green-800 text-center w-full h-8 bg-gray-200 text-lightgreen text-xl">
       </div>
 
       <div class="relative">
         <span v-if="i === 0" class="text-darkgreen text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">prof</span>
-        <input v-model="skill.proficiency" type="text" class="outline-none border-2 border-green-800 text-center w-20 h-12 bg-white text-lightgreen text-xl">
+        <input :value="calculateProf(skill)" disabled type="text" class="outline-none border-2 border-green-800 text-center w-20 h-12 bg-gray-200 text-lightgreen text-xl">
       </div>
 
       <div class="flex gap-0.5">
@@ -71,19 +71,18 @@
 <script setup>
 import { ref } from 'vue'
 import Tooltip from '@/components/Tooltip.vue'
+import { useKingdomStore } from '@/stores/kingdom'
+
+const kingdom = useKingdomStore()
 
 const skills = ref([
   {
     name: 'agriculture',
-    ability: {
-      name: 'stability',
-      value: 1
-    },
-    proficiency: 3,
+    scaling: 'stability',
     trained: true,
-    expert: false,
-    master: false,
-    legendary: false,
+    expert: true,
+    master: true,
+    legendary: true,
     status: 0,
     circumstance: 0,
     item: 0,
@@ -91,11 +90,7 @@ const skills = ref([
   },
   {
     name: 'arts',
-    ability: {
-      name: 'culture',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'culture',
     trained: false,
     expert: false,
     master: false,
@@ -107,11 +102,7 @@ const skills = ref([
   },
   {
     name: 'boating',
-    ability: {
-      name: 'economy',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'economy',
     trained: false,
     expert: false,
     master: false,
@@ -123,11 +114,7 @@ const skills = ref([
   },
   {
     name: 'defense',
-    ability: {
-      name: 'stability',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'stability',
     trained: false,
     expert: false,
     master: false,
@@ -139,11 +126,7 @@ const skills = ref([
   },
   {
     name: 'engineering',
-    ability: {
-      name: 'stability',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'stability',
     trained: false,
     expert: false,
     master: false,
@@ -155,11 +138,7 @@ const skills = ref([
   },
   {
     name: 'exploration',
-    ability: {
-      name: 'economy',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'economy',
     trained: false,
     expert: false,
     master: false,
@@ -171,11 +150,7 @@ const skills = ref([
   },
   {
     name: 'folklore',
-    ability: {
-      name: 'culture',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'culture',
     trained: false,
     expert: false,
     master: false,
@@ -187,11 +162,7 @@ const skills = ref([
   },
   {
     name: 'industry',
-    ability: {
-      name: 'economy',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'economy',
     trained: false,
     expert: false,
     master: false,
@@ -203,11 +174,7 @@ const skills = ref([
   },
   {
     name: 'intrigue',
-    ability: {
-      name: 'loyalty',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'loyalty',
     trained: false,
     expert: false,
     master: false,
@@ -219,11 +186,7 @@ const skills = ref([
   },
   {
     name: 'magic',
-    ability: {
-      name: 'culture',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'culture',
     trained: false,
     expert: false,
     master: false,
@@ -235,11 +198,7 @@ const skills = ref([
   },
   {
     name: 'politics',
-    ability: {
-      name: 'loyalty',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'loyalty',
     trained: false,
     expert: false,
     master: false,
@@ -251,11 +210,7 @@ const skills = ref([
   },
   {
     name: 'scholarship',
-    ability: {
-      name: 'culture',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'culture',
     trained: false,
     expert: false,
     master: false,
@@ -267,11 +222,7 @@ const skills = ref([
   },
   {
     name: 'statecraft',
-    ability: {
-      name: 'loyalty',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'loyalty',
     trained: false,
     expert: false,
     master: false,
@@ -283,11 +234,7 @@ const skills = ref([
   },
   {
     name: 'trade',
-    ability: {
-      name: 'economy',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'economy',
     trained: false,
     expert: false,
     master: false,
@@ -299,11 +246,7 @@ const skills = ref([
   },
   {
     name: 'warfare',
-    ability: {
-      name: 'loyalty',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'loyalty',
     trained: false,
     expert: false,
     master: false,
@@ -315,11 +258,7 @@ const skills = ref([
   },
   {
     name: 'wilderness',
-    ability: {
-      name: 'stability',
-      value: 0
-    },
-    proficiency: 2,
+    scaling: 'stability',
     trained: false,
     expert: false,
     master: false,
@@ -331,13 +270,20 @@ const skills = ref([
   },
 ])
 
-const totalSkillValue = (skill) => {
-  let value = +skill.ability.value + +skill.proficiency + +skill.status + +skill.circumstance + +skill.item + +skill.other
+const calculateProf = (skill) => {
+  if (skill.legendary) return 8
+  else if (skill.master) return 6
+  else if (skill.expert) return 4
+  else if (skill.trained) return 2
+  else return 0
+}
 
-  if (skill.legendary) value += 4
-  else if (skill.master) value += 3
-  else if (skill.expert) value += 2
-  else if (skill.trained) value += 2
+const totalSkillValue = (skill) => {
+  let value = +skill.status + +skill.circumstance + +skill.item + +skill.other
+
+  value += kingdom.ablityScores[skill.scaling].modifier()
+
+  value += calculateProf(skill)
 
   return value
 }
