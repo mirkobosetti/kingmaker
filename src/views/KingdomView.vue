@@ -317,22 +317,42 @@
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">food</span>
             <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <div class="flex gap-0.5 items-end">
+              <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
+              <input type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+            </div>
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">lumber</span>
             <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <div class="flex gap-0.5 items-end">
+              <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
+              <input type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+            </div>
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">luxuries</span>
             <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <div class="flex gap-0.5 items-end">
+              <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
+              <input type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+            </div>
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">ore</span>
             <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <div class="flex gap-0.5 items-end">
+              <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
+              <input type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+            </div>
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">stone</span>
             <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <div class="flex gap-0.5 items-end">
+              <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
+              <input type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+            </div>
           </div>
         </div>
 
