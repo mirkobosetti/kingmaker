@@ -29,19 +29,19 @@
       <div class="flex gap-0.5">
         <div class="relative">
           <span v-if="i === 0" class="text-white bg-darkgreen w-5 text-center text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">t</span>
-          <input :value="skill.proficiency() > 0 ? 'X' : ''" type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 bg-white text-lightgreen text-xl">
+          <input disabled type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 text-darkgreen text-xl" :class="{ 'bg-lightgreen': skill.proficiency() > 0, 'bg-gray-200': skill.proficiency() < 1 }">
         </div>
         <div class="relative">
           <span v-if="i === 0" class="text-white bg-darkgreen w-5 text-center text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">e</span>
-          <input :value="skill.proficiency() > 1 ? 'X' : ''" type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 bg-white text-lightgreen text-xl">
+          <input disabled type="text" class=" outline-none border-2 border-green-800 text-center w-5 h-12 text-darkgreen text-xl" :class="{ 'bg-lightgreen': skill.proficiency() > 1, 'bg-gray-200': skill.proficiency() < 2 }">
         </div>
         <div class="relative">
           <span v-if="i === 0" class="text-white bg-darkgreen w-5 text-center text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">m</span>
-          <input :value="skill.proficiency() > 2 ? 'X' : ''" type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 bg-white text-lightgreen text-xl">
+          <input disabled type="text" class=" outline-none border-2 border-green-800 text-center w-5 h-12 text-darkgreen text-xl" :class="{ 'bg-lightgreen': skill.proficiency() > 2, 'bg-gray-200': skill.proficiency() < 3 }">
         </div>
         <div class="relative">
           <span v-if="i === 0" class="text-white bg-darkgreen w-5 text-center text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">l</span>
-          <input :value="skill.proficiency() > 3 ? 'X' : ''" type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 bg-white text-lightgreen text-xl">
+          <input disabled type="text" class=" outline-none border-2 border-green-800 text-center w-5 h-12 text-darkgreen text-xl" :class="{ 'bg-lightgreen': skill.proficiency() > 3, 'bg-gray-200': skill.proficiency() < 4 }">
         </div>
       </div>
 
@@ -111,7 +111,7 @@ const skills = ref([
     scaling: 'economy',
     proficiency: function () {
       let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
-      
+
       return proficiency
     },
     status: 0,
@@ -154,7 +154,7 @@ const skills = ref([
     scaling: 'economy',
     proficiency: function () {
       let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
-      
+
       return proficiency
     },
     status: 0,
@@ -242,7 +242,7 @@ const skills = ref([
     scaling: 'culture',
     proficiency: function () {
       let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
-      
+
       return proficiency
     },
     status: 0,
@@ -255,7 +255,7 @@ const skills = ref([
     scaling: 'loyalty',
     proficiency: function () {
       let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
-      
+
       return proficiency
     },
     status: 0,
