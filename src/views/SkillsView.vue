@@ -23,25 +23,25 @@
 
       <div class="relative">
         <span v-if="i === 0" class="text-darkgreen text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">prof</span>
-        <input :value="calculateProf(skill)" disabled type="text" class="outline-none border-2 border-green-800 text-center w-20 h-12 bg-gray-200 text-lightgreen text-xl">
+        <input :value="skill.proficiency() * 2" disabled type="text" class="outline-none border-2 border-green-800 text-center w-20 h-12 bg-gray-200 text-lightgreen text-xl">
       </div>
 
       <div class="flex gap-0.5">
         <div class="relative">
           <span v-if="i === 0" class="text-white bg-darkgreen w-5 text-center text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">t</span>
-          <input :value="skill.trained ? 'X' : ''" type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 bg-white text-lightgreen text-xl">
+          <input :value="skill.proficiency() > 0 ? 'X' : ''" type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 bg-white text-lightgreen text-xl">
         </div>
         <div class="relative">
           <span v-if="i === 0" class="text-white bg-darkgreen w-5 text-center text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">e</span>
-          <input :value="skill.expert ? 'X' : ''" type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 bg-white text-lightgreen text-xl">
+          <input :value="skill.proficiency() > 1 ? 'X' : ''" type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 bg-white text-lightgreen text-xl">
         </div>
         <div class="relative">
           <span v-if="i === 0" class="text-white bg-darkgreen w-5 text-center text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">m</span>
-          <input :value="skill.master ? 'X' : ''" type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 bg-white text-lightgreen text-xl">
+          <input :value="skill.proficiency() > 2 ? 'X' : ''" type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 bg-white text-lightgreen text-xl">
         </div>
         <div class="relative">
           <span v-if="i === 0" class="text-white bg-darkgreen w-5 text-center text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">l</span>
-          <input :value="skill.legendary ? 'X' : ''" type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 bg-white text-lightgreen text-xl">
+          <input :value="skill.proficiency() > 3 ? 'X' : ''" type="text" class="outline-none border-2 border-green-800 text-center w-5 h-12 bg-white text-lightgreen text-xl">
         </div>
       </div>
 
@@ -79,10 +79,13 @@ const skills = ref([
   {
     name: 'agriculture',
     scaling: 'stability',
-    trained: true,
-    expert: true,
-    master: true,
-    legendary: true,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+
+      if (kingdom.government === 'yeomanry') proficiency ++
+
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -91,10 +94,13 @@ const skills = ref([
   {
     name: 'arts',
     scaling: 'culture',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+
+      if (kingdom.government === 'oligarchy') proficiency ++
+
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -103,10 +109,11 @@ const skills = ref([
   {
     name: 'boating',
     scaling: 'economy',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+      
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -115,10 +122,13 @@ const skills = ref([
   {
     name: 'defense',
     scaling: 'stability',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+
+      if (kingdom.government === 'feudalism') proficiency ++
+
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -127,10 +137,13 @@ const skills = ref([
   {
     name: 'engineering',
     scaling: 'stability',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+
+      if (kingdom.government === 'republic') proficiency ++
+
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -139,10 +152,11 @@ const skills = ref([
   {
     name: 'exploration',
     scaling: 'economy',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+      
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -151,10 +165,13 @@ const skills = ref([
   {
     name: 'folklore',
     scaling: 'culture',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+
+      if (kingdom.government === 'thaumocracy') proficiency ++
+
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -163,10 +180,13 @@ const skills = ref([
   {
     name: 'industry',
     scaling: 'economy',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+
+      if (kingdom.government === 'oligarchy') proficiency ++
+
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -175,10 +195,13 @@ const skills = ref([
   {
     name: 'intrigue',
     scaling: 'loyalty',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+
+      if (kingdom.government === 'despotism') proficiency ++
+
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -187,10 +210,13 @@ const skills = ref([
   {
     name: 'magic',
     scaling: 'culture',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+
+      if (kingdom.government === 'thaumocracy') proficiency ++
+
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -199,10 +225,13 @@ const skills = ref([
   {
     name: 'politics',
     scaling: 'loyalty',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+
+      if (kingdom.government === 'republic') proficiency ++
+
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -211,10 +240,11 @@ const skills = ref([
   {
     name: 'scholarship',
     scaling: 'culture',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+      
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -223,10 +253,11 @@ const skills = ref([
   {
     name: 'statecraft',
     scaling: 'loyalty',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+      
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -235,10 +266,13 @@ const skills = ref([
   {
     name: 'trade',
     scaling: 'economy',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+
+      if (kingdom.government === 'feudalism') proficiency ++
+
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -247,10 +281,13 @@ const skills = ref([
   {
     name: 'warfare',
     scaling: 'loyalty',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+
+      if (kingdom.government === 'despotism') proficiency ++
+
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -259,10 +296,13 @@ const skills = ref([
   {
     name: 'wilderness',
     scaling: 'stability',
-    trained: false,
-    expert: false,
-    master: false,
-    legendary: false,
+    proficiency: function () {
+      let proficiency = 0 // 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+
+      if (kingdom.government === 'yeomanry') proficiency ++
+
+      return proficiency
+    },
     status: 0,
     circumstance: 0,
     item: 0,
@@ -270,20 +310,12 @@ const skills = ref([
   },
 ])
 
-const calculateProf = (skill) => {
-  if (skill.legendary) return 8
-  else if (skill.master) return 6
-  else if (skill.expert) return 4
-  else if (skill.trained) return 2
-  else return 0
-}
-
 const totalSkillValue = (skill) => {
   let value = +skill.status + +skill.circumstance + +skill.item + +skill.other
 
   value += kingdom.ablityScores[skill.scaling].modifier()
 
-  value += calculateProf(skill)
+  value += skill.proficiency() * 2
 
   return value
 }
