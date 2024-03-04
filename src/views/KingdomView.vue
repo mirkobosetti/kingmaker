@@ -9,24 +9,25 @@
 
     <div class="flex gap-3 items-end">
       <span class="text-3xl text-darkgreen uppercase font-extrabold">kingdom name</span>
-      <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-3xl uppercase text-lightgreen">
+      <input v-model="kingdom.name" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-3xl uppercase text-lightgreen">
 
       <div class="border-2 border-darkgreen rounded-tl-3xl h-24 flex flex-col justify-between overflow-hidden bg-white items-center">
         <div class="px-3 pt-1">
           <span class="text-xs text-darkgreen uppercase font-extrabold">Max</span>
-          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center w-12 text-lightgreen text-xl">
+          <input v-model="kingdom.maxLevel" :class="{ 'text-red-500': (kingdom.maxLevel > 20 || kingdom.maxLevel < 1) }" type="number" min="1" max="20" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center w-12 text-lightgreen text-xl">
         </div>
-        <input type="text" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
+        <input v-model="kingdom.currentLevel" :class="{ 'text-red-500': (kingdom.currentLevel > 20 || kingdom.currentLevel < 1 || kingdom.currentLevel > kingdom.maxLevel) }" type="number" min="1" max="20" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
         <span class="text-white uppercase font-extrabold w-full bg-darkgreen text-center">level</span>
       </div>
+
       <div class="border-2 border-darkgreen rounded-tr-3xl h-24 flex flex-col justify-center overflow-hidden bg-white items-center">
         <div class="border-b-4 border-darkgreen flex flex-col items-center w-24">
-          <input type="text" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
+          <input v-model="kingdom.fame" type="text" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
           <span class="text-xs text-darkgreen uppercase font-extrabold">Fame</span>
         </div>
         <div class="border-t-4 border-darkgreen flex flex-col items-center w-24">
           <span class="text-xs text-darkgreen uppercase font-extrabold">Infamy</span>
-          <input type="text" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
+          <input v-model="kingdom.infamy" type="text" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
         </div>
       </div>
     </div>
@@ -34,12 +35,11 @@
     <!-- div with 2 columns using grid -->
     <div class="grid grid-cols-2 gap-20 mt-12">
       <div class="flex flex-col items-center gap-3">
-        <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-3">
-          ability scores
-          <!-- 11 e 16 -->
+        <Tooltip class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-3" text="A kingdom has four ability scores: Culture, Economy, Loyalty, and Stability. These function like the ability scores of a character, providing modifiers on die rolls and checks. As the kingdom prospers and grows, these scores can increase. And if the nation falls on hard times or goes through corruption, scandal, defeat, or disaster, Ruin will accrue that degrades these abilities">
+          ABILITY SCORES
           <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
           <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
-        </div>
+        </Tooltip>
 
         <div class="flex justify-between text-xs w-full px-4">
           <span class="uppercase text-darkgreen font-extrabold">modifier</span>
@@ -47,24 +47,24 @@
         </div>
 
         <div class="flex w-full px-4">
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
-          <div class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center">culture</div>
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input :value="kingdom.ablityScores.culture.modifier()" disabled type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
+          <Tooltip class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center" text="Culture measures the interest and dedication of your nation and its people to the arts and sciences, to religion and reason, and to the subjects that your society chooses to learn about and to teach. Are your people well‐versed in rhetoric and philosophy? Do they value learning and research, music and dance? Do they embrace society in all its diverse splendor? If they do, your kingdom likely has a robust Culture score.">CULTURE</Tooltip>
+          <input :value="kingdom.ablityScores.culture.total()" disabled type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
         </div>
         <div class="flex w-full px-4">
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input :value="kingdom.ablityScores.economy.modifier()" disabled type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
           <div class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center">economy</div>
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input :value="kingdom.ablityScores.economy.total()" disabled type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
         </div>
         <div class="flex w-full px-4">
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input :value="kingdom.ablityScores.loyalty.modifier()" disabled type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
           <div class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center">loyality</div>
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input :value="kingdom.ablityScores.loyalty.total()" disabled type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
         </div>
         <div class="flex w-full px-4">
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input :value="kingdom.ablityScores.stability.modifier()" disabled type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
           <div class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center">stability</div>
-          <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+          <input :value="kingdom.ablityScores.stability.total()" disabled type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
         </div>
 
         <div class="flex flex-col gap-0.5 w-full mt-7">
@@ -139,29 +139,46 @@
       </div>
 
       <div class="flex flex-col items-center">
-        <div class="flex gap-2 w-full">
+        <div class="flex gap-2 w-full items-end">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">charter</span>
-          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-right pr-3 text-lightgreen text-xl w-full">
+          <select v-model="kingdom.charter" @change="kingdom.charterFreeAbilityBoost = ''" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl flex-1">
+            <option></option>
+            <option v-for="charter in kingdom.charters" :value="charter">{{ charter }}</option>
+          </select>
+          <div v-if="kingdom.charter == 'exploration' || kingdom.charter == 'grant' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'culture'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'culture', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'culture' }">C</div>
+          <div v-if="kingdom.charter == 'conquest' || kingdom.charter == 'expansion' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'economy'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'economy', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'economy'  }">E</div>
+          <div v-if="kingdom.charter == 'expansion' || kingdom.charter == 'exploration' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'loyality'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'loyality', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'loyality'  }">L</div>
+          <div v-if="kingdom.charter == 'conquest' || kingdom.charter == 'grant' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'stability'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'stability', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'stability'  }">S</div>
         </div>
         <div class="flex gap-2 w-full">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">heartland</span>
-          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-right pr-3 text-lightgreen text-xl w-full">
+          <select v-model="kingdom.heartland" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full">
+            <option></option>
+            <option v-for="heartland in kingdom.heartlands" :value="heartland">{{ heartland }}</option>
+          </select>
         </div>
-        <div class="flex gap-2 w-full">
+        <div class="flex gap-2 w-full items-end">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">government</span>
-          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-right pr-3 text-lightgreen text-xl w-full">
+          <select v-model="kingdom.government" @change="kingdom.governmentFreeAbilityBoost = ''" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl flex-1">
+            <option></option>
+            <option v-for="government in kingdom.governments" :value="government">{{ government }}</option>
+          </select>  
+          <div v-if="kingdom.government == 'despotism' || kingdom.government == 'oligarchy' || kingdom.government == 'republic'" @click="kingdom.governmentFreeAbilityBoost = 'culture'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'culture', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'culture' }">C</div>
+          <div v-if="kingdom.government == 'feudalism' || kingdom.government == 'republic'|| kingdom.government == 'yeomanry'" @click="kingdom.governmentFreeAbilityBoost = 'economy'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'economy', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'economy'  }">E</div>
+          <div v-if="kingdom.government == 'despotism' || kingdom.government == 'feudalism' || kingdom.government == 'thaumocracy'" @click="kingdom.governmentFreeAbilityBoost = 'loyality'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'loyality', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'loyality'  }">L</div>
+          <div v-if="kingdom.government == 'oligarchy' || kingdom.government == 'thaumocracy' || kingdom.government == 'yeomanry'" @click="kingdom.governmentFreeAbilityBoost = 'stability'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'stability', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'stability'  }">S</div>
         </div>
         <div class="flex gap-2 w-full">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">capital city</span>
-          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-right pr-3 text-lightgreen text-xl w-full">
+          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full">
         </div>
         <div class="flex gap-2 w-full mt-2">
           <span class="text-lg text-darkgreen uppercase font-extrabold text-nowrap">experience points</span>
-          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-right pr-3 text-lightgreen text-xl w-full">
+          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full">
         </div>
         <div class="flex gap-2 w-full">
           <span class="text-lg text-darkgreen uppercase font-extrabold text-nowrap">resource dice</span>
-          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-right pr-3 text-lightgreen text-xl w-full">
+          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full">
         </div>
 
         <div class="flex gap-2 w-full justify-center mt-5 items-end">
@@ -410,4 +427,7 @@
 
 <script setup>
 import Tooltip from '@/components/Tooltip.vue';
+import { useKingdomStore } from '@/stores/kingdom'
+
+const kingdom = useKingdomStore()
 </script>

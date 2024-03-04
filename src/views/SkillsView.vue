@@ -332,7 +332,7 @@ const skills = ref([
 ])
 
 const totalSkillValue = (skill) => {
-  let value = skill.ability.value + skill.proficiency + skill.status + skill.circumstance + skill.item + skill.other
+  let value = +skill.ability.value + +skill.proficiency + +skill.status + +skill.circumstance + +skill.item + +skill.other
 
   if (skill.legendary) value += 4
   else if (skill.master) value += 3

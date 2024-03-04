@@ -15,7 +15,7 @@ defineProps({
 <style scoped>
 .tooltip {
     position: relative;
-    display: inline-block;
+    /* display: inline-block; */
     text-transform: none;
     cursor: help;
 }
