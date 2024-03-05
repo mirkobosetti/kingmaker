@@ -75,7 +75,7 @@
         <div class="flex flex-col w-full justify-center">
           <Tooltip class="uppercase text-darkgreen text-lg font-extrabold w-full text-center" text="The more powerful a kingdom grows, the more difficult it becomes to control it. The base Control DC for your kingdom is set by the kingdom’s level—fortunately, as you increase in level, your ability to successfully utilize your skills grows as well.">control dc</Tooltip>
           <div class="flex px-4 justify-evenly items-center">
-            <input :value="kingdom.controlDC.base() + map.countByType(2) + map.countByType(3)" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input disabled :value="kingdom.controlDC.base() + map.countByType(2) + map.countByType(3)" type="text" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
 
             <div>=</div>
 
