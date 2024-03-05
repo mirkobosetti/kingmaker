@@ -10,7 +10,6 @@ export const useKingdomStore = defineStore("kingdom", () => {
   const fame = ref(0);
   const infamy = ref(0);
   const name = ref("Ravanellum");
-  const size = mapStore.countByType(2) + mapStore.countByType(3);
   const unrest = ref(0);
   const consumption = ref(0);
   const resourceDice = currentLevel.value + 4;
@@ -18,9 +17,8 @@ export const useKingdomStore = defineStore("kingdom", () => {
   const capital = ref('')
 
   const controlDC = ref({
-    base: 14,
-    total: function () {
-      let mod = size;
+    base: function () {
+      let mod = 0;
 
       if (currentLevel.value === 20) mod += 40 ;
       else if (currentLevel.value === 19) mod += 39;
@@ -283,7 +281,6 @@ export const useKingdomStore = defineStore("kingdom", () => {
     government,
     governmentFreeAbilityBoost,
     ablityScores,
-    size,
     unrest,
     consumption,
     ruins,

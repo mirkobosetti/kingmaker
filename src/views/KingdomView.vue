@@ -75,19 +75,19 @@
         <div class="flex flex-col w-full justify-center">
           <Tooltip class="uppercase text-darkgreen text-lg font-extrabold w-full text-center" text="The more powerful a kingdom grows, the more difficult it becomes to control it. The base Control DC for your kingdom is set by the kingdom’s level—fortunately, as you increase in level, your ability to successfully utilize your skills grows as well.">control dc</Tooltip>
           <div class="flex px-4 justify-evenly items-center">
-            <input :value="kingdom.controlDC.total()" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input :value="kingdom.controlDC.base() + map.countByType(2) + map.countByType(3)" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
 
             <div>=</div>
 
             <div class="flex flex-col items-center">
-              <input disabled :value="kingdom.controlDC.base" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-lightgreen text-xl w-24">
+              <input disabled :value="kingdom.controlDC.base()" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-lightgreen text-xl w-24">
               <span class="text-xs text-darkgreen uppercase font-extrabold">base</span>
             </div>
 
             <div>+</div>
 
             <div class="flex flex-col items-center">
-              <input :value="kingdom.size" disabled type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-lightgreen text-xl w-24">
+              <input :value="map.countByType(2) + map.countByType(3)" disabled type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-lightgreen text-xl w-24">
               <span class="text-xs text-darkgreen uppercase font-extrabold">size</span>
             </div>
           </div>
@@ -188,7 +188,7 @@
         <div class="flex gap-2 w-full justify-center mt-5 items-end">
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <Tooltip class="text-xs text-darkgreen font-extrabold text-wrap text-center" text="Size is the sum of map cities and explorated cells">SIZE</Tooltip>
-            <input disabled :value="kingdom.size" type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
+            <input disabled :value="map.countByType(2) + map.countByType(3)" type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">rp</span>
