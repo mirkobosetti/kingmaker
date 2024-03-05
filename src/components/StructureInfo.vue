@@ -1,5 +1,5 @@
 <template>
-    <div class="uppercase text-">{{ name }}</div>
+    <div class="uppercase text-xl text-darkgreen">{{ name }}</div>
     <div class="flex gap-2 justify-center items-center">
         <div class="text-darkgreen text-3xl cursor-pointer" @click="emits('back')">◀</div>
         <img :src="img" alt="alchemy lab" class="w-20" />

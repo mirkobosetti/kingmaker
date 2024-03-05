@@ -60,7 +60,9 @@
         </div>
 
       </div>
-      <div class="flex items-center justify-center">info</div>
+      <div class="flex flex-col gap-3 items-center justify-center">
+        <CityInfo :name=activeCityName :size=1 />
+      </div>
     </div>
   </div>
 </template>
@@ -69,6 +71,8 @@
 import { ref } from 'vue';
 import Checkbox from '@/components/Checkbox.vue';
 import StructureInfo from '@/components/StructureInfo.vue';
+import CityInfo from '@/components/CityInfo.vue';
+
 import { useCitiesStore } from '@/stores/cities';
 
 const cities = useCitiesStore();
