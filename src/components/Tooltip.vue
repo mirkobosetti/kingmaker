@@ -23,6 +23,7 @@ defineProps({
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 100%;
+    min-width: 120px;
     background-color: #275025;
     color: #fff;
     text-align: center;

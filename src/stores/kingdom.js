@@ -1,40 +1,49 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
+import { useMapStore } from "./map";
+const mapStore = useMapStore();
+
 export const useKingdomStore = defineStore("kingdom", () => {
   const currentLevel = ref(1);
   const maxLevel = ref(1);
   const fame = ref(0);
   const infamy = ref(0);
   const name = ref("Ravanellum");
-  const size = ref(1);
+  const size = mapStore.countByType(2) + mapStore.countByType(3);
   const unrest = ref(0);
   const consumption = ref(0);
   const resourceDice = currentLevel.value + 4;
+  const experiencePoints = ref(0);
+  const capital = ref('')
+
   const controlDC = ref({
     base: 14,
     total: function () {
-      if (currentLevel.value === 20) return 40;
-      if (currentLevel.value === 19) return 39;
-      if (currentLevel.value === 18) return 38;
-      if (currentLevel.value === 17) return 36;
-      if (currentLevel.value === 16) return 35;
-      if (currentLevel.value === 15) return 34;
-      if (currentLevel.value === 14) return 32;
-      if (currentLevel.value === 13) return 31;
-      if (currentLevel.value === 12) return 30;
-      if (currentLevel.value === 11) return 28;
-      if (currentLevel.value === 10) return 27;
-      if (currentLevel.value === 9) return 26;
-      if (currentLevel.value === 8) return 24;
-      if (currentLevel.value === 7) return 23;
-      if (currentLevel.value === 6) return 22;
-      if (currentLevel.value === 5) return 20;
-      if (currentLevel.value === 4) return 18;
-      if (currentLevel.value === 3) return 16;
-      if (currentLevel.value === 2) return 15;
+      let mod = size;
 
-      return this.base;
+      if (currentLevel.value === 20) mod += 40 ;
+      else if (currentLevel.value === 19) mod += 39;
+      else if (currentLevel.value === 18) mod += 38;
+      else if (currentLevel.value === 17) mod += 36;
+      else if (currentLevel.value === 16) mod += 35;
+      else if (currentLevel.value === 15) mod += 34;
+      else if (currentLevel.value === 14) mod += 32;
+      else if (currentLevel.value === 13) mod += 31;
+      else if (currentLevel.value === 12) mod += 30;
+      else if (currentLevel.value === 11) mod += 28;
+      else if (currentLevel.value === 10) mod += 27;
+      else if (currentLevel.value === 9) mod += 26;
+      else if (currentLevel.value === 8) mod += 24;
+      else if (currentLevel.value === 7) mod += 23;
+      else if (currentLevel.value === 6) mod += 22;
+      else if (currentLevel.value === 5) mod += 20;
+      else if (currentLevel.value === 4) mod += 18;
+      else if (currentLevel.value === 3) mod += 16;
+      else if (currentLevel.value === 2) mod += 15;
+      else if (currentLevel.value === 1) mod += 14;
+
+      return mod;
     },
   
   });
@@ -282,5 +291,7 @@ export const useKingdomStore = defineStore("kingdom", () => {
     resourceDice,
     leaders,
     controlDC,
+    experiencePoints,
+    capital
   };
 });

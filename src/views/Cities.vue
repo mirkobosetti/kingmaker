@@ -9,12 +9,12 @@
     </div>
 
     <div class="flex justify-center items-center flex-col gap-4 ">
-      <div class="text-darkgreen text-2xl" v-if="!cities.length && !activeCityName">
+      <div class="text-darkgreen text-2xl" v-if="!cities.cities.length && !activeCityName">
         No cities added yet
       </div>
 
       <div v-else-if="!activeCityName" class="flex flex-col gap-3">
-        <div v-for="city in cities" @click="activeCityName = city.name" :key="city.name" class="flex items-center cursor-pointer justify-between gap-5 bg-lightgreen px-3 py-1 rounded-md">
+        <div v-for="city in cities.cities" @click="activeCityName = city.name" :key="city.name" class="flex items-center cursor-pointer justify-between gap-5 bg-lightgreen px-3 py-1 rounded-md">
           <span class="uppercase font-extrabold text-3xl text-white">{{ city.name }}</span>
           <button @click.stop.prevent="deleteCity(city.name)" class="bg-red-400 text-white border-2 border-red-500 hover:bg-red-500 font-bold rounded-md w-8 h-8">x</button>
         </div>
@@ -69,6 +69,9 @@
 import { ref } from 'vue';
 import Checkbox from '@/components/Checkbox.vue';
 import StructureInfo from '@/components/StructureInfo.vue';
+import { useCitiesStore } from '@/stores/cities';
+
+const cities = useCitiesStore();
 
 const alchemyLab = {
   name: 'Alchemy Lab',
@@ -84,15 +87,10 @@ const alchemyLab = {
 const newCityName = ref('');
 
 function newCity() {
-  cities.value.push({ name: newCityName.value });
+  cities.cities.value.push({ name: newCityName.value });
   newCityName.value = '';
 }
 
-const cities = ref([
-  {
-    name: 'Brenejrne',
-  }
-])
 
 const activeCityName = ref('Brenejrne');
 
@@ -101,7 +99,7 @@ function back() {
 }
 
 function deleteCity(name) {
-  cities.value = cities.value.filter(city => city.name !== name);
+  cities.cities.value = cities.cities.value.filter(city => city.name !== name);
 }
 </script>
 

@@ -80,14 +80,14 @@
             <div>=</div>
 
             <div class="flex flex-col items-center">
-              <input :value="kingdom.controlDC.base" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-lightgreen text-xl w-24">
+              <input disabled :value="kingdom.controlDC.base" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-lightgreen text-xl w-24">
               <span class="text-xs text-darkgreen uppercase font-extrabold">base</span>
             </div>
 
             <div>+</div>
 
             <div class="flex flex-col items-center">
-              <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-lightgreen text-xl w-24">
+              <input :value="kingdom.size" disabled type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-lightgreen text-xl w-24">
               <span class="text-xs text-darkgreen uppercase font-extrabold">size</span>
             </div>
           </div>
@@ -170,11 +170,15 @@
         </div>
         <div class="flex gap-2 w-full">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">capital city</span>
-          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full uppercase">
+          <select v-model="kingdom.capital" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl flex-1 uppercase">
+            <option></option>
+            <option v-for="city in cities.cities" :value="city.name">{{ city.name }}</option>
+          </select>
+          <!-- <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full uppercase"> -->
         </div>
         <div class="flex gap-2 w-full mt-4">
           <span class="text-lg text-darkgreen uppercase font-extrabold text-nowrap -mb-1 flex items-end">experience points</span>
-          <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full uppercase">
+          <input v-model="kingdom.experiencePoints" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full uppercase">
         </div>
         <div class="flex gap-2 w-full">
           <span class="text-lg text-darkgreen uppercase font-extrabold text-nowrap -mb-1 flex items-end">resource dice</span>
@@ -183,8 +187,8 @@
 
         <div class="flex gap-2 w-full justify-center mt-5 items-end">
           <div class="flex gap-0.5 flex-col items-center flex-1">
-            <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">size</span>
-            <input v-model="kingdom.size" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <Tooltip class="text-xs text-darkgreen font-extrabold text-wrap text-center" text="Size is the sum of map cities and explorated cells">SIZE</Tooltip>
+            <input disabled :value="kingdom.size" type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">rp</span>
@@ -283,29 +287,28 @@
       </div>
       <div class="flex flex-col justify-center items-center">
         <!-- work sites -->
-        <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-3">
-          work sites
-          <!-- 11 e 16 -->
+        <Tooltip class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-3">
+          WORK SITES
           <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
           <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
-        </div>
+        </Tooltip>
 
         <div class="flex gap-2 w-full justify-center items-end">
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">farmlands</span>
-            <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input disabled :value="map.countByWorkSite(1)" type="number" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">lumber camps</span>
-            <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input disabled :value="map.countByWorkSite(2)" type="number" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">mines</span>
-            <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input disabled :value="map.countByWorkSite(3)" type="number" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">quarries</span>
-            <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input disabled :value="map.countByWorkSite(4)" type="number" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
           </div>
         </div>
 
@@ -330,6 +333,10 @@
 <script setup>
 import Tooltip from '@/components/Tooltip.vue';
 import { useKingdomStore } from '@/stores/kingdom'
+import { useCitiesStore } from '@/stores/cities';
+import { useMapStore } from '@/stores/map'
 
 const kingdom = useKingdomStore()
+const cities = useCitiesStore();
+const map = useMapStore()
 </script>
