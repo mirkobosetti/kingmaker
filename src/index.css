@@ -7,8 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap');
 
 body {
-    margin: 8px !important;
-    background-image: url('assets/frompdf/13.png');
+    background-image: url('assets/background.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -16,6 +15,7 @@ body {
 * {
     box-sizing: border-box;
     padding: 0;
+    margin: 0;
     /* font-family: "Rowdies", sans-serif; */
     font-family: "Protest Strike", sans-serif;
 }

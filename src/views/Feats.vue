@@ -1,12 +1,7 @@
 <template>
-  <div class="flex flex-col justify-center items-center mb-40 mt-6">
+  <PageTitle title="Feats" text="A kingdom gains feats as it increases in level. Some feats are general-purpose abilities that apply all the time. Others grant benefits to specific kingdom activities or events or allow kingdoms to perform special activities. Each time a kingdom gains a feat, players can select any feat whose level does not exceed their kingdom's level and whose prerequisites their kingdom satisfies." />
 
-    <Tooltip text="A kingdom gains feats as it increases in level. Some feats are general-purpose abilities that apply all the time. Others grant benefits to specific kingdom activities or events or allow kingdoms to perform special activities. Each time a kingdom gains a feat, players can select any feat whose level does not exceed their kingdom's level and whose prerequisites their kingdom satisfies." class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-80 mb-16">
-      <span>FEATS</span>
-      <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
-      <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
-    </Tooltip>
-
+  <div class="flex flex-col justify-center items-center mb-40">
     <!-- list all information about the feat, checklist left to select if possible -->
     <table class="table-auto">
       <thead>
@@ -34,7 +29,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import Tooltip from '../components/Tooltip.vue'
 
 const feats = ref([
   {

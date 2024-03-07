@@ -21,7 +21,7 @@
           <option value="4">Quarry</option>
         </select>
       </div>
-      <button @click="emit('close')" class="bg-red-500 text-white px-3 py-1 mt-2 rounded-md">Close</button>
+      <button @click.stop.prevent="emit('close')" class="bg-red-500 text-white px-3 py-1 mt-2 rounded-md">Close</button>
     </div>
   </div>
 </template>

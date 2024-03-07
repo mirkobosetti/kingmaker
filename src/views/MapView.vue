@@ -1,11 +1,7 @@
 <template>
-  <div class="flex flex-col justify-center items-center mb-40 mt-6">
+  <PageTitle title="Map" />
 
-    <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-80 mb-8">
-      MAP
-      <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
-      <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
-    </div>
+  <div class="flex flex-col justify-center items-center flex-wrap">
 
     <div class="relative mt-12">
       <img id="map" alt="Map" class="-z-10 w-full" src="@/assets/map.jpg" />

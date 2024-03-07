@@ -1,13 +1,8 @@
 <template>
-  <div class="flex flex-col justify-center items-center mb-40 mt-6">
+  <PageTitle :title="activeCityName ? activeCityName : 'CITIES'" />
 
-    <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-80 mb-8">
 
-      {{ activeCityName ? activeCityName : 'CITIES' }}
-      <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
-      <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
-    </div>
-
+  <div class="flex flex-col justify-center items-center mb-40">
     <div class="flex justify-center items-center flex-col gap-4 ">
       <div class="text-darkgreen text-2xl" v-if="!cities.cities.length && !activeCityName">
         No cities added yet

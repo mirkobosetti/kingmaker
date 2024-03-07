@@ -2,7 +2,7 @@
     <div class="tooltip">
         <slot></slot>
 
-        <span class="tooltiptext left-1/2 top-12 transform -translate-x-1/2 text-sm font-normal">{{ text }}</span>
+        <span v-if="text" class="tooltiptext left-1/2 top-12 transform -translate-x-1/2 text-sm font-normal">{{ text }}</span>
     </div>
 </template>
 

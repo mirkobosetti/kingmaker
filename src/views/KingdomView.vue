@@ -1,11 +1,7 @@
 <template>
-  <div class="flex flex-col justify-center items-center mb-40 mt-6">
+  <PageTitle title="Kingdom" />
 
-    <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-80 mb-16">
-      KINGDOM
-      <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
-      <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
-    </div>
+  <div class="flex flex-col justify-center items-center mb-40">
 
     <div class="flex gap-3 items-end">
       <span class="text-3xl text-darkgreen uppercase font-extrabold">kingdom name</span>
@@ -37,8 +33,8 @@
       <div class="flex flex-col items-center gap-3">
         <Tooltip class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-3" text="A kingdom has four ability scores: Culture, Economy, Loyalty, and Stability. These function like the ability scores of a character, providing modifiers on die rolls and checks. As the kingdom prospers and grows, these scores can increase. And if the nation falls on hard times or goes through corruption, scandal, defeat, or disaster, Ruin will accrue that degrades these abilities">
           ABILITY SCORES
-          <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
-          <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
+          <img src="../assets/erb.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
+          <img src="../assets/erb.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
         </Tooltip>
 
         <div class="flex justify-between text-xs w-full px-4">
@@ -101,8 +97,8 @@
         <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-3">
           ruin
           <!-- 11 e 16 -->
-          <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
-          <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
+          <img src="../assets/erb.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
+          <img src="../assets/erb.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
         </div>
 
         <div class="flex justify-between text-xs w-full px-4 gap-1">
@@ -211,8 +207,8 @@
         <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-5 mt-5">
           leaders
           <!-- 11 e 16 -->
-          <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
-          <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
+          <img src="../assets/erb.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
+          <img src="../assets/erb.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
         </div>
 
         <div class="flex gap-3 px-4 mt-1" v-for="leader in Object.values(kingdom.leaders)">
@@ -237,8 +233,8 @@
         <!-- commodities -->
         <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-3">
           commodities
-          <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
-          <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
+          <img src="../assets/erb.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
+          <img src="../assets/erb.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
         </div>
 
         <div class="flex gap-2 w-full justify-center mt-4 items-end">
@@ -289,8 +285,8 @@
         <!-- work sites -->
         <Tooltip class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-3">
           WORK SITES
-          <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
-          <img src="../assets/frompdf/16.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
+          <img src="../assets/erb.png" alt="ability scores" class="absolute w-60 -left-20 scale-x-[-1] -z-20" />
+          <img src="../assets/erb.png" alt="ability scores" class="absolute w-60 -right-20 -z-20" />
         </Tooltip>
 
         <div class="flex gap-2 w-full justify-center items-end">
@@ -331,7 +327,6 @@
 </template>
 
 <script setup>
-import Tooltip from '@/components/Tooltip.vue';
 import { useKingdomStore } from '@/stores/kingdom'
 import { useCitiesStore } from '@/stores/cities';
 import { useMapStore } from '@/stores/map'
