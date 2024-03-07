@@ -42,22 +42,22 @@
 
       <div class="relative">
         <span v-if="i === 0" class="text-darkgreen text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">status</span>
-        <input v-model="skill.status" type="text" class="outline-none border-2 border-green-800 text-center w-20 h-12 bg-white text-lightgreen text-xl">
+        <input disabled v-model="skill.status" type="text" class="outline-none border-2 border-green-800 text-center w-20 h-12 bg-gray-200 text-lightgreen text-xl">
       </div>
 
       <div class="relative">
         <span v-if="i === 0" class="text-darkgreen text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">circ</span>
-        <input v-model="skill.circumstance" type="text" class="outline-none border-2 border-green-800 text-center w-20 h-12 bg-white text-lightgreen text-xl">
+        <input disabled v-model="skill.circumstance" type="text" class="outline-none border-2 border-green-800 text-center w-20 h-12 bg-gray-200 text-lightgreen text-xl">
       </div>
 
       <div class="relative">
         <span v-if="i === 0" class="text-darkgreen text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">item</span>
-        <input v-model="skill.item" type="text" class="outline-none border-2 border-green-800 text-center w-20 h-12 bg-white text-lightgreen text-xl">
+        <input disabled v-model="skill.item" type="text" class="outline-none border-2 border-green-800 text-center w-20 h-12 bg-gray-200 text-lightgreen text-xl">
       </div>
 
       <div class="relative">
         <span v-if="i === 0" class="text-darkgreen text-sm uppercase font-bold absolute left-1/2 -top-5 transform -translate-x-1/2">other</span>
-        <input v-model="skill.other" type="text" class="outline-none border-2 border-green-800 text-center w-20 h-12 bg-white text-lightgreen text-xl">
+        <input disabled v-model="skill.other" type="text" class="outline-none border-2 border-green-800 text-center w-20 h-12 bg-gray-200 text-lightgreen text-xl">
       </div>
     </div>
   </div>

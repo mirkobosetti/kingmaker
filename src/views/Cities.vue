@@ -6,7 +6,9 @@
     <div class="flex justify-center items-center flex-col gap-4 ">
       <div class="text-darkgreen text-center" v-if="!cities.cities.length && !activeCityName">
         <p class="text-2xl">No cities added yet</p>
-        <p>Click on the map to add a city in a cell</p>
+        <p>Click on the
+          <router-link class="underline" to="/map">map</router-link>
+          to add a city in a cell</p>
       </div>
 
       <div v-else-if="!activeCityName" class="flex flex-col gap-3">

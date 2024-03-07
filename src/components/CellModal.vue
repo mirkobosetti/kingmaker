@@ -11,8 +11,8 @@
         <select :disabled="!!cellCityName" :value="cellType" @input="emit('typeChanged', $event.target.value)" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen flex-1 uppercase">
           <option value="0">Unexplored</option>
           <option value="1">Explored</option>
-          <option value="2">City</option>
-          <option value="3">Expanded</option>
+          <option value="2" v-if="!canExpand">City</option>
+          <option value="3" v-if="canExpand">Expanded</option>
         </select>
       </div>
 
@@ -45,7 +45,8 @@ const props = defineProps({
   cellDescription: String,
   cellType: Number, // 0: unexplored, 1: explored, 2: city, 3: expanded,
   cellWorkSite: Number, // 0: none, 1: farmland, 2: lumber camp, 3: mine, 4: quarry
-  cellCityName: String // if this prop is not empty, the cell is a created city
+  cellCityName: String, // if this prop is not empty, the cell is a created city
+  canExpand: Boolean // if the cell has a city or an expanded neighbour
 });
 
 const emit = defineEmits(['close', 'descriptionChanged', 'typeChanged', 'workSiteChanged', 'cityNameChanged', 'createCity']);

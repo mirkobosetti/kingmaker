@@ -65,6 +65,7 @@
     :cellCityName="map.getCellCityName(cellId)"
     @close="hideCellModal"
     @createCity="createCity(cellId)"
+    :canExpand="hasCityOrExpandedNeighbour(cellId)"
   />
 
 </template>
@@ -108,6 +109,27 @@ const createCity = (id) => {
   map.setCellType(id, 2);
   cities.cities.push({ name: map.getCellCityName(id) });
   hideCellModal();
+};
+
+/**
+ * Check if a cell neighbour is a city or an expanded cell
+ * if row(x) is odd change check for nord and sud to match the half exagon shift
+ */
+const hasCityOrExpandedNeighbour = (id) => {
+  const [x, y] = id.split('.');
+  // working on odd lines
+  const neighbours = [
+    `${+x}.${+y - 1}`, // ovest
+    `${+x}.${+y + 1}`, // est
+
+    `${+x - 1}.${+y}`, // sud est
+    `${+x - 1}.${+y + (x%2==0 ? -1: +1)}`, // sud ovest
+
+    `${+x + 1}.${+y}`, // nord est
+    `${+x + 1}.${+y + (x%2==0 ? -1: +1)}`, // nord ovest
+  ];
+
+  return neighbours.some((neighbour) => map.hasCity(neighbour) || map.isExpanded(neighbour));
 };
 
 // when i press esc key, hide the modal

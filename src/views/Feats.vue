@@ -1,9 +1,9 @@
 <template>
   <PageTitle title="Feats" text="A kingdom gains feats as it increases in level. Some feats are general-purpose abilities that apply all the time. Others grant benefits to specific kingdom activities or events or allow kingdoms to perform special activities. Each time a kingdom gains a feat, players can select any feat whose level does not exceed their kingdom's level and whose prerequisites their kingdom satisfies." />
 
-  <div class="flex flex-col justify-center items-center mb-40">
+  <div class="flex flex-col justify-center items-center mb-40 px-5">
     <!-- list all information about the feat, checklist left to select if possible -->
-    <table class="table-auto">
+    <table>
       <thead>
         <tr class="text-white uppercase bg-darkgreen h-10">
           <th class="px-2"></th>
