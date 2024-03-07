@@ -13,9 +13,9 @@
         <div class="border-2 border-darkgreen rounded-tl-3xl h-24 flex flex-col justify-between overflow-hidden bg-white items-center">
           <div class="px-3 pt-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold">Max</span>
-            <input v-model="kingdom.maxLevel" :class="{ 'text-red-500': (kingdom.maxLevel > 20 || kingdom.maxLevel < 1) }" type="number" min="1" max="20" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center w-12 text-lightgreen text-xl">
+            <input v-model="kingdom.maxLevel" :class="{ 'text-red-500': (kingdom.maxLevel > 20 || kingdom.maxLevel < 1) }" type="number" pattern="\d*" min="1" max="20" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center w-12 text-lightgreen text-xl">
           </div>
-          <input v-model="kingdom.currentLevel" :class="{ 'text-red-500': (kingdom.currentLevel > 20 || kingdom.currentLevel < 1 || kingdom.currentLevel > kingdom.maxLevel) }" type="number" min="1" max="20" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
+          <input v-model="kingdom.currentLevel" :class="{ 'text-red-500': (kingdom.currentLevel > 20 || kingdom.currentLevel < 1 || kingdom.currentLevel > kingdom.maxLevel) }" type="number" pattern="\d*" min="1" max="20" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
           <span class="text-white uppercase font-extrabold w-full bg-darkgreen text-center">level</span>
         </div>
 
@@ -138,8 +138,8 @@
         </div>
       </div>
 
-      <div class="flex flex-col items-center">
-        <div class="flex gap-2 w-full items-end">
+      <div class="flex flex-col items-center px-5 sm:px-0">
+        <div class="flex gap-4 w-full items-end">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">charter</span>
           <select v-model="kingdom.charter" @change="kingdom.charterFreeAbilityBoost = ''" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl flex-1 uppercase">
             <option></option>
@@ -150,14 +150,14 @@
           <div v-if="kingdom.charter == 'expansion' || kingdom.charter == 'exploration' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'loyalty'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'loyalty', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'loyalty' }">L</div>
           <div v-if="kingdom.charter == 'conquest' || kingdom.charter == 'grant' || kingdom.charter == 'open'" @click="kingdom.charterFreeAbilityBoost = 'stability'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.charterFreeAbilityBoost == 'stability', 'bg-lightgreen': kingdom.charterFreeAbilityBoost != 'stability' }">S</div>
         </div>
-        <div class="flex gap-2 w-full">
+        <div class="flex gap-4 w-full">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">heartland</span>
           <select v-model="kingdom.heartland" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full uppercase">
             <option></option>
             <option v-for="heartland in kingdom.heartlands" :value="heartland">{{ heartland }}</option>
           </select>
         </div>
-        <div class="flex gap-2 w-full items-end">
+        <div class="flex gap-4 w-full items-end">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">government</span>
           <select v-model="kingdom.government" @change="kingdom.governmentFreeAbilityBoost = ''" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl flex-1 uppercase">
             <option></option>
@@ -168,7 +168,7 @@
           <div v-if="kingdom.government == 'despotism' || kingdom.government == 'feudalism' || kingdom.government == 'thaumocracy'" @click="kingdom.governmentFreeAbilityBoost = 'loyalty'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'loyalty', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'loyalty' }">L</div>
           <div v-if="kingdom.government == 'oligarchy' || kingdom.government == 'thaumocracy' || kingdom.government == 'yeomanry'" @click="kingdom.governmentFreeAbilityBoost = 'stability'" class="outline-none border-2 border-green-800 flex items-center justify-center w-6 h-6 text-white hover:bg-darkgreen cursor-pointer text-xl" :class="{ 'bg-darkgreen': kingdom.governmentFreeAbilityBoost == 'stability', 'bg-lightgreen': kingdom.governmentFreeAbilityBoost != 'stability' }">S</div>
         </div>
-        <div class="flex gap-2 w-full">
+        <div class="flex gap-4 w-full">
           <span class="text-xl text-darkgreen uppercase font-extrabold text-nowrap">capital city</span>
           <select v-model="kingdom.capital" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl flex-1 uppercase">
             <option></option>
@@ -177,34 +177,34 @@
           <!-- <input type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full uppercase"> -->
         </div>
         <div class="flex gap-2 w-full mt-4">
-          <span class="text-lg text-darkgreen uppercase font-extrabold text-nowrap -mb-1 flex items-end">experience points</span>
-          <input v-model="kingdom.experiencePoints" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full uppercase">
+          <span class="w-full sm:text-lg text-darkgreen uppercase font-extrabold text-nowrap -mb-1 flex items-end">experience points</span>
+          <input v-model="kingdom.experiencePoints" type="number" pattern="\d*" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-lightgreen text-xl w-full uppercase">
         </div>
         <div class="flex gap-2 w-full">
-          <span class="text-lg text-darkgreen uppercase font-extrabold text-nowrap -mb-1 flex items-end">resource dice</span>
-          <input v-model="kingdom.resourceDice" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full uppercase">
+          <span class="w-full sm:text-lg text-darkgreen uppercase font-extrabold text-nowrap -mb-1 flex items-end">resource dice</span>
+          <input v-model="kingdom.resourceDice" type="number" pattern="\d*" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-lightgreen text-xl w-full uppercase">
         </div>
 
         <div class="flex gap-2 w-full justify-center mt-5 items-end">
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <Tooltip class="text-xs text-darkgreen font-extrabold text-wrap text-center" text="Size is the sum of map cities and explorated cells">SIZE</Tooltip>
-            <input disabled :value="map.countByType(2) + map.countByType(3)" type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
+            <input disabled :value="map.countByType(2) + map.countByType(3)" type="number" pattern="\d*" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">rp</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">unrest</span>
-            <input v-model="kingdom.unrest" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.unrest" type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">unrest penality</span>
-            <input type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">consumption</span>
-            <input v-model="kingdom.consumption" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.consumption" type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
           </div>
         </div>
 
@@ -218,12 +218,15 @@
         <div class="flex gap-3 px-4 mt-1" v-for="leader in Object.values(kingdom.leaders)">
           <div class="flex flex-col gap-0.5">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">inv</span>
-            <input :value="kingdom.ablityScores[leader.scaling].modifier()" type="text" class="outline-none border-2 border-green-800 bg-transparent text-center w-10 h-10 bg-white text-lightgreen text-xl">
+            <input :value="kingdom.ablityScores[leader.scaling].modifier()" type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-transparent text-center w-10 h-10 bg-white text-lightgreen text-xl">
           </div>
           <div>
             <span class="text-2xl text-darkgreen uppercase font-extrabold text-wrap text-center">{{ leader.title }}</span>
             <div class="flex gap-1 items-end">
-              <span class="text-xs text-darkgreen uppercase font-extrabold text-nowrap">character name</span>
+              <span class="text-xs text-darkgreen uppercase font-extrabold text-nowrap flex gap-1">
+                <span class="hidden sm:block">character</span>
+                <span>name</span>
+              </span>
               <input v-model="leader.name" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen text-xl w-full h-6">
             </div>
           </div>
@@ -232,7 +235,7 @@
       </div>
     </div>
 
-    <div class="w-full flex gap-24 justify-center mt-12 items-start">
+    <div class="w-full flex flex-col sm:flex-row gap-12 sm:gap-24 justify-center mt-12 items-center sm:items-start">
       <div class="flex flex-col justify-center items-center">
         <!-- commodities -->
         <div class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-3">
@@ -244,42 +247,42 @@
         <div class="flex gap-2 w-full justify-center mt-4 items-end">
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">food</span>
-            <input v-model="kingdom.commodities.food.current" type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.commodities.food.current" type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
             <div class="flex gap-0.5 items-end">
               <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
-              <input v-model="kingdom.commodities.food.max" type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+              <input v-model="kingdom.commodities.food.max" type="number" pattern="\d*" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
             </div>
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">lumber</span>
-            <input v-model="kingdom.commodities.lumber.current" type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.commodities.lumber.current" type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
             <div class="flex gap-0.5 items-end">
               <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
-              <input v-model="kingdom.commodities.lumber.max" type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+              <input v-model="kingdom.commodities.lumber.max" type="number" pattern="\d*" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
             </div>
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">luxuries</span>
-            <input v-model="kingdom.commodities.luxuries.current" type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.commodities.luxuries.current" type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
             <div class="flex gap-0.5 items-end">
               <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
-              <input v-model="kingdom.commodities.luxuries.max" type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+              <input v-model="kingdom.commodities.luxuries.max" type="number" pattern="\d*" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
             </div>
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">ore</span>
-            <input v-model="kingdom.commodities.ore.current" type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.commodities.ore.current" type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
             <div class="flex gap-0.5 items-end">
               <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
-              <input v-model="kingdom.commodities.ore.max" type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+              <input v-model="kingdom.commodities.ore.max" type="number" pattern="\d*" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
             </div>
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">stone</span>
-            <input v-model="kingdom.commodities.stone.current" type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
+            <input v-model="kingdom.commodities.stone.current" type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-transparent text-center w-12 h-12 bg-white text-lightgreen text-xl">
             <div class="flex gap-0.5 items-end">
               <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">max</span>
-              <input v-model="kingdom.commodities.stone.max" type="number" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
+              <input v-model="kingdom.commodities.stone.max" type="number" pattern="\d*" class="text-center outline-none border-b-2 border-green-800 bg-transparent text-lightgreen text-xs mt-1 w-5">
             </div>
           </div>
         </div>
@@ -296,19 +299,19 @@
         <div class="flex gap-2 w-full justify-center items-end">
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">farmlands</span>
-            <input disabled :value="map.countByWorkSite(1)" type="number" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
+            <input disabled :value="map.countByWorkSite(1)" type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">lumber camps</span>
-            <input disabled :value="map.countByWorkSite(2)" type="number" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
+            <input disabled :value="map.countByWorkSite(2)" type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">mines</span>
-            <input disabled :value="map.countByWorkSite(3)" type="number" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
+            <input disabled :value="map.countByWorkSite(3)" type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
           </div>
           <div class="flex gap-0.5 flex-col items-center flex-1">
             <span class="text-xs text-darkgreen uppercase font-extrabold text-wrap text-center">quarries</span>
-            <input disabled :value="map.countByWorkSite(4)" type="number" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
+            <input disabled :value="map.countByWorkSite(4)" type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-gray-200 text-center w-12 h-12 text-lightgreen text-xl">
           </div>
         </div>
 
@@ -317,13 +320,13 @@
         <!-- trade agreement -->
         <div class="flex gap-0.5 flex-col items-center flex-1">
           <span class="text-md text-darkgreen uppercase font-extrabold text-wrap text-center h-18 w-20">trade agreement</span>
-          <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-20 h-20 bg-white text-lightgreen text-xl">
+          <input type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-transparent text-center w-20 h-20 bg-white text-lightgreen text-xl">
         </div>
 
         <!-- event check dc -->
         <div class="flex gap-0.5 flex-col items-center flex-1">
           <span class="text-md text-darkgreen uppercase font-extrabold text-wrap text-center h-18 w-20">event check dc</span>
-          <input type="number" class="outline-none border-2 border-green-800 bg-transparent text-center w-20 h-20 bg-white text-lightgreen text-xl">
+          <input type="number" pattern="\d*" class="outline-none border-2 border-green-800 bg-transparent text-center w-20 h-20 bg-white text-lightgreen text-xl">
         </div>
       </div>
     </div>
