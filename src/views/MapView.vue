@@ -3,6 +3,40 @@
 
   <div class="flex flex-col justify-center items-center flex-wrap">
 
+    <div class="flex gap-5 items-end justify-evenly h-16">
+      <div class="flex flex-col gap-1 items-center">
+        <img v-show="isCharacterMoved('Mirko')" src="@/assets/characters/thieve.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Mirko')"/>
+        <img src="@/assets/characters/thieve.png" class="h-14 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Mirko')" />
+        <span class="text-lightgreen">Mirko</span>
+      </div>
+      <div class="flex flex-col gap-1 items-center">
+        <img v-show="isCharacterMoved('Fabio')" src="@/assets/characters/alchemist.png" class="h-12 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Fabio')"/>
+        <img src="@/assets/characters/alchemist.png" class="h-12 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Fabio')" />
+        <span class="text-lightgreen">Fabio</span>
+      </div>
+      <div class="flex flex-col gap-1 items-center">
+        <img v-show="isCharacterMoved('Oscar')" src="@/assets/characters/paladin.png" class="h-16 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Oscar')"/>
+        <img src="@/assets/characters/paladin.png" class="h-16 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Oscar')" />
+        <span class="text-lightgreen">Oscar</span>
+      </div>
+      <div class="flex flex-col gap-1 items-center">
+        <img v-show="isCharacterMoved('Santiago')" src="@/assets/characters/goblin.png" class="h-10 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Santiago')"/>
+        <img src="@/assets/characters/goblin.png" class="h-10 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Santiago')" />
+        <span class="text-lightgreen">Santiago</span>
+      </div>
+      <div class="flex flex-col gap-1 items-center">
+        <img v-show="isCharacterMoved('Chiara')" src="@/assets/characters/elfranged.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Chiara')"/>
+        <img src="@/assets/characters/elfranged.png" class="h-14 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Chiara')" />
+        <span class="text-lightgreen">Chiara</span>
+      </div>
+      <div class="flex flex-col gap-1 items-center">
+        <img v-show="isCharacterMoved('Garcia')" src="@/assets/characters/elegantelf.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Garcia')"/>
+        <img src="@/assets/characters/elegantelf.png" class="h-14 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Garcia')" />
+        <span class="text-lightgreen">Garcia</span>
+      </div>
+    </div>
+
+
     <div class="relative mt-12 overflow-hidden">
       <img id="map" alt="Map" class="-z-10 w-full" src="@/assets/map.jpg" />
       <div @click="showCellModal('1.' + i)" class="exagon" :class="{ active: cellId == '1.' + i, explored: map.isExplored('1.' + i), city: map.hasCity('1.' + i), expanded: map.isExpanded('1.' + i) }" v-for="i in 29" :key="'1.' + i" :style="{ left: `${i - 3 + (56.3 * (i - 1))}px`, top: '-16px' }">
@@ -41,32 +75,18 @@
         <img v-if="map.hasCity('9.' + i)" class="w-8" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('9.' + i)" class="text-white text-xs">{{ map.getCellDescription('9.' + i) }}</div>
       </div>
-      <div @click="showCellModal('10.' + i, )" class="exagon" :class="{ active: cellId == '10.' + i, explored: map.isExplored('10.' + i), city: map.hasCity('10.' + i), expanded: map.isExpanded('10.' + i) }" v-for="i in 29" :key="'10.' + i" :style="{ left: `${i - 31 + (56.3 * (i - 1))}px`, top: '434px' }">
+      <div @click="showCellModal('10.' + i,)" class="exagon" :class="{ active: cellId == '10.' + i, explored: map.isExplored('10.' + i), city: map.hasCity('10.' + i), expanded: map.isExpanded('10.' + i) }" v-for="i in 29" :key="'10.' + i" :style="{ left: `${i - 31 + (56.3 * (i - 1))}px`, top: '434px' }">
         <img v-if="map.hasCity('10.' + i)" class="w-8" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('10.' + i)" class="text-white text-xs">{{ map.getCellDescription('11.' + i) }}</div>
       </div>
-      <div @click="showCellModal('11.' + i, )" class="exagon" :class="{ active: cellId == '11.' + i, explored: map.isExplored('11.' + i), city: map.hasCity('11.' + i), expanded: map.isExpanded('11.' + i) }" v-for="i in 29" :key="'11.' + i" :style="{ left: `${i - 3 + (56.3 * (i - 1))}px`, top: '484px' }">
+      <div @click="showCellModal('11.' + i,)" class="exagon" :class="{ active: cellId == '11.' + i, explored: map.isExplored('11.' + i), city: map.hasCity('11.' + i), expanded: map.isExpanded('11.' + i) }" v-for="i in 29" :key="'11.' + i" :style="{ left: `${i - 3 + (56.3 * (i - 1))}px`, top: '484px' }">
         <img v-if="map.hasCity('11.' + i)" class="w-8" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('11.' + i)" class="text-white text-xs">{{ map.getCellDescription('11.' + i) }}</div>
       </div>
     </div>
   </div>
 
-  <CellModal
-    @descriptionChanged="map.setCellDescription(cellId, $event)"
-    @typeChanged="cellType = $event; map.setCellType(cellId, $event)"
-    @workSiteChanged="map.setCellWorkSite(cellId, $event)"
-    @cityNameChanged="map.setCellCityName(cellId, $event)"
-    v-if=showModal
-    :cellId="cellId"
-    :cellDescription="cellDescription"
-    :cellType="cellType"
-    :cellWorkSite="cellWorkSite"
-    :cellCityName="map.getCellCityName(cellId)"
-    @close="hideCellModal"
-    @createCity="createCity(cellId)"
-    :canExpand="hasCityOrExpandedNeighbour(cellId)"
-  />
+  <CellModal @descriptionChanged="map.setCellDescription(cellId, $event)" @typeChanged="cellType = $event; map.setCellType(cellId, $event)" @workSiteChanged="map.setCellWorkSite(cellId, $event)" @cityNameChanged="map.setCellCityName(cellId, $event)" v-if=showModal :cellId="cellId" :cellDescription="cellDescription" :cellType="cellType" :cellWorkSite="cellWorkSite" :cellCityName="map.getCellCityName(cellId)" @close="hideCellModal" @createCity="createCity(cellId)" :canExpand="hasCityOrExpandedNeighbour(cellId)" />
 
 </template>
 
@@ -123,10 +143,10 @@ const hasCityOrExpandedNeighbour = (id) => {
     `${+x}.${+y + 1}`, // est
 
     `${+x - 1}.${+y}`, // sud est
-    `${+x - 1}.${+y + (x%2==0 ? -1: +1)}`, // sud ovest
+    `${+x - 1}.${+y + (x % 2 == 0 ? -1 : +1)}`, // sud ovest
 
     `${+x + 1}.${+y}`, // nord est
-    `${+x + 1}.${+y + (x%2==0 ? -1: +1)}`, // nord ovest
+    `${+x + 1}.${+y + (x % 2 == 0 ? -1 : +1)}`, // nord ovest
   ];
 
   return neighbours.some((neighbour) => map.hasCity(neighbour) || map.isExpanded(neighbour));
@@ -138,6 +158,33 @@ window.addEventListener('keydown', (e) => {
     hideCellModal();
   }
 });
+
+function handleDragStart(e) {
+  e.target.style.opacity = '0';
+}
+
+function handleDragEnd(e, name) {
+  e.target.style.opacity = '1';
+  // set position of the dragged element to be the same as the mouse position
+  e.target.style.position = 'absolute';
+  e.target.style.left = e.clientX - e.target.width / 2 + 'px';
+  e.target.style.top = e.clientY - e.target.height / 2 + 'px';
+  movedCharacters.value.push({ name, element: e.target });
+}
+
+const movedCharacters = ref([]);
+
+function resetCharacter(name) {
+  const character = movedCharacters.value.find((c) => c.name === name);
+  if (character) {
+    character.element.style.position = 'static';
+    movedCharacters.value = movedCharacters.value.filter((c) => c.name !== name);
+  }
+}
+
+function isCharacterMoved(name) {
+  return movedCharacters.value.some((c) => c.name === name);
+}
 </script>
 
 <style scoped>
