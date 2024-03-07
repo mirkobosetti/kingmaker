@@ -5,32 +5,32 @@
 
     <div class="flex gap-5 items-end justify-evenly h-16">
       <div class="flex flex-col gap-1 items-center">
-        <img v-show="isCharacterMoved('Mirko')" src="@/assets/characters/thieve.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Mirko')"/>
+        <img v-show="isCharacterMoved('Mirko')" src="@/assets/characters/thieve.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Mirko')" />
         <img src="@/assets/characters/thieve.png" class="h-14 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Mirko')" />
         <span class="text-lightgreen">Mirko</span>
       </div>
       <div class="flex flex-col gap-1 items-center">
-        <img v-show="isCharacterMoved('Fabio')" src="@/assets/characters/alchemist.png" class="h-12 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Fabio')"/>
+        <img v-show="isCharacterMoved('Fabio')" src="@/assets/characters/alchemist.png" class="h-12 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Fabio')" />
         <img src="@/assets/characters/alchemist.png" class="h-12 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Fabio')" />
         <span class="text-lightgreen">Fabio</span>
       </div>
       <div class="flex flex-col gap-1 items-center">
-        <img v-show="isCharacterMoved('Oscar')" src="@/assets/characters/paladin.png" class="h-16 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Oscar')"/>
+        <img v-show="isCharacterMoved('Oscar')" src="@/assets/characters/paladin.png" class="h-16 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Oscar')" />
         <img src="@/assets/characters/paladin.png" class="h-16 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Oscar')" />
         <span class="text-lightgreen">Oscar</span>
       </div>
       <div class="flex flex-col gap-1 items-center">
-        <img v-show="isCharacterMoved('Santiago')" src="@/assets/characters/goblin.png" class="h-10 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Santiago')"/>
+        <img v-show="isCharacterMoved('Santiago')" src="@/assets/characters/goblin.png" class="h-10 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Santiago')" />
         <img src="@/assets/characters/goblin.png" class="h-10 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Santiago')" />
         <span class="text-lightgreen">Santiago</span>
       </div>
       <div class="flex flex-col gap-1 items-center">
-        <img v-show="isCharacterMoved('Chiara')" src="@/assets/characters/elfranged.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Chiara')"/>
+        <img v-show="isCharacterMoved('Chiara')" src="@/assets/characters/elfranged.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Chiara')" />
         <img src="@/assets/characters/elfranged.png" class="h-14 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Chiara')" />
         <span class="text-lightgreen">Chiara</span>
       </div>
       <div class="flex flex-col gap-1 items-center">
-        <img v-show="isCharacterMoved('Garcia')" src="@/assets/characters/elegantelf.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Garcia')"/>
+        <img v-show="isCharacterMoved('Garcia')" src="@/assets/characters/elegantelf.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Garcia')" />
         <img src="@/assets/characters/elegantelf.png" class="h-14 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Garcia')" />
         <span class="text-lightgreen">Garcia</span>
       </div>
@@ -91,10 +91,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import CellModal from '@/components/CellModal.vue';
 import { useMapStore } from '@/stores/map'
 import { useCitiesStore } from '@/stores/cities';
+import { api } from "../api";
 
 const cities = useCitiesStore();
 const map = useMapStore()
@@ -103,6 +104,21 @@ const cellId = ref('');
 const cellDescription = ref('');
 const cellType = ref(0);
 const cellWorkSite = ref(0);
+
+const apiGetMapCells = async () => {
+  const response = await api.get("/map");
+
+  if (response.status !== 200) {
+    return [];
+  }
+
+  return response.data;
+};
+
+onBeforeMount(async () => {
+  const cells = await apiGetMapCells();
+  map.setCells(cells)
+});
 
 const showCellModal = (id) => {
   showModal.value = true;
