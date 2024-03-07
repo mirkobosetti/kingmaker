@@ -4,20 +4,15 @@
 
   <div class="flex flex-col justify-center items-center mb-40">
     <div class="flex justify-center items-center flex-col gap-4 ">
-      <div class="text-darkgreen text-2xl" v-if="!cities.cities.length && !activeCityName">
-        No cities added yet
+      <div class="text-darkgreen text-center" v-if="!cities.cities.length && !activeCityName">
+        <p class="text-2xl">No cities added yet</p>
+        <p>Click on the map to add a city in a cell</p>
       </div>
 
       <div v-else-if="!activeCityName" class="flex flex-col gap-3">
         <div v-for="city in cities.cities" @click="activeCityName = city.name" :key="city.name" class="flex items-center cursor-pointer justify-between gap-5 bg-lightgreen px-3 py-1 rounded-md">
           <span class="uppercase font-extrabold text-3xl text-white">{{ city.name }}</span>
-          <button @click.stop.prevent="deleteCity(city.name)" class="bg-red-400 text-white border-2 border-red-500 hover:bg-red-500 font-bold rounded-md w-8 h-8">x</button>
         </div>
-      </div>
-
-      <div class="flex flex-col items-center" v-if="!activeCityName">
-        <input v-model="newCityName" type="text" id="city" class="w-40 h-8 rounded-md border-2 border-lightgreen bg-darkgreen text-white text-center border-b-0 rounded-b-none" />
-        <button @click="newCity" class="bg-lightgreen text-white border-2 border-darkgreen hover:bg-darkgreen font-bold rounded-md w-40 h-8 border-t-0 rounded-t-none">Add City</button>
       </div>
 
       <button v-if="activeCityName" @click="back" class="bg-lightgreen text-white border-2 border-darkgreen hover:bg-darkgreen font-bold rounded-md w-40 h-8">Back</button>
@@ -83,22 +78,10 @@ const alchemyLab = {
   effects: 'Treat the settlement’s level as one level higher than its actual level for the purposes of determining which alchemical items are readily available for sale in that settlement. This effect stacks up to three times. Checks attempted to Identify Alchemy in any settlement with at least one alchemy laboratory gain a +1 item bonus.'
 }
 
-const newCityName = ref('');
-
-function newCity() {
-  cities.cities.value.push({ name: newCityName.value });
-  newCityName.value = '';
-}
-
-
-const activeCityName = ref('Brenejrne');
+const activeCityName = ref('');
 
 function back() {
   activeCityName.value = '';
-}
-
-function deleteCity(name) {
-  cities.cities.value = cities.cities.value.filter(city => city.name !== name);
 }
 </script>
 

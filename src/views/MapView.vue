@@ -3,7 +3,7 @@
 
   <div class="flex flex-col justify-center items-center flex-wrap">
 
-    <div class="relative mt-12">
+    <div class="relative mt-12 overflow-hidden">
       <img id="map" alt="Map" class="-z-10 w-full" src="@/assets/map.jpg" />
       <div @click="showCellModal('1.' + i)" class="exagon" :class="{ active: cellId == '1.' + i, explored: map.isExplored('1.' + i), city: map.hasCity('1.' + i), expanded: map.isExpanded('1.' + i) }" v-for="i in 29" :key="'1.' + i" :style="{ left: `${i - 3 + (56.3 * (i - 1))}px`, top: '-16px' }">
         <img v-if="map.hasCity('1.' + i)" class="w-8" src="@/assets/city.svg" />
@@ -56,12 +56,15 @@
     @descriptionChanged="map.setCellDescription(cellId, $event)"
     @typeChanged="cellType = $event; map.setCellType(cellId, $event)"
     @workSiteChanged="map.setCellWorkSite(cellId, $event)"
+    @cityNameChanged="map.setCellCityName(cellId, $event)"
     v-if=showModal
     :cellId="cellId"
     :cellDescription="cellDescription"
     :cellType="cellType"
     :cellWorkSite="cellWorkSite"
+    :cellCityName="map.getCellCityName(cellId)"
     @close="hideCellModal"
+    @createCity="createCity(cellId)"
   />
 
 </template>
@@ -70,7 +73,9 @@
 import { ref } from 'vue';
 import CellModal from '@/components/CellModal.vue';
 import { useMapStore } from '@/stores/map'
+import { useCitiesStore } from '@/stores/cities';
 
+const cities = useCitiesStore();
 const map = useMapStore()
 const showModal = ref(false);
 const cellId = ref('');
@@ -97,6 +102,12 @@ const hideCellModal = () => {
   cellDescription.value = '';
   cellType.value = 0;
   cellWorkSite.value = 0;
+};
+
+const createCity = (id) => {
+  map.setCellType(id, 2);
+  cities.cities.push({ name: map.getCellCityName(id) });
+  hideCellModal();
 };
 
 // when i press esc key, hide the modal

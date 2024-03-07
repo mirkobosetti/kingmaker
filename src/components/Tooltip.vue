@@ -1,5 +1,5 @@
 <template>
-    <div class="tooltip">
+    <div :class="{ tooltip: text }">
         <slot></slot>
 
         <span v-if="text" class="tooltiptext left-1/2 top-12 transform -translate-x-1/2 text-sm font-normal">{{ text }}</span>

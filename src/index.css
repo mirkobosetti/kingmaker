@@ -18,6 +18,7 @@ body {
     margin: 0;
     /* font-family: "Rowdies", sans-serif; */
     font-family: "Protest Strike", sans-serif;
+    border-radius: 0;
 }
 
 .darkgreen {
@@ -29,9 +30,15 @@ body {
 }
 
 @layer base {
+
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+        -webkit-appearance: none;
+        margin: 0;
     }
-  }
+}
+
+input[disabled],
+select[disabled] {
+    opacity: 1;
+}

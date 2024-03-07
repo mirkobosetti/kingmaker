@@ -1,35 +1,39 @@
 <template>
   <PageTitle title="Kingdom" />
 
-  <div class="flex flex-col justify-center items-center mb-40">
+  <div class="flex flex-col justify-center items-center mb-40 overflow-x-hidden">
 
-    <div class="flex gap-3 items-end">
-      <span class="text-3xl text-darkgreen uppercase font-extrabold">kingdom name</span>
-      <input v-model="kingdom.name" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center text-3xl uppercase text-lightgreen">
-
-      <div class="border-2 border-darkgreen rounded-tl-3xl h-24 flex flex-col justify-between overflow-hidden bg-white items-center">
-        <div class="px-3 pt-1">
-          <span class="text-xs text-darkgreen uppercase font-extrabold">Max</span>
-          <input v-model="kingdom.maxLevel" :class="{ 'text-red-500': (kingdom.maxLevel > 20 || kingdom.maxLevel < 1) }" type="number" min="1" max="20" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center w-12 text-lightgreen text-xl">
-        </div>
-        <input v-model="kingdom.currentLevel" :class="{ 'text-red-500': (kingdom.currentLevel > 20 || kingdom.currentLevel < 1 || kingdom.currentLevel > kingdom.maxLevel) }" type="number" min="1" max="20" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
-        <span class="text-white uppercase font-extrabold w-full bg-darkgreen text-center">level</span>
+    <div class="flex gap-3 items-end flex-wrap sm:flex-nowrap flex-col-reverse sm:flex-row">
+      <div class="flex gap-3 items-center justify-center w-full">
+        <span class="text-xl sm:text-3xl text-darkgreen uppercase font-extrabold text-nowrap">kingdom name</span>
+        <input v-model="kingdom.name" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center  text-xl sm:text-3xl uppercase text-lightgreen">
       </div>
 
-      <div class="border-2 border-darkgreen rounded-tr-3xl h-24 flex flex-col justify-center overflow-hidden bg-white items-center">
-        <div class="border-b-4 border-darkgreen flex flex-col items-center w-24">
-          <input v-model="kingdom.fame" type="text" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
-          <span class="text-xs text-darkgreen uppercase font-extrabold">Fame</span>
+      <div class="flex gap-3 items-center justify-center w-full">
+        <div class="border-2 border-darkgreen rounded-tl-3xl h-24 flex flex-col justify-between overflow-hidden bg-white items-center">
+          <div class="px-3 pt-1">
+            <span class="text-xs text-darkgreen uppercase font-extrabold">Max</span>
+            <input v-model="kingdom.maxLevel" :class="{ 'text-red-500': (kingdom.maxLevel > 20 || kingdom.maxLevel < 1) }" type="number" min="1" max="20" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center w-12 text-lightgreen text-xl">
+          </div>
+          <input v-model="kingdom.currentLevel" :class="{ 'text-red-500': (kingdom.currentLevel > 20 || kingdom.currentLevel < 1 || kingdom.currentLevel > kingdom.maxLevel) }" type="number" min="1" max="20" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
+          <span class="text-white uppercase font-extrabold w-full bg-darkgreen text-center">level</span>
         </div>
-        <div class="border-t-4 border-darkgreen flex flex-col items-center w-24">
-          <span class="text-xs text-darkgreen uppercase font-extrabold">Infamy</span>
-          <input v-model="kingdom.infamy" type="text" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
+
+        <div class="border-2 border-darkgreen rounded-tr-3xl h-24 flex flex-col justify-center overflow-hidden bg-white items-center">
+          <div class="border-b-4 border-darkgreen flex flex-col items-center w-24">
+            <input v-model="kingdom.fame" type="text" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
+            <span class="text-xs text-darkgreen uppercase font-extrabold">Fame</span>
+          </div>
+          <div class="border-t-4 border-darkgreen flex flex-col items-center w-24">
+            <span class="text-xs text-darkgreen uppercase font-extrabold">Infamy</span>
+            <input v-model="kingdom.infamy" type="text" class="outline-none border-none bg-transparent text-center w-12 text-lightgreen text-xl">
+          </div>
         </div>
       </div>
     </div>
 
     <!-- div with 2 columns using grid -->
-    <div class="grid grid-cols-2 gap-20 mt-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-20 mt-12">
       <div class="flex flex-col items-center gap-3">
         <Tooltip class="relative bg-darkgreen border-2 border-lightgreen rounded-t-3xl text-white uppercase text-center text-lg p-1 font-extrabold w-9/12 mb-3" text="A kingdom has four ability scores: Culture, Economy, Loyalty, and Stability. These function like the ability scores of a character, providing modifiers on die rolls and checks. As the kingdom prospers and grows, these scores can increase. And if the nation falls on hard times or goes through corruption, scandal, defeat, or disaster, Ruin will accrue that degrades these abilities">
           ABILITY SCORES
@@ -43,7 +47,7 @@
         </div>
 
         <div class="flex w-full px-4">
-          <input :value="kingdom.ablityScores.culture.modifier()" disabled type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
+          <span :value="kingdom.ablityScores.culture.modifier()" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl flex items-center justify-center">{{ kingdom.ablityScores.culture.modifier() }}</span>
           <Tooltip class="uppercase text-white font-extrabold text-lg bg-lightgreen flex h-full items-center px-8 flex-1 justify-center" text="Culture measures the interest and dedication of your nation and its people to the arts and sciences, to religion and reason, and to the subjects that your society chooses to learn about and to teach. Are your people well‐versed in rhetoric and philosophy? Do they value learning and research, music and dance? Do they embrace society in all its diverse splendor? If they do, your kingdom likely has a robust Culture score.">CULTURE</Tooltip>
           <input :value="kingdom.ablityScores.culture.total()" disabled type="text" class="bg-gray-200 outline-none border-2 border-green-800 text-center w-12 h-12 text-lightgreen text-xl">
         </div>
