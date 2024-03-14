@@ -96,6 +96,7 @@ import CellModal from '@/components/CellModal.vue';
 import { useMapStore } from '@/stores/map'
 import { useCitiesStore } from '@/stores/cities';
 import { api } from '@/api';
+import { toast } from 'vue3-toastify';
 
 const cities = useCitiesStore();
 const map = useMapStore()
@@ -107,11 +108,11 @@ const cellWorkSite = ref(0);
 
 // Fetch map data from the server
 onBeforeMount(async () => {
-    const response = await api.get("cells");
+  const response = await api.get("cells");
 
-    if (response.status !== 200) alert("Failed to fetch map data");
-    else map.cells = response.data;
-  });
+  if (response.status !== 200) toast.error('Failed to fetch map data');
+  else map.cells = response.data;
+});
 
 const showCellModal = (id) => {
   showModal.value = true;
@@ -137,13 +138,15 @@ const hideCellModal = async () => {
 
   const response = await api.put(`cell?id=${cellId.value}`, { ...map.getCellById(cellId.value) });
 
-  if (response.status !== 200) alert("Failed to update cell data");
-  else { 
+  if (response.status !== 200) toast.error('Failed to save cell');
+  else {
     showModal.value = false;
     cellId.value = '';
     cellDescription.value = '';
     cellType.value = 0;
     cellWorkSite.value = 0;
+
+    toast.success(response.data.message);
   }
 };
 
