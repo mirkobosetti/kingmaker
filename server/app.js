@@ -35,11 +35,14 @@ app.put("/cell", (req, res) => {
   const type = req.body.type;
   const worksite = req.body.worksite;
   const cityname = req.body.cityname;
-  
+
   let cell = cells.find((cell) => cell.id === id);
 
   if (cell) {
-    cell = { ...cell, description, type, worksite, cityname };
+    cell.description = description;
+    cell.type = type;
+    cell.worksite = worksite;
+    cell.cityname = cityname;
     res.status(200).json({ message: "Cell updated" });
   } else {
     cells.push({ id, description, type, worksite, cityname });

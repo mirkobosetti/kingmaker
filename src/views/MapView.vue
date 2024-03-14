@@ -118,7 +118,7 @@ const showCellModal = (id) => {
   showModal.value = true;
   cellId.value = id;
   cellDescription.value = map.getCellDescription(id);
-  cellType.value = map.getCellType(id);
+  cellType.value = map.getCellType(id) || 0;
   cellWorkSite.value = map.getCellWorkSite(id);
 
   // focus the textarea
@@ -128,14 +128,6 @@ const showCellModal = (id) => {
 };
 
 const hideCellModal = async () => {
-  if (!cellId.value) {
-    cellId.value = '';
-    cellDescription.value = '';
-    cellType.value = 0;
-    cellWorkSite.value = 0;
-    return
-  }
-
   const response = await api.put(`cell?id=${cellId.value}`, { ...map.getCellById(cellId.value) });
 
   if (response.status !== 200) toast.error('Failed to save cell');
@@ -145,8 +137,6 @@ const hideCellModal = async () => {
     cellDescription.value = '';
     cellType.value = 0;
     cellWorkSite.value = 0;
-
-    toast.success(response.data.message);
   }
 };
 
@@ -221,13 +211,14 @@ function isCharacterMoved(name) {
 
 .exagon {
   position: absolute;
-  width: 57px;
-  height: 65px;
-  background-color: transparent;
+  width: 58px;
+  height: 67px;
+  background-color: #5e5e5e94;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 .exagon.active,
@@ -237,7 +228,7 @@ function isCharacterMoved(name) {
 }
 
 .exagon.explored {
-  background-color: #78903590;
+  background-color: transparent;
 }
 
 .exagon.city,
