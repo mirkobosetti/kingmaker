@@ -86,7 +86,7 @@
     </div>
   </div>
 
-  <CellModal @descriptionChanged="map.setCellDescription(cellId, $event)" @typeChanged="cellType = $event; map.setCellType(cellId, $event)" @workSiteChanged="map.setCellWorkSite(cellId, $event)" @cityNameChanged="map.setCellCityName(cellId, $event)" v-if=showModal :cellId="cellId" :cellDescription="cellDescription" :cellType="cellType" :cellWorkSite="cellWorkSite" :cellCityName="map.getCellCityName(cellId)" @close="hideCellModal" @createCity="createCity(cellId)" :canExpand="hasCityOrExpandedNeighbour(cellId)" />
+  <CellModal @descriptionChanged="cellDescription = $event; map.setCellDescription(cellId, $event)" @typeChanged="cellType = $event; map.setCellType(cellId, $event)" @workSiteChanged="map.setCellWorkSite(cellId, $event)" @cityNameChanged="map.setCellCityName(cellId, $event)" v-if=showModal :cellId="cellId" :cellDescription="cellDescription" :cellType="cellType" :cellWorkSite="cellWorkSite" :cellCityName="map.getCellCityName(cellId)" @close="hideCellModal" @createCity="createCity(cellId)" :canExpand="hasCityOrExpandedNeighbour(cellId)" />
 
 </template>
 
@@ -95,7 +95,7 @@ import { ref, onBeforeMount } from 'vue';
 import CellModal from '@/components/CellModal.vue';
 import { useMapStore } from '@/stores/map'
 import { useCitiesStore } from '@/stores/cities';
-import { api } from "../api";
+import { api } from '@/api';
 
 const cities = useCitiesStore();
 const map = useMapStore()
@@ -105,20 +105,13 @@ const cellDescription = ref('');
 const cellType = ref(0);
 const cellWorkSite = ref(0);
 
-const apiGetMapCells = async () => {
-  const response = await api.get("/map");
-
-  if (response.status !== 200) {
-    return [];
-  }
-
-  return response.data;
-};
-
+// Fetch map data from the server
 onBeforeMount(async () => {
-  const cells = await apiGetMapCells();
-  map.setCells(cells)
-});
+    const response = await api.get("cells");
+
+    if (response.status !== 200) alert("Failed to fetch map data");
+    else map.cells = response.data;
+  });
 
 const showCellModal = (id) => {
   showModal.value = true;
@@ -133,12 +126,25 @@ const showCellModal = (id) => {
   }, 100);
 };
 
-const hideCellModal = () => {
-  showModal.value = false;
-  cellId.value = '';
-  cellDescription.value = '';
-  cellType.value = 0;
-  cellWorkSite.value = 0;
+const hideCellModal = async () => {
+  if (!cellId.value) {
+    cellId.value = '';
+    cellDescription.value = '';
+    cellType.value = 0;
+    cellWorkSite.value = 0;
+    return
+  }
+
+  const response = await api.put(`cell?id=${cellId.value}`, { ...map.getCellById(cellId.value) });
+
+  if (response.status !== 200) alert("Failed to update cell data");
+  else { 
+    showModal.value = false;
+    cellId.value = '';
+    cellDescription.value = '';
+    cellType.value = 0;
+    cellWorkSite.value = 0;
+  }
 };
 
 const createCity = (id) => {

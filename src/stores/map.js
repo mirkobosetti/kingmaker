@@ -4,48 +4,65 @@ import { ref } from "vue";
 export const useMapStore = defineStore("map", () => {
   const cells = ref([]);
 
-  const getCellDescription = (id) =>
-    cells.value.find((cell) => cell.id == id)?.description || "";
-  const setCellDescription = (cellId, description) => {
-    const cell = cells.value.find((cell) => cell.id == cellId);
-    if (cell) {
-      cell.description = description;
-    } else {
-      cells.value.push({ id: cellId, description: description });
-    }
+  const getCellById = (id) => {
+    return cells.value.find((cell) => cell.id == id);
   };
 
-  const getCellType = (id) => cells.value.find((cell) => cell.id == id)?.type || 0;
-  const setCellType = (cellId, type) => {
-    const cell = cells.value.find((cell) => cell.id == cellId);
-    if (cell) {
-      cell.type = type;
-    } else {
-      cells.value.push({ id: cellId, type: type });
-    }
-  };
+  // #region description
+  const getCellDescription = (cellId) => {
+    const cell = getCellById(cellId);
 
-  const getCellWorkSite = (id) =>
-    cells.value.find((cell) => cell.id == id)?.worksite || 0;
-  const setCellWorkSite = (cellId, worksite) => {
-    const cell = cells.value.find((cell) => cell.id == cellId);
-    if (cell) {
-      cell.worksite = worksite;
-    } else {
-      cells.value.push({ id: cellId, worksite: worksite });
-    }
+    if (cell) return cell.description;
   };
+  const setCellDescription = async (cellId, description) => {
+    const cell = getCellById(cellId);
 
-  const getCellCityName = (id) =>
-    cells.value.find((cell) => cell.id == id)?.cityname || "";
-  const setCellCityName = (cellId, cityname) => {
-    const cell = cells.value.find((cell) => cell.id == cellId);
-    if (cell) {
-      cell.cityname = cityname;
-    } else {
-      cells.value.push({ id: cellId, cityname: cityname });
-    }
+    if (cell) cell.description = description;
+    else cells.value.push({ id: cellId, description });
   };
+  //#endregion
+
+  // #region type
+  const getCellType = (cellId) => {
+    const cell = getCellById(cellId);
+
+    if (cell) return cell.type;
+  };
+  const setCellType = async (cellId, type) => {
+    const cell = getCellById(cellId);
+
+    if (cell) cell.type = type;
+    else cells.value.push({ id: cellId, type });
+  };
+  // #endregion
+
+  // #region worksite
+  const getCellWorkSite = (cellId) => {
+    const cell = getCellById(cellId);
+
+    if (cell) return cell.worksite;
+  };
+  const setCellWorkSite = async (cellId, worksite) => {
+    const cell = getCellById(cellId);
+
+    if (cell) cell.worksite = worksite;
+    else cells.value.push({ id: cellId, worksite });
+  };
+  // #endregion
+
+  // #region cityname
+  const getCellCityName = (cellId) => {
+    const cell = getCellById(cellId);
+
+    if (cell) return cell.cityname;
+  };
+  const setCellCityName = async (cellId, cityname) => {
+    const cell = getCellById(cellId);
+
+    if (cell) cell.cityname = cityname;
+    else cells.value.push({ id: cellId, cityname });
+  };
+  // #endregion
 
   const isExplored = (id) => getCellType(id) == 1;
   const hasCity = (id) => getCellType(id) == 2;
@@ -75,15 +92,7 @@ export const useMapStore = defineStore("map", () => {
     return count;
   };
 
-  const setCells = (newCells) => {
-    cells.value.length = 0;
-    newCells.forEach((cell) => {
-      cells.value.push(cell);
-    });
-  }
-
   return {
-    setCells,
     getCellDescription,
     setCellDescription,
     getCellType,
@@ -97,5 +106,7 @@ export const useMapStore = defineStore("map", () => {
     countByWorkSite,
     setCellCityName,
     getCellCityName,
+    cells,
+    getCellById
   };
 });

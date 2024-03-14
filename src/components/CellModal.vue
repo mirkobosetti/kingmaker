@@ -3,7 +3,7 @@
     <div class="bg-white p-5 rounded-md text-center shadow-lg min-w-80 flex flex-col gap-2">
       <div class="text-darkgreen">ID: {{ cellId }}</div>
 
-      <textarea id="cellTextarea" :value="cellDescription" @input="emit('descriptionChanged', $event.target.value)" class="w-full h-32 p-2 my-2 text-lightgreen outline-lightgreen resize-none rounded" placeholder="Description" rows="3" cols="10" maxlength="50"></textarea>
+      <textarea id="cellTextarea" :value="cellDescription" @input="emit('descriptionChanged', $event.target.value)" class="w-full h-32 p-2 my-2 text-lightgreen outline-lightgreen resize-none rounded text-center" placeholder="Description" rows="3" cols="10" maxlength="50"></textarea>
 
       <div class="flex gap-2 items-center">
         <span class="text-darkgreen font-extrabold text-nowrap">Cell type</span>
