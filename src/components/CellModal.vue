@@ -18,7 +18,7 @@
 
       <div class="flex gap-2 items-center" v-if="cellType == 3">
         <span class="text-darkgreen font-extrabold text-nowrap">Work site</span>
-        
+
         <select :value="cellWorkSite" @input="workSiteChanged" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen flex-1 uppercase">
           <option value="0"></option>
           <option value="1">Farmland</option>
@@ -30,17 +30,21 @@
 
       <div class="flex gap-2 items-center" v-if="cellType == 2">
         <span class="text-darkgreen font-extrabold text-nowrap">City name</span>
-        
-        <input :disabled="!!cellCityName" :value="cellCityName" @input="cityNameChanged" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center uppercase text-lightgreen w-full">
+
+        <input :disabled="!!backup.cellCityName" :value="cellCityName" @input="cityNameChanged" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center uppercase text-lightgreen w-full">
       </div>
-      <button v-if="true || !cellCityName && cellType == 2" @click.stop.prevent="emit('createCity')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md hover:bg-lightgreen">Create City</button>
-      
+      <button :disabled="!cellCityName" v-if="!backup.cellCityName && cellType == 2" @click.stop.prevent="emit('createCity')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md enabled:hover:bg-lightgreen">Create City</button>
+
       <div v-if="toSave" class="flex gap-2">
-        <button @click.stop.prevent="cancel" class="bg-red-500 text-white px-3 py-1 mt-2 rounded-md hover:bg-lightgreen">Cancel</button>
+        <button @click.stop.prevent="cancel" class="bg-red-500 text-white px-3 py-1 mt-2 rounded-md hover:bg-red-400">Cancel</button>
         <button @click.stop.prevent="emit('save')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md hover:bg-lightgreen flex-1">Save</button>
       </div>
 
-      <button v-else @click.stop.prevent="emit('close')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md hover:bg-lightgreen">Close</button>
+      <div v-else class="flex gap-2">
+        <button @click.stop.prevent="reset" class="bg-red-500 text-white px-3 py-1 mt-2 rounded-md hover:bg-red-400">Reset</button>
+        <button @click.stop.prevent="emit('close')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md hover:bg-lightgreen flex-1">Close</button>
+      </div>
+
     </div>
   </div>
 </template>
@@ -64,7 +68,7 @@ const backup = {
   cellCityName: props.cellCityName
 }
 
-const emit = defineEmits(['close','save', 'descriptionChanged', 'typeChanged', 'workSiteChanged', 'cityNameChanged', 'createCity']);
+const emit = defineEmits(['close', 'save', 'reset', 'descriptionChanged', 'typeChanged', 'workSiteChanged', 'cityNameChanged', 'createCity']);
 
 const toSave = ref(false);
 
@@ -93,8 +97,17 @@ const cancel = () => {
   emit('typeChanged', backup.cellType);
   emit('workSiteChanged', backup.cellWorkSite);
   emit('cityNameChanged', backup.cellCityName);
-  toSave.value = false;
+
   emit('close');
+}
+
+const reset = () => {
+  emit('descriptionChanged', "");
+  emit('typeChanged', 0);
+  emit('workSiteChanged', 0);
+  emit('cityNameChanged', "");
+
+  emit('reset');
 }
 
 // when i press esc key, hide the modal

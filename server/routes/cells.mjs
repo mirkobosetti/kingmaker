@@ -39,4 +39,12 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// delete cell
+router.delete("/:id", async (req, res) => {
+  const query = { id: req.params.id };
+  let collection = db.collection("cells");
+  let result = await collection.deleteOne(query);
+  res.send(result).status(200);
+});
+
 export default router;

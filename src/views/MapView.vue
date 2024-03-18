@@ -20,6 +20,11 @@
         <span class="text-lightgreen">Oscar</span>
       </div>
       <div class="flex flex-col gap-1 items-center">
+        <img v-show="isCharacterMoved('Group')" src="@/assets/characters/group.png" class="h-16 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Group')" />
+        <img src="@/assets/characters/group.png" class="h-16 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Group')" />
+        <span class="text-lightgreen">Group</span>
+      </div>
+      <div class="flex flex-col gap-1 items-center">
         <img v-show="isCharacterMoved('Santiago')" src="@/assets/characters/goblin.png" class="h-10 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Santiago')" />
         <img src="@/assets/characters/goblin.png" class="h-10 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Santiago')" />
         <span class="text-lightgreen">Santiago</span>
@@ -40,53 +45,53 @@
     <div class="relative mt-12 overflow-hidden">
       <img id="map" alt="Map" class="-z-10 w-full" src="@/assets/map.jpg" />
       <div @click="showCellModal('1.' + i)" class="exagon" :class="{ active: cellId == '1.' + i, explored: map.isExplored('1.' + i), city: map.hasCity('1.' + i), expanded: map.isExpanded('1.' + i) }" v-for="i in 29" :key="'1.' + i" :style="{ left: `${i - 3 + (56.3 * (i - 1))}px`, top: '-16px' }">
-        <img v-if="map.hasCity('1.' + i)" class="w-8" src="@/assets/city.svg" />
+        <img v-if="map.hasCity('1.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('1.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('1.' + i) }}</div>
       </div>
       <div @click="showCellModal('2.' + i)" class="exagon" :class="{ active: cellId == '2.' + i, explored: map.isExplored('2.' + i), city: map.hasCity('2.' + i), expanded: map.isExpanded('2.' + i) }" v-for="i in 29" :key="'2.' + i" :style="{ left: `${i - 31 + (56.3 * (i - 1))}px`, top: '34px' }">
-        <img v-if="map.hasCity('2.' + i)" class="w-8" src="@/assets/city.svg" />
+        <img v-if="map.hasCity('2.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('2.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('2.' + i) }}</div>
       </div>
       <div @click="showCellModal('3.' + i)" class="exagon" :class="{ active: cellId == '3.' + i, explored: map.isExplored('3.' + i), city: map.hasCity('3.' + i), expanded: map.isExpanded('3.' + i) }" v-for="i in 29" :key="'3.' + i" :style="{ left: `${i - 3 + (56.3 * (i - 1))}px`, top: '84px' }">
-        <img v-if="map.hasCity('3.' + i)" class="w-8" src="@/assets/city.svg" />
+        <img v-if="map.hasCity('3.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('3.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('3.' + i) }}</div>
       </div>
       <div @click="showCellModal('4.' + i)" class="exagon" :class="{ active: cellId == '4.' + i, explored: map.isExplored('4.' + i), city: map.hasCity('4.' + i), expanded: map.isExpanded('4.' + i) }" v-for="i in 29" :key="'4.' + i" :style="{ left: `${i - 31 + (56.3 * (i - 1))}px`, top: '134px' }">
-        <img v-if="map.hasCity('4.' + i)" class="w-8" src="@/assets/city.svg" />
+        <img v-if="map.hasCity('4.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('4.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('4.' + i) }}</div>
       </div>
       <div @click="showCellModal('5.' + i)" class="exagon" :class="{ active: cellId == '5.' + i, explored: map.isExplored('5.' + i), city: map.hasCity('5.' + i), expanded: map.isExpanded('5.' + i) }" v-for="i in 29" :key="'5.' + i" :style="{ left: `${i - 3 + (56.3 * (i - 1))}px`, top: '184px' }">
-        <img v-if="map.hasCity('5.' + i)" class="w-8" src="@/assets/city.svg" />
+        <img v-if="map.hasCity('5.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('5.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('5.' + i) }}</div>
       </div>
       <div @click="showCellModal('6.' + i)" class="exagon" :class="{ active: cellId == '6.' + i, explored: map.isExplored('6.' + i), city: map.hasCity('6.' + i), expanded: map.isExpanded('6.' + i) }" v-for="i in 29" :key="'6.' + i" :style="{ left: `${i - 31 + (56.3 * (i - 1))}px`, top: '234px' }">
-        <img v-if="map.hasCity('6.' + i)" class="w-8" src="@/assets/city.svg" />
+        <img v-if="map.hasCity('6.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('6.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('6.' + i) }}</div>
       </div>
       <div @click="showCellModal('7.' + i)" class="exagon" :class="{ active: cellId == '7.' + i, explored: map.isExplored('7.' + i), city: map.hasCity('7.' + i), expanded: map.isExpanded('7.' + i) }" v-for="i in 29" :key="'7.' + i" :style="{ left: `${i - 3 + (56.3 * (i - 1))}px`, top: '284px' }">
-        <img v-if="map.hasCity('7.' + i)" class="w-8" src="@/assets/city.svg" />
+        <img v-if="map.hasCity('7.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('7.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('7.' + i) }}</div>
       </div>
       <div @click="showCellModal('8.' + i)" class="exagon" :class="{ active: cellId == '8.' + i, explored: map.isExplored('8.' + i), city: map.hasCity('8.' + i), expanded: map.isExpanded('8.' + i) }" v-for="i in 29" :key="'8.' + i" :style="{ left: `${i - 31 + (56.3 * (i - 1))}px`, top: '334px' }">
-        <img v-if="map.hasCity('8.' + i)" class="w-8" src="@/assets/city.svg" />
+        <img v-if="map.hasCity('8.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('8.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('8.' + i) }}</div>
       </div>
       <div @click="showCellModal('9.' + i)" class="exagon" :class="{ active: cellId == '9.' + i, explored: map.isExplored('9.' + i), city: map.hasCity('9.' + i), expanded: map.isExpanded('9.' + i) }" v-for="i in 29" :key="'9.' + i" :style="{ left: `${i - 3 + (56.3 * (i - 1))}px`, top: '384px' }">
-        <img v-if="map.hasCity('9.' + i)" class="w-8" src="@/assets/city.svg" />
+        <img v-if="map.hasCity('9.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('9.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('9.' + i) }}</div>
       </div>
       <div @click="showCellModal('10.' + i,)" class="exagon" :class="{ active: cellId == '10.' + i, explored: map.isExplored('10.' + i), city: map.hasCity('10.' + i), expanded: map.isExpanded('10.' + i) }" v-for="i in 29" :key="'10.' + i" :style="{ left: `${i - 31 + (56.3 * (i - 1))}px`, top: '434px' }">
-        <img v-if="map.hasCity('10.' + i)" class="w-8" src="@/assets/city.svg" />
+        <img v-if="map.hasCity('10.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('10.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('11.' + i) }}</div>
       </div>
       <div @click="showCellModal('11.' + i,)" class="exagon" :class="{ active: cellId == '11.' + i, explored: map.isExplored('11.' + i), city: map.hasCity('11.' + i), expanded: map.isExpanded('11.' + i) }" v-for="i in 29" :key="'11.' + i" :style="{ left: `${i - 3 + (56.3 * (i - 1))}px`, top: '484px' }">
-        <img v-if="map.hasCity('11.' + i)" class="w-8" src="@/assets/city.svg" />
+        <img v-if="map.hasCity('11.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('11.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('11.' + i) }}</div>
       </div>
     </div>
   </div>
 
-  <CellModal @descriptionChanged="cellDescription = $event; map.setCellDescription(cellId, $event)" @typeChanged="cellType = $event; map.setCellType(cellId, $event)" @workSiteChanged="map.setCellWorkSite(cellId, $event)" @cityNameChanged="map.setCellCityName(cellId, $event)" v-if=showModal :cellId="cellId" :cellDescription="cellDescription" :cellType="cellType" :cellWorkSite="cellWorkSite" :cellCityName="map.getCellCityName(cellId)" @close="hideCellModal" @save="saveCell" @createCity="createCity(cellId)" :canExpand="hasCityOrExpandedNeighbour(cellId)" />
+  <CellModal @descriptionChanged="cellDescription = $event; map.setCellDescription(cellId, $event)" @typeChanged="cellType = $event; map.setCellType(cellId, $event)" @workSiteChanged="map.setCellWorkSite(cellId, $event)" @cityNameChanged="map.setCellCityName(cellId, $event)" v-if=showModal :cellId="cellId" :cellDescription="cellDescription" :cellType="cellType" :cellWorkSite="cellWorkSite" :cellCityName="map.getCellCityName(cellId)" @close="hideCellModal" @save="saveCell" @reset="resetCell" @createCity="createCity(cellId)" :canExpand="hasCityOrExpandedNeighbour(cellId)" />
 
 </template>
 
@@ -131,16 +136,17 @@ const saveCell = async () => {
   const response = await api.put(`cells/${cellId.value}`, { ...map.getCellById(cellId.value) });
 
   if (response.status !== 200) toast.error('Failed to save cell');
-  else {
-    showModal.value = false;
-    cellId.value = '';
-    cellDescription.value = '';
-    cellType.value = 0;
-    cellWorkSite.value = 0;
-  }
+  else hideCellModal()
 };
 
-const hideCellModal = async () => {
+const resetCell = async () => {
+  const response = await api.delete(`cells/${cellId.value}`);
+
+  if (response.status !== 200) toast.error('Failed to reset cell');
+  else hideCellModal()
+};
+
+const hideCellModal = () => {
   showModal.value = false;
   cellId.value = '';
   cellDescription.value = '';
@@ -219,13 +225,7 @@ function isCharacterMoved(name) {
   display: flex;
   justify-content: center;
   align-items: center;
-
-}
-
-.exagon.active,
-.exagon:hover {
-  cursor: cell;
-  box-shadow: inset 0 0 20px 6px #ff0000b5;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.3s;
 }
 
 .exagon.explored {
@@ -234,6 +234,13 @@ function isCharacterMoved(name) {
 
 .exagon.city,
 .exagon.expanded {
-  background-color: #27502590;
+  background-color: transparent;
+  box-shadow: inset 0 0 17px 9px #275025;
+}
+
+.exagon.active,
+.exagon:hover {
+  cursor: cell;
+  box-shadow: inset 0 0 20px 6px #ff0000b5;
 }
 </style>
