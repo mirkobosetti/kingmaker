@@ -11,7 +11,7 @@
         <select :disabled="!!cellCityName" :value="cellType" @input="typeChanged" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center pr-3 text-lightgreen flex-1 uppercase">
           <option value="0">Unexplored</option>
           <option value="1">Explored</option>
-          <option value="2" v-if="!canExpand">City</option>
+          <option value="2">City</option>
           <option value="3" v-if="canExpand">Expanded</option>
         </select>
       </div>

@@ -116,7 +116,16 @@ onBeforeMount(async () => {
   const response = await api.get("cells");
 
   if (response.status !== 200) toast.error('Failed to fetch map data');
-  else map.cells = response.data;
+  else {
+    map.cells = response.data;
+
+    cities.cities = [];
+    for (const cell of map.cells) {
+      if (cell.type == 2) {
+        cities.cities.push({ name: cell.cityname });
+      }
+    }
+  }
 });
 
 const showCellModal = (id) => {
