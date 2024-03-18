@@ -128,7 +128,7 @@ const showCellModal = (id) => {
 };
 
 const hideCellModal = async () => {
-  const response = await api.put(`cell?id=${cellId.value}`, { ...map.getCellById(cellId.value) });
+  const response = await api.put(`cells/${cellId.value}`, { ...map.getCellById(cellId.value) });
 
   if (response.status !== 200) toast.error('Failed to save cell');
   else {

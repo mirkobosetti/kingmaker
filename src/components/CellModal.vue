@@ -3,7 +3,7 @@
     <div class="bg-white p-5 rounded-md text-center shadow-lg min-w-80 flex flex-col gap-2">
       <div class="text-darkgreen">ID: {{ cellId }}</div>
 
-      <textarea id="cellTextarea" :value="cellDescription" @input="emit('descriptionChanged', $event.target.value)" class="w-full h-32 p-2 my-2 text-lightgreen outline-lightgreen resize-none rounded text-center" placeholder="Description" rows="3" cols="10" maxlength="50"></textarea>
+      <textarea id="cellTextarea" :value="cellDescription" @input="descriptionChanged" class="w-full h-32 p-2 my-2 text-lightgreen outline-lightgreen resize-none rounded text-center" placeholder="Description" rows="3" cols="10" maxlength="50"></textarea>
 
       <div class="flex gap-2 items-center">
         <span class="text-darkgreen font-extrabold text-nowrap">Cell type</span>
@@ -33,13 +33,15 @@
         
         <input :disabled="!!cellCityName" :value="cellCityName" @input="emit('cityNameChanged', $event.target.value)" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center uppercase text-lightgreen w-full">
       </div>
-      <button v-if="!cellCityName && cellType == 2" @click.stop.prevent="emit('createCity')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md hover:bg-lightgreen">Create City</button>
+      <button v-if="true || !cellCityName && cellType == 2" @click.stop.prevent="emit('createCity')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md hover:bg-lightgreen">Create City</button>
       <button @click.stop.prevent="emit('close')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md hover:bg-lightgreen">Close</button>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 const props = defineProps({
   cellId: String,
   cellDescription: String,
@@ -50,4 +52,11 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['close', 'descriptionChanged', 'typeChanged', 'workSiteChanged', 'cityNameChanged', 'createCity']);
+
+const toSave = ref(false);
+
+const descriptionChanged = (event) => {
+  emit('descriptionChanged', event.target.value);
+  toSave.value = true;
+}
 </script>
