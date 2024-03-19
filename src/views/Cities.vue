@@ -8,7 +8,8 @@
         <p class="text-2xl">No cities added yet</p>
         <p>Click on the
           <router-link class="underline" to="/map">map</router-link>
-          to add a city in a cell</p>
+          to add a city in a cell
+        </p>
       </div>
 
       <div v-else-if="!activeCityName" class="flex flex-col gap-3">
@@ -23,9 +24,7 @@
 
     <div v-if="activeCityName" class="grid grid-cols-3 w-full">
 
-      <div class="flex flex-col gap-3 items-center justify-center">
-        <StructureInfo :name="alchemyLab.name" :img="alchemyLab.img" :description="alchemyLab.description" :lots="alchemyLab.lots" :cost="alchemyLab.cost" :construction="alchemyLab.construction" :itemBonus="alchemyLab.itemBonus" :effects="alchemyLab.effects" />
-      </div>
+      <StructureInfo :name="structures[displayedStructure].name" :img="structures[displayedStructure].img" :description="structures[displayedStructure].description" :lots="structures[displayedStructure].lots" :cost="structures[displayedStructure].cost" :construction="structures[displayedStructure].construction" :itemBonus="structures[displayedStructure].itemBonus" :effects="structures[displayedStructure].effects" :upgradeFrom="structures[displayedStructure].upgradeFrom" :upgradeTo="structures[displayedStructure].upgradeTo" @back="previusStructure" @next="nextStructure" />
 
       <div class="dirt-square">
         <div class="small-square" v-for="i in 9" :key="i">
@@ -52,6 +51,7 @@
         </div>
 
       </div>
+
       <div class="flex flex-col gap-3 items-center justify-center">
         <CityInfo :name=activeCityName :size=1 />
       </div>
@@ -69,16 +69,54 @@ import { useCitiesStore } from '@/stores/cities';
 
 const cities = useCitiesStore();
 
-const alchemyLab = {
+const displayedStructure = ref(0);
+const nextStructure = () => {
+  if (displayedStructure.value < structures.length - 1) {
+    displayedStructure.value++;
+  }
+};
+const previusStructure = () => {
+  if (displayedStructure.value > 0) {
+    displayedStructure.value--;
+  }
+};
+
+const structures = [{
+  name: 'ACADEMY',
+  img: require('@/assets/buildings/2x1/Academy.png'),
+  description: 'An academy gives your citizens—and the PCs themselves— an institution where advanced study in many fields can be pursued, researched, and referenced.',
+  lots: 2,
+  cost: {
+    rp: 52,
+    ore: 0,
+    stone: 12,
+    luxuries: 6,
+    lumber: 12,
+    foot: 0,
+  },
+  construction: 'Scholarship (expert) DC 27',
+  itemBonus: '+2 item bonus to Creative Solution',
+  effects: 'While in a settlement with an Academy, you gain a +2 item bonus to Lore checks made to Recall Knowledge while Investigating, to all checks made while Researching (Gamemastery Guide 154), and to Decipher Writing.',
+  upgradeFrom: "Library",
+  upgradeTo: "military academy, university"
+} , {
   name: 'Alchemy Lab',
   img: require('@/assets/buildings/1x1/Alchemy Lab.png'),
   description: 'An alchemy laboratory serves as a factory for alchemists and their apprentices for the crafting of potions, elixirs, and all manner of alchemical items. An infamous kingdom’s laboratory might specialize in poisons as well.',
   lots: 1,
-  cost: '18 RP, 2 Ore, 5 Stone',
+  cost: {
+    rp: 18,
+    ore: 2,
+    stone: 5,
+    luxuries: 0,
+    lumber: 0,
+    foot: 0,
+  },
   construction: 'Construction Industry (trained) DC 16',
   itemBonus: '+1 item bonus to Demolish',
   effects: 'Treat the settlement’s level as one level higher than its actual level for the purposes of determining which alchemical items are readily available for sale in that settlement. This effect stacks up to three times. Checks attempted to Identify Alchemy in any settlement with at least one alchemy laboratory gain a +1 item bonus.'
-}
+
+}]
 
 const activeCityName = ref('');
 
