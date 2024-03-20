@@ -33,15 +33,15 @@
 
         <input :disabled="!!backup.cellCityName" :value="cellCityName" @input="cityNameChanged" type="text" class="outline-none border-b-2 border-b-green-800 bg-transparent text-center uppercase text-lightgreen w-full">
       </div>
-      <button :disabled="!cellCityName" v-if="!backup.cellCityName && cellType == 2" @click.stop.prevent="emit('createCity')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md enabled:hover:bg-lightgreen">Create City</button>
 
       <div v-if="toSave" class="flex gap-2">
         <button @click.stop.prevent="cancel" class="bg-red-500 text-white px-3 py-1 mt-2 rounded-md hover:bg-red-400">Cancel</button>
-        <button @click.stop.prevent="emit('save')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md hover:bg-lightgreen flex-1">Save</button>
+        <button v-if="!backup.cellCityName && cellType == 2" :disabled="!cellCityName" @click.stop.prevent="emit('createCity')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md hover:bg-lightgreen flex-1">Create City</button>
+        <button v-else @click.stop.prevent="emit('save')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md hover:bg-lightgreen flex-1">Save</button>
       </div>
 
       <div v-else class="flex gap-2">
-        <button @click.stop.prevent="reset" class="bg-red-500 text-white px-3 py-1 mt-2 rounded-md hover:bg-red-400">Reset</button>
+        <button @click.stop.prevent="emit('reset')" class="bg-red-500 text-white px-3 py-1 mt-2 rounded-md hover:bg-red-400">Reset</button>
         <button @click.stop.prevent="emit('close')" class="bg-darkgreen text-white px-3 py-1 mt-2 rounded-md hover:bg-lightgreen flex-1">Close</button>
       </div>
 
@@ -99,15 +99,6 @@ const cancel = () => {
   emit('cityNameChanged', backup.cellCityName);
 
   emit('close');
-}
-
-const reset = () => {
-  emit('descriptionChanged', "");
-  emit('typeChanged', 0);
-  emit('workSiteChanged', 0);
-  emit('cityNameChanged', "");
-
-  emit('reset');
 }
 
 // when i press esc key, hide the modal

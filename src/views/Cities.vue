@@ -52,22 +52,27 @@
 
       </div>
 
-      <div class="flex flex-col gap-3 items-center justify-center">
-        <CityInfo :name=activeCityName :size=1 />
-      </div>
+      <CityInfo :name=activeCityName :size=1 :level=1 :consumption=0 :exesInfluence=44 :maxItemBonus=98 />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import Checkbox from '@/components/Checkbox.vue';
 import StructureInfo from '@/components/StructureInfo.vue';
 import CityInfo from '@/components/CityInfo.vue';
-
+import { api } from '@/api';
 import { useCitiesStore } from '@/stores/cities';
 
 const cities = useCitiesStore();
+
+onBeforeMount(async () => {
+  const response = await api.get("cities");
+
+  if (response.status !== 200) toast.error('Failed to fetch map data');
+  else cities.cities = response.data;
+});
 
 const displayedStructure = ref(0);
 const nextStructure = () => {

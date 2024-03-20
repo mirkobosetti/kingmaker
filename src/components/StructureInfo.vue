@@ -1,5 +1,5 @@
 <template>
-    <div class="m-8 p-5 flex flex-col gap-3 items-center justify-center bg-white bg-opacity-60 rounded-xl -mt-7 border-2 border-lightgreen">
+    <div class="m-8 p-5 flex flex-col gap-3 items-center justify-center bg-white bg-opacity-50 rounded-xl -mt-7 border-2 border-lightgreen">
 
         <div class="uppercase text-xl text-darkgreen">{{ name }}</div>
 
@@ -7,7 +7,7 @@
 
         <div class="flex gap-10 justify-center items-center min-h-20">
             <div class="text-darkgreen text-3xl cursor-pointer hover:text-lightgreen" @click="emits('back')">◀</div>
-            <img :src="img" alt="alchemy lab" class="cursor-grab" :class="{ 'w-20': lots == 1, 'w-36': lots == 2 }" draggable />
+            <img :src="img" alt="alchemy lab" class="cursor-grab rounded-xl" :class="{ 'w-20': lots == 1, 'w-36': lots == 2 }" draggable />
             <div class="text-darkgreen text-3xl cursor-pointer hover:text-lightgreen" @click="emits('next')">▶</div>
         </div>
 

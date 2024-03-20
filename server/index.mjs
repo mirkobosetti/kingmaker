@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import "./loadEnvironment.mjs";
 import cells from "./routes/cells.mjs";
+import cities from "./routes/cities.mjs";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -11,6 +12,8 @@ app.use(express.json());
 
 // Load the /cells routes
 app.use("/cells", cells);
+// Load the /cities routes
+app.use("/cities", cities);
 
 // Global error handling
 app.use((err, _req, res, next) => {

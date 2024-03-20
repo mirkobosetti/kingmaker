@@ -116,16 +116,7 @@ onBeforeMount(async () => {
   const response = await api.get("cells");
 
   if (response.status !== 200) toast.error('Failed to fetch map data');
-  else {
-    map.cells = response.data;
-
-    cities.cities = [];
-    for (const cell of map.cells) {
-      if (cell.type == 2) {
-        cities.cities.push({ name: cell.cityname });
-      }
-    }
-  }
+  else map.cells = response.data;
 });
 
 const showCellModal = (id) => {
@@ -149,10 +140,21 @@ const saveCell = async () => {
 };
 
 const resetCell = async () => {
-  const response = await api.delete(`cells/${cellId.value}`);
+  const resDeleteCity = await api.delete(`cities/${map.getCellCityName(cellId.value)}`);
 
-  if (response.status !== 200) toast.error('Failed to reset cell');
-  else hideCellModal()
+  if (resDeleteCity.status !== 200) toast.error('Failed to delete city');
+  else {
+    const resDeleteCell = await api.delete(`cells/${cellId.value}`);
+
+    if (resDeleteCell.status !== 200) toast.error('Failed to delete cell');
+    else {
+      map.setCellDescription(cellId.value, '');
+      map.setCellType(cellId.value, 0);
+      map.setCellWorkSite(cellId.value, 0);
+      map.setCellCityName(cellId.value, '');
+      hideCellModal();
+    }
+  }
 };
 
 const hideCellModal = () => {
@@ -163,10 +165,21 @@ const hideCellModal = () => {
   cellWorkSite.value = 0;
 };
 
-const createCity = (id) => {
-  map.setCellType(id, 2);
-  cities.cities.push({ name: map.getCellCityName(id) });
-  hideCellModal();
+const createCity = async (id) => {
+  const name = map.getCellCityName(id)
+  const resCreateCity = await api.post('cities', { name });
+
+  if (resCreateCity.status !== 201) toast.error('Failed to create city');
+  else {
+    const resSaveCell = await api.put(`cells/${cellId.value}`, { ...map.getCellById(cellId.value) });
+
+    if (resSaveCell.status !== 200) toast.error('Failed to save cell');
+    else {
+      map.setCellType(id, 2);
+      cities.cities.push({ name });
+      hideCellModal();
+    }
+  }
 };
 
 /**
