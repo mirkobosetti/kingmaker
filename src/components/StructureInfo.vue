@@ -7,7 +7,9 @@
 
         <div class="flex gap-10 justify-center items-center min-h-20">
             <div class="text-darkgreen text-3xl cursor-pointer hover:text-lightgreen" @click="emits('back')">◀</div>
-            <img :src="img" alt="alchemy lab" class="cursor-grab rounded-xl" :class="{ 'w-20': lots == 1, 'w-36': lots == 2 }" draggable />
+            <div draggable="true" @dragstart="handleDragStart($event, name)" @dragend="handleDragEnd">
+                <img :src="img" alt="alchemy lab" class="cursor-grab rounded-xl" :class="{ 'w-20': lots == 1, 'w-36': lots == 2 }" draggable="false" />
+            </div>
             <div class="text-darkgreen text-3xl cursor-pointer hover:text-lightgreen" @click="emits('next')">▶</div>
         </div>
 
@@ -69,6 +71,11 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { useCitiesStore } from '@/stores/cities';
+
+const cities = useCitiesStore();
+
 defineProps({
     name: String,
     img: String,
@@ -81,6 +88,16 @@ defineProps({
     upgradeFrom: String,
     upgradeTo: String
 })
+
+const handleDragStart = (e, name) => {
+    e.target.style.opacity = 0.5
+    cities.draggedStructureName = name
+}
+
+const handleDragEnd = (e) => {
+    e.target.style.opacity = 1
+    cities.draggedStructureName = ''
+}
 
 const emits = defineEmits(['back', 'next'])
 </script>

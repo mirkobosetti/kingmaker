@@ -1,7 +1,6 @@
 <template>
   <PageTitle :title="activeCityName ? activeCityName : 'CITIES'" />
 
-
   <div class="flex flex-col justify-center items-center mb-40">
     <div class="flex justify-center items-center flex-col gap-4 ">
       <div class="text-darkgreen text-center" v-if="!cities.cities.length && !activeCityName">
@@ -19,7 +18,6 @@
       </div>
 
       <button v-if="activeCityName" @click="back" class="bg-lightgreen text-white border-2 border-darkgreen hover:bg-darkgreen font-bold rounded-md w-40 h-8">Back</button>
-
     </div>
 
     <div v-if="activeCityName" class="grid grid-cols-3 w-full">
@@ -28,7 +26,7 @@
 
       <div class="dirt-square">
         <div class="small-square" v-for="i in 9" :key="i">
-          <div class="cell-block" v-for="j in 4" :key="j"></div>
+          <div class="cell-block" v-for="j in 4" :key="j" @dragenter="handleDragEnter" @dragleave="handleDragLeave" @drop="handleDrop($event, i, j)" @dragover="allowDrop"></div>
         </div>
 
         <div class="side top">
@@ -63,6 +61,7 @@ import Checkbox from '@/components/Checkbox.vue';
 import StructureInfo from '@/components/StructureInfo.vue';
 import CityInfo from '@/components/CityInfo.vue';
 import { api } from '@/api';
+import { toast } from 'vue3-toastify';
 import { useCitiesStore } from '@/stores/cities';
 
 const cities = useCitiesStore();
@@ -104,7 +103,7 @@ const structures = [{
   effects: 'While in a settlement with an Academy, you gain a +2 item bonus to Lore checks made to Recall Knowledge while Investigating, to all checks made while Researching (Gamemastery Guide 154), and to Decipher Writing.',
   upgradeFrom: "Library",
   upgradeTo: "military academy, university"
-} , {
+}, {
   name: 'Alchemy Lab',
   img: require('@/assets/buildings/1x1/Alchemy Lab.png'),
   description: 'An alchemy laboratory serves as a factory for alchemists and their apprentices for the crafting of potions, elixirs, and all manner of alchemical items. An infamous kingdom’s laboratory might specialize in poisons as well.',
@@ -119,14 +118,120 @@ const structures = [{
   },
   construction: 'Construction Industry (trained) DC 16',
   itemBonus: '+1 item bonus to Demolish',
-  effects: 'Treat the settlement’s level as one level higher than its actual level for the purposes of determining which alchemical items are readily available for sale in that settlement. This effect stacks up to three times. Checks attempted to Identify Alchemy in any settlement with at least one alchemy laboratory gain a +1 item bonus.'
-
+  effects: 'Treat the settlement\'s level as one level higher than its actual level for the purposes of determining which alchemical items are readily available for sale in that settlement. This effect stacks up to three times. Checks attempted to Identify Alchemy in any settlement with at least one alchemy laboratory gain a +1 item bonus.'
+}, {
+  name: 'BREWERY',
+  img: require('@/assets/buildings/1x1/Brewery.png'),
+  description: 'A brewery is devoted to crafting alcohol, be it beer, wine, or spirits. This building can represent bottlers, vineyards, or even structures that produce non- alcoholicdrinks.',
+  lots: 1,
+  cost: {
+    rp: 6,
+    ore: 0,
+    stone: 0,
+    luxuries: 0,
+    lumber: 2,
+    foot: 0,
+  },
+  construction: 'Agriculture DC 15',
+  itemBonus: '+1 item bonus to Establish Trade Agreement',
+  effects: 'When you build a brewery, reduce Unrest by 1 as long as you have fewer than 4 breweries in the settlement at that time.',
 }]
 
 const activeCityName = ref('');
 
 function back() {
   activeCityName.value = '';
+}
+
+const handleDragEnter = (e) => {
+  e.preventDefault();
+  // set background image to the dragged item
+  // e.target.style.backgroundImage = `url(${structures.find(structure => structure.name === cities.draggedStructureName).img})`;
+
+  // insert a new img element with the dragged item
+  const img = document.createElement('img');
+  img.src = structures.find(structure => structure.name === cities.draggedStructureName).img;
+  img.className = structures.find(structure => structure.name === cities.draggedStructureName).lots === 2 ? 'img2x1' : 'img1x1';
+
+  if (structures.find(structure => structure.name === cities.draggedStructureName).lots === 1) {
+    // check if the cell is empty
+    if (e.target.children.length === 0) {
+      e.target.appendChild(img);
+    }
+  }
+
+  // if the dragged item is 2 slot
+  else if (structures.find(structure => structure.name === cities.draggedStructureName).lots === 2) {
+    // if the dragged item is in the first cell, then the next cell should be red too
+    if (e.target === e.target.parentElement.children[0]) {
+      e.target.appendChild(img);
+    }
+
+    // if the dragged item is in the second cell, then the previus cell should be red too
+    if (e.target === e.target.parentElement.children[1]) {
+      e.target.previousElementSibling.appendChild(img);
+    }
+
+    // if the dragged item is in the third cell, then the next cell should be red too
+    if (e.target === e.target.parentElement.children[2]) {
+      e.target.appendChild(img);
+    }
+
+    // if the dragged item is in the last cell, then the previus cell should be red too
+    if (e.target === e.target.parentElement.children[3]) {
+      e.target.previousElementSibling.appendChild(img);
+    }
+  }
+};
+
+const handleDragLeave = (e) => {
+  e.preventDefault();
+
+  if (structures.find(structure => structure.name === cities.draggedStructureName).lots === 1) {
+    e.target.removeChild(e.target.children[0]);
+  }
+
+  // if the dragged item is 2 slot
+  else if (structures.find(structure => structure.name === cities.draggedStructureName).lots === 2) {
+    // if the dragged item is in the first cell, remove the img from the next cell
+    if (e.target === e.target.parentElement.children[0]) {
+      e.target.removeChild(e.target.children[0]);
+    }
+
+    // if the dragged item is in the second cell, remove the img from the previus cell
+    if (e.target === e.target.parentElement.children[1]) {
+      e.target.previousElementSibling.removeChild(e.target.previousElementSibling.children[0]);
+    }
+
+    // if the dragged item is in the third cell, remove the img from the next cell
+    if (e.target === e.target.parentElement.children[2]) {
+      e.target.removeChild(e.target.children[0]);
+    }
+
+    // if the dragged item is in the last cell, remove the img from the previus cell
+    if (e.target === e.target.parentElement.children[3]) {
+      e.target.previousElementSibling.removeChild(e.target.previousElementSibling.children[0]);
+    }
+  }
+};
+
+const allowDrop = (e) => {
+  e.preventDefault();
+};
+
+/**
+ * Handle the drop event of the structure in the city district slot
+ * @param {Event} event html drop event
+ * @param {Number} district the number of the district (1 to 9)
+ * @param {Number} slot the number of the slot (1 to 4)
+ */
+const handleDrop = (event, district, slot) => {
+  // check if the cell is empty
+  // if (event.target.children.length === 0) {
+  //   toast.success('Structure dropped');
+  // } else {
+  //   toast.error('This cell is already occupied');
+  // }
 }
 </script>
 
@@ -177,6 +282,7 @@ function back() {
 .cell-block {
   width: calc(100% - 1px);
   height: calc(100% - 1px);
+  position: relative;
 }
 
 .cell-block:first-child {
@@ -263,5 +369,27 @@ function back() {
   background-color: #a9a9a9;
   width: 25%;
   height: 100%;
+}
+</style>
+
+<style>
+.img1x1 {
+  max-width: 100%;
+  width: 100%;
+  background-color: transparent;
+  position: absolute;
+  z-index: 90;
+  /* make this element like it is not here, only visible but mouse can pass througt */
+  pointer-events: none;
+}
+
+.img2x1 {
+  max-width: 200%;
+  width: 200%;
+  background-color: transparent;
+  position: absolute;
+  z-index: 90;
+  /* make this element like it is not here, only visible but mouse can pass througt */
+  pointer-events: none;
 }
 </style>
