@@ -2,31 +2,63 @@
   <PageTitle :title="activeCityName ? activeCityName : 'CITIES'" />
 
   <div class="flex flex-col justify-center items-center mb-40">
-    <div class="flex justify-center items-center flex-col gap-4 ">
+    <div class="flex justify-center items-center flex-col gap-4">
       <div class="text-darkgreen text-center" v-if="!cities.cities.length && !activeCityName">
         <p class="text-2xl">No cities added yet</p>
-        <p>Click on the
+        <p>
+          Click on the
           <router-link class="underline" to="/map">map</router-link>
           to add a city in a cell
         </p>
       </div>
 
       <div v-else-if="!activeCityName" class="flex flex-col gap-3">
-        <div v-for="city in cities.cities" @click="activeCityName = city.name" :key="city.name" class="flex items-center cursor-pointer justify-between gap-5 bg-lightgreen px-3 py-1 rounded-md">
+        <div
+          v-for="city in cities.cities"
+          @click="activeCityName = city.name"
+          :key="city.name"
+          class="flex items-center cursor-pointer justify-between gap-5 bg-lightgreen px-3 py-1 rounded-md"
+        >
           <span class="uppercase font-extrabold text-3xl text-white">{{ city.name }}</span>
         </div>
       </div>
 
-      <button v-if="activeCityName" @click="back" class="bg-lightgreen text-white border-2 border-darkgreen hover:bg-darkgreen font-bold rounded-md w-40 h-8">Back</button>
+      <button
+        v-if="activeCityName"
+        @click="back"
+        class="bg-lightgreen text-white border-2 border-darkgreen hover:bg-darkgreen font-bold rounded-md w-40 h-8"
+      >
+        Back
+      </button>
     </div>
 
     <div v-if="activeCityName" class="grid grid-cols-3 w-full">
-
-      <StructureInfo :name="structures[displayedStructure].name" :img="structures[displayedStructure].img" :description="structures[displayedStructure].description" :lots="structures[displayedStructure].lots" :cost="structures[displayedStructure].cost" :construction="structures[displayedStructure].construction" :itemBonus="structures[displayedStructure].itemBonus" :effects="structures[displayedStructure].effects" :upgradeFrom="structures[displayedStructure].upgradeFrom" :upgradeTo="structures[displayedStructure].upgradeTo" @back="previusStructure" @next="nextStructure" />
+      <StructureInfo
+        :name="structures[displayedStructure].name"
+        :img="structures[displayedStructure].img"
+        :description="structures[displayedStructure].description"
+        :lots="structures[displayedStructure].lots"
+        :cost="structures[displayedStructure].cost"
+        :construction="structures[displayedStructure].construction"
+        :itemBonus="structures[displayedStructure].itemBonus"
+        :effects="structures[displayedStructure].effects"
+        :upgradeFrom="structures[displayedStructure].upgradeFrom"
+        :upgradeTo="structures[displayedStructure].upgradeTo"
+        @back="previusStructure"
+        @next="nextStructure"
+      />
 
       <div class="dirt-square">
         <div class="small-square" v-for="i in 9" :key="i">
-          <div class="cell-block" v-for="j in 4" :key="j" @dragenter="handleDragEnter" @dragleave="handleDragLeave" @drop="handleDrop($event, i, j)" @dragover="allowDrop"></div>
+          <div
+            class="cell-block"
+            v-for="j in 4"
+            :key="j"
+            @dragenter="handleDragEnter"
+            @dragleave="handleDragLeave"
+            @drop="handleDrop($event, i, j)"
+            @dragover="allowDrop"
+          ></div>
         </div>
 
         <div class="side top">
@@ -47,29 +79,28 @@
             Stone Wall
           </label>
         </div>
-
       </div>
 
-      <CityInfo :name=activeCityName :size=1 :level=1 :consumption=0 :exesInfluence=44 :maxItemBonus=98 />
+      <CityInfo :name="activeCityName" :size="1" :level="1" :consumption="0" :exesInfluence="44" :maxItemBonus="98" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue';
-import Checkbox from '@/components/Checkbox.vue';
-import StructureInfo from '@/components/StructureInfo.vue';
-import CityInfo from '@/components/CityInfo.vue';
-import { api } from '@/api';
-import { toast } from 'vue3-toastify';
-import { useCitiesStore } from '@/stores/cities';
+import { ref, onBeforeMount } from "vue";
+import Checkbox from "@/components/Checkbox.vue";
+import StructureInfo from "@/components/StructureInfo.vue";
+import CityInfo from "@/components/CityInfo.vue";
+import { api } from "@/api";
+import { toast } from "vue3-toastify";
+import { useCitiesStore } from "@/stores/cities";
 
 const cities = useCitiesStore();
 
 onBeforeMount(async () => {
   const response = await api.get("cities");
 
-  if (response.status !== 200) toast.error('Failed to fetch map data');
+  if (response.status !== 200) toast.error("Failed to fetch map data");
   else cities.cities = response.data;
 });
 
@@ -85,62 +116,72 @@ const previusStructure = () => {
   }
 };
 
-const structures = [{
-  name: 'ACADEMY',
-  img: require('@/assets/buildings/2x1/Academy.png'),
-  description: 'An academy gives your citizens—and the PCs themselves— an institution where advanced study in many fields can be pursued, researched, and referenced.',
-  lots: 2,
-  cost: {
-    rp: 52,
-    ore: 0,
-    stone: 12,
-    luxuries: 6,
-    lumber: 12,
-    foot: 0,
+const structures = [
+  {
+    name: "ACADEMY",
+    img: require("@/assets/buildings/2x1/Academy.png"),
+    description:
+      "An academy gives your citizens—and the PCs themselves— an institution where advanced study in many fields can be pursued, researched, and referenced.",
+    lots: 2,
+    cost: {
+      rp: 52,
+      ore: 0,
+      stone: 12,
+      luxuries: 6,
+      lumber: 12,
+      foot: 0,
+    },
+    construction: "Scholarship (expert) DC 27",
+    itemBonus: "+2 item bonus to Creative Solution",
+    effects:
+      "While in a settlement with an Academy, you gain a +2 item bonus to Lore checks made to Recall Knowledge while Investigating, to all checks made while Researching (Gamemastery Guide 154), and to Decipher Writing.",
+    upgradeFrom: "Library",
+    upgradeTo: "military academy, university",
   },
-  construction: 'Scholarship (expert) DC 27',
-  itemBonus: '+2 item bonus to Creative Solution',
-  effects: 'While in a settlement with an Academy, you gain a +2 item bonus to Lore checks made to Recall Knowledge while Investigating, to all checks made while Researching (Gamemastery Guide 154), and to Decipher Writing.',
-  upgradeFrom: "Library",
-  upgradeTo: "military academy, university"
-}, {
-  name: 'Alchemy Lab',
-  img: require('@/assets/buildings/1x1/Alchemy Lab.png'),
-  description: 'An alchemy laboratory serves as a factory for alchemists and their apprentices for the crafting of potions, elixirs, and all manner of alchemical items. An infamous kingdom’s laboratory might specialize in poisons as well.',
-  lots: 1,
-  cost: {
-    rp: 18,
-    ore: 2,
-    stone: 5,
-    luxuries: 0,
-    lumber: 0,
-    foot: 0,
+  {
+    name: "Alchemy Lab",
+    img: require("@/assets/buildings/1x1/Alchemy Lab.png"),
+    description:
+      "An alchemy laboratory serves as a factory for alchemists and their apprentices for the crafting of potions, elixirs, and all manner of alchemical items. An infamous kingdom’s laboratory might specialize in poisons as well.",
+    lots: 1,
+    cost: {
+      rp: 18,
+      ore: 2,
+      stone: 5,
+      luxuries: 0,
+      lumber: 0,
+      foot: 0,
+    },
+    construction: "Construction Industry (trained) DC 16",
+    itemBonus: "+1 item bonus to Demolish",
+    effects:
+      "Treat the settlement's level as one level higher than its actual level for the purposes of determining which alchemical items are readily available for sale in that settlement. This effect stacks up to three times. Checks attempted to Identify Alchemy in any settlement with at least one alchemy laboratory gain a +1 item bonus.",
   },
-  construction: 'Construction Industry (trained) DC 16',
-  itemBonus: '+1 item bonus to Demolish',
-  effects: 'Treat the settlement\'s level as one level higher than its actual level for the purposes of determining which alchemical items are readily available for sale in that settlement. This effect stacks up to three times. Checks attempted to Identify Alchemy in any settlement with at least one alchemy laboratory gain a +1 item bonus.'
-}, {
-  name: 'BREWERY',
-  img: require('@/assets/buildings/1x1/Brewery.png'),
-  description: 'A brewery is devoted to crafting alcohol, be it beer, wine, or spirits. This building can represent bottlers, vineyards, or even structures that produce non- alcoholicdrinks.',
-  lots: 1,
-  cost: {
-    rp: 6,
-    ore: 0,
-    stone: 0,
-    luxuries: 0,
-    lumber: 2,
-    foot: 0,
+  {
+    name: "BREWERY",
+    img: require("@/assets/buildings/1x1/Brewery.png"),
+    description:
+      "A brewery is devoted to crafting alcohol, be it beer, wine, or spirits. This building can represent bottlers, vineyards, or even structures that produce non- alcoholicdrinks.",
+    lots: 1,
+    cost: {
+      rp: 6,
+      ore: 0,
+      stone: 0,
+      luxuries: 0,
+      lumber: 2,
+      foot: 0,
+    },
+    construction: "Agriculture DC 15",
+    itemBonus: "+1 item bonus to Establish Trade Agreement",
+    effects:
+      "When you build a brewery, reduce Unrest by 1 as long as you have fewer than 4 breweries in the settlement at that time.",
   },
-  construction: 'Agriculture DC 15',
-  itemBonus: '+1 item bonus to Establish Trade Agreement',
-  effects: 'When you build a brewery, reduce Unrest by 1 as long as you have fewer than 4 breweries in the settlement at that time.',
-}]
+];
 
-const activeCityName = ref('');
+const activeCityName = ref("");
 
 function back() {
-  activeCityName.value = '';
+  activeCityName.value = "";
 }
 
 const handleDragEnter = (e) => {
@@ -149,11 +190,12 @@ const handleDragEnter = (e) => {
   // e.target.style.backgroundImage = `url(${structures.find(structure => structure.name === cities.draggedStructureName).img})`;
 
   // insert a new img element with the dragged item
-  const img = document.createElement('img');
-  img.src = structures.find(structure => structure.name === cities.draggedStructureName).img;
-  img.className = structures.find(structure => structure.name === cities.draggedStructureName).lots === 2 ? 'img2x1' : 'img1x1';
+  const img = document.createElement("img");
+  img.src = structures.find((structure) => structure.name === cities.draggedStructureName).img;
+  img.className =
+    structures.find((structure) => structure.name === cities.draggedStructureName).lots === 2 ? "img2x1" : "img1x1";
 
-  if (structures.find(structure => structure.name === cities.draggedStructureName).lots === 1) {
+  if (structures.find((structure) => structure.name === cities.draggedStructureName).lots === 1) {
     // check if the cell is empty
     if (e.target.children.length === 0) {
       e.target.appendChild(img);
@@ -161,7 +203,7 @@ const handleDragEnter = (e) => {
   }
 
   // if the dragged item is 2 slot
-  else if (structures.find(structure => structure.name === cities.draggedStructureName).lots === 2) {
+  else if (structures.find((structure) => structure.name === cities.draggedStructureName).lots === 2) {
     // if the dragged item is in the first cell, then the next cell should be red too
     if (e.target === e.target.parentElement.children[0]) {
       e.target.appendChild(img);
@@ -187,12 +229,12 @@ const handleDragEnter = (e) => {
 const handleDragLeave = (e) => {
   e.preventDefault();
 
-  if (structures.find(structure => structure.name === cities.draggedStructureName).lots === 1) {
+  if (structures.find((structure) => structure.name === cities.draggedStructureName).lots === 1) {
     e.target.removeChild(e.target.children[0]);
   }
 
   // if the dragged item is 2 slot
-  else if (structures.find(structure => structure.name === cities.draggedStructureName).lots === 2) {
+  else if (structures.find((structure) => structure.name === cities.draggedStructureName).lots === 2) {
     // if the dragged item is in the first cell, remove the img from the next cell
     if (e.target === e.target.parentElement.children[0]) {
       e.target.removeChild(e.target.children[0]);
@@ -232,7 +274,7 @@ const handleDrop = (event, district, slot) => {
   // } else {
   //   toast.error('This cell is already occupied');
   // }
-}
+};
 </script>
 
 <style scoped>

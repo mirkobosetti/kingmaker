@@ -38,6 +38,13 @@ const routes = [
     component: function () {
       return import('../views/Cities.vue')
     }
+  },
+  {
+    path: '/items',
+    name: 'items',
+    component: function () {
+      return import('../views/Items.vue')
+    }
   }
 ]
 
