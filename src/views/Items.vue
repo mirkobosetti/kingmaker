@@ -8,21 +8,25 @@
         type="number"
         class="font-medium text-stone-400 bg-transparent outline-none w-12 border-b-2 border-stone-400 hover:border-stone-500 focus:border-stone-500 text-center"
         v-model="money_platinum"
+        @change="setMoney"
       />
       <input
         type="number"
         class="font-medium text-yellow-400 bg-transparent outline-none w-12 border-b-2 border-yellow-400 hover:border-yellow-500 focus:border-yellow-500 text-center"
         v-model="money_gold"
+        @change="setMoney"
       />
       <input
         type="number"
         class="font-medium text-stone-500 bg-transparent outline-none w-12 border-b-2 border-stone-500 hover:border-stone-600 focus:border-stone-600 text-center"
         v-model="money_silver"
+        @change="setMoney"
       />
       <input
         type="number"
         class="font-medium text-amber-600 bg-transparent outline-none w-12 border-b-2 border-amber-600 hover:border-amber-700 focus:border-amber-700 text-center"
         v-model="money_copper"
+        @change="setMoney"
       />
       <h1 class="text-lightgreen text-xl">$</h1>
     </div>
@@ -105,7 +109,7 @@
                 <button
                   v-if="item.quantity > 1"
                   class="text-white outline-none w-6 h-6 rounded border hover:shadow-lg hover:border-lightgreen bg-lightgreen hover:bg-darkgreen"
-                  @click="item.quantity--"
+                  @click="item.quantity--; itemQuantityChanged(item)"
                 >
                   -
                 </button>
@@ -136,7 +140,7 @@
                 />
                 <button
                   class="text-white outline-none w-6 h-6 rounded border hover:shadow-lg hover:border-lightgreen bg-lightgreen hover:bg-darkgreen"
-                  @click="item.quantity++"
+                  @click="item.quantity++; itemQuantityChanged(item)"
                 >
                   +
                 </button>
@@ -148,6 +152,7 @@
                 type="text"
                 class="font-medium text-darkgreen outline-none w-full min-w-80 text-center px-3 py-2 rounded border hover:shadow-lg hover:border-lightgreen focus:border-lightgreen"
                 v-model="item.name"
+                @change="itemNameChanged(item)"
               />
             </td>
 
@@ -269,6 +274,16 @@ onBeforeMount(async () => {
       }
     });
   }
+
+  const moneyResponse = await api.get("money");
+
+  if (moneyResponse.status !== 200) toast.error("Failed to fetch money");
+  else {
+    money_platinum.value = moneyResponse.data.find((m) => m.name === "platinum").amount;
+    money_gold.value = moneyResponse.data.find((m) => m.name === "gold").amount;
+    money_silver.value = moneyResponse.data.find((m) => m.name === "silver").amount;
+    money_copper.value = moneyResponse.data.find((m) => m.name === "copper").amount;
+  }
 });
 
 const money_platinum = ref(0);
@@ -303,7 +318,7 @@ const getValueFromCurrency = (item) => {
   }
 };
 
-const setValueFromCurrency = (item, newValue) => {
+const setValueFromCurrency = async (item, newValue) => {
   switch (item.currency) {
     case "PP":
       item.copperSellValue = newValue * 1000;
@@ -318,6 +333,10 @@ const setValueFromCurrency = (item, newValue) => {
       item.copperSellValue = newValue;
       break;
   }
+
+  const response = await api.put(`items/${item._id}`, item);
+
+  if (response.status !== 200) toast.error("Failed to save item");
 };
 
 const getPlatinumValue = (copperValue) => {
@@ -412,6 +431,9 @@ const sellAllItems = () => {
   money_copper.value += copper;
 
   items.value = [];
+
+  // put request to update money
+  setMoney()
 };
 
 const sellItem = (item, quantity) => {
@@ -431,6 +453,9 @@ const sellItem = (item, quantity) => {
   if (item.quantity <= 0) {
     items.value.splice(items.value.indexOf(item), 1);
   }
+
+  // put request to update money
+  setMoney()
 };
 
 const itemQuantityChanged = async (item) => {
@@ -442,5 +467,22 @@ const itemQuantityChanged = async (item) => {
       items.value.splice(items.value.indexOf(item), 1);
     }
   }
+};
+
+const itemNameChanged = async (item) => {
+  const response = await api.put(`items/${item._id}`, item);
+
+  if (response.status !== 200) toast.error("Failed to save item");
+};
+
+const setMoney = async () => {
+  const response = await api.put("money", [
+    { name: "platinum", amount: money_platinum.value },
+    { name: "gold", amount: money_gold.value },
+    { name: "silver", amount: money_silver.value },
+    { name: "copper", amount: money_copper.value },
+  ]);
+
+  if (response.status !== 200) toast.error("Failed to save money");
 };
 </script>

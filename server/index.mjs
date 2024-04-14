@@ -4,6 +4,7 @@ import "./loadEnvironment.mjs";
 import cells from "./routes/cells.mjs";
 import cities from "./routes/cities.mjs";
 import items from "./routes/items.mjs";
+import money from "./routes/money.mjs";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/cells", cells);
 app.use("/cities", cities);
 app.use("/items", items);
+app.use("/money", money);
 
 // Global error handling
 app.use((err, _req, res, next) => {
