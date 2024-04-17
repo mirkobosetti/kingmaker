@@ -104,7 +104,7 @@
         </thead>
         <tbody>
           <tr v-for="(item, i) in filteredItems" :key="i">
-            <td class="px-4 py-2">
+            <td class="px-4 py-1">
               <div class="flex gap-1 justify-center items-center">
                 <button
                   v-if="item.quantity > 1"
@@ -147,7 +147,7 @@
               </div>
             </td>
 
-            <td class="px-4 py-2">
+            <td class="px-4 py-1">
               <input
                 type="text"
                 class="font-medium text-darkgreen outline-none w-full min-w-80 text-center px-3 py-2 rounded border hover:shadow-lg hover:border-lightgreen focus:border-lightgreen"
@@ -156,7 +156,7 @@
               />
             </td>
 
-            <td class="px-4 py-2">
+            <td class="px-4 py-1">
               <div class="flex gap-1">
                 <div class="w-36">
                   <div class="relative rounded">
