@@ -10,6 +10,7 @@
       <router-link class="py-2 px-2 sm:px-3 md:px-5 bg-lightgreen border-2 border-darkgreen text-white hover:bg-darkgreen" to="/skills">Skills</router-link>
       <router-link class="py-2 px-2 sm:px-3 md:px-5 bg-lightgreen border-2 border-darkgreen text-white hover:bg-darkgreen" to="/feats">Feats</router-link>
       <router-link class="py-2 px-2 sm:px-3 md:px-5 bg-lightgreen border-2 border-darkgreen text-white hover:bg-darkgreen" to="/items">Items</router-link>
+      <router-link class="py-2 px-2 sm:px-3 md:px-5 bg-lightgreen border-2 border-darkgreen text-white hover:bg-darkgreen" to="/battle">Battle</router-link>
       <router-link class="py-2 px-2 sm:px-3 md:px-5 bg-lightgreen border-2 border-r-4 border-darkgreen text-white rounded-r-md hover:bg-darkgreen" to="/cities">Cities</router-link>
     </nav>
 
