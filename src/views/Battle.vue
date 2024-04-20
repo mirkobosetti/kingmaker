@@ -9,12 +9,24 @@
         <div class="scrollable">
           <draggable v-model="turns" tag="ul" :animation="300">
             <template #item="{ element: turn }">
-              <li class="relative w-full p-2 mb-1 border-2 rounded-md flex gap-1 justify-between text-white select-none cursor-grab items-center" :class="{ 'border-darkgreen bg-lightgreen': turn.type === 'player', 'border-red-500 bg-red-400': turn.type === 'enemy', 'border-stone-500 bg-stone-400': turn.type === 'neutral' }">
+              <li class="relative w-full p-2 mb-1 border-2 rounded-md flex gap-1 justify-between text-white select-none cursor-grab items-center" :class="{ 'border-darkgreen bg-lightgreen': turn.type === 'player', 'border-red-500 bg-red-400': turn.type === 'enemy' }">
                 <div>
-                  <span class="font-bold">{{ turn.name }}</span>
+                  <!-- input for name -->
+                  <input v-model="turn.name" class="bg-transparent text-white text-lg outline-none border-none" />
                 </div>
                 <div class="h-7">
-                  <button v-if="!turn.dead" class="text-white rounded-md px-1 py-1 text-xs font-bold cursor-pointer" :class="{ 'bg-darkgreen': turn.type === 'player', 'bg-red-700': turn.type === 'enemy', 'bg-stone-600': turn.type === 'neutral' }" @click="kill(turn)">
+                  <button v-if="turn.dead" class="relative text-white rounded-md px-1 py-1 text-xs font-bold z-10 bg-darkgreen" @click="turn.dead = false">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="20" height="20" viewBox="0 0 1280.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
+                      <metadata>
+                        Created by potrace 1.15, written by Peter Selinger 2001-2017
+                      </metadata>
+                      <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="#ffffff" stroke="none">
+                        <path d="M6055 11684 c-969 -75 -1819 -365 -2600 -889 -301 -201 -533 -393 -795 -655 -267 -267 -456 -498 -665 -810 -475 -712 -749 -1461 -857 -2342 -20 -162 -22 -229 -22 -588 0 -429 10 -570 65 -888 186 -1085 697 -2070 1479 -2852 267 -267 498 -456 810 -665 638 -425 1331 -698 2081 -819 328 -53 427 -60 849 -60 422 0 521 7 849 60 1997 322 3653 1780 4226 3720 89 302 145 576 187 916 20 162 22 229 22 588 0 429 -10 572 -65 888 -125 724 -395 1408 -795 2016 -811 1231 -2096 2071 -3543 2316 -292 49 -440 61 -816 64 -198 2 -382 2 -410 0z m795 -829 c931 -97 1798 -474 2490 -1082 832 -731 1354 -1705 1500 -2795 117 -881 -39 -1792 -444 -2593 -264 -520 -612 -968 -1056 -1358 -1345 -1181 -3290 -1440 -4896 -653 -889 435 -1606 1145 -2048 2027 -635 1265 -632 2750 8 4014 264 520 612 968 1056 1358 670 588 1501 959 2400 1072 293 37 694 41 990 10z" />
+                        <path d="M5715 9361 c-48 -22 -79 -54 -100 -103 -13 -33 -15 -158 -15 -1048 l0 -1010 -1012 0 c-963 0 -1015 -1 -1053 -19 -48 -22 -79 -54 -100 -103 -13 -32 -15 -122 -15 -678 0 -556 2 -646 15 -678 21 -49 52 -81 100 -103 38 -18 90 -19 1053 -19 l1012 0 0 -1012 c0 -963 1 -1015 19 -1053 22 -48 54 -79 103 -100 32 -13 122 -15 680 -15 602 0 646 2 683 19 50 22 91 69 105 119 6 24 10 381 10 1040 l0 1002 1010 0 c890 0 1015 2 1048 15 49 21 81 52 103 100 17 38 19 79 19 685 0 604 -2 648 -19 685 -22 50 -69 91 -119 105 -24 6 -381 10 -1039 10 l-1003 0 0 1003 c0 658 -4 1015 -10 1039 -14 50 -55 97 -105 119 -37 17 -81 19 -685 19 -606 0 -647 -2 -685 -19z" />
+                      </g>
+                    </svg>
+                  </button>
+                  <button class="relative text-white ml-1 rounded-md px-1 py-1 text-xs font-bold cursor-pointer z-10" :class="{ 'bg-darkgreen': turn.type === 'player', 'bg-red-700': turn.type === 'enemy' }" @click="kill(turn)">
                     <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="20" height="20" viewBox="0 0 862.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
                       <metadata>
                         Created by potrace 1.15, written by Peter Selinger 2001-2017
@@ -32,29 +44,17 @@
                       </g>
                     </svg>
                   </button>
-                  <button v-else class="relative text-white rounded-md px-1 py-1 text-xs font-bold z-10 bg-darkgreen" @click="turn.dead = false">
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="20" height="20" viewBox="0 0 1280.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
-                      <metadata>
-                        Created by potrace 1.15, written by Peter Selinger 2001-2017
-                      </metadata>
-                      <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="#ffffff" stroke="none">
-                        <path d="M6055 11684 c-969 -75 -1819 -365 -2600 -889 -301 -201 -533 -393 -795 -655 -267 -267 -456 -498 -665 -810 -475 -712 -749 -1461 -857 -2342 -20 -162 -22 -229 -22 -588 0 -429 10 -570 65 -888 186 -1085 697 -2070 1479 -2852 267 -267 498 -456 810 -665 638 -425 1331 -698 2081 -819 328 -53 427 -60 849 -60 422 0 521 7 849 60 1997 322 3653 1780 4226 3720 89 302 145 576 187 916 20 162 22 229 22 588 0 429 -10 572 -65 888 -125 724 -395 1408 -795 2016 -811 1231 -2096 2071 -3543 2316 -292 49 -440 61 -816 64 -198 2 -382 2 -410 0z m795 -829 c931 -97 1798 -474 2490 -1082 832 -731 1354 -1705 1500 -2795 117 -881 -39 -1792 -444 -2593 -264 -520 -612 -968 -1056 -1358 -1345 -1181 -3290 -1440 -4896 -653 -889 435 -1606 1145 -2048 2027 -635 1265 -632 2750 8 4014 264 520 612 968 1056 1358 670 588 1501 959 2400 1072 293 37 694 41 990 10z" />
-                        <path d="M5715 9361 c-48 -22 -79 -54 -100 -103 -13 -33 -15 -158 -15 -1048 l0 -1010 -1012 0 c-963 0 -1015 -1 -1053 -19 -48 -22 -79 -54 -100 -103 -13 -32 -15 -122 -15 -678 0 -556 2 -646 15 -678 21 -49 52 -81 100 -103 38 -18 90 -19 1053 -19 l1012 0 0 -1012 c0 -963 1 -1015 19 -1053 22 -48 54 -79 103 -100 32 -13 122 -15 680 -15 602 0 646 2 683 19 50 22 91 69 105 119 6 24 10 381 10 1040 l0 1002 1010 0 c890 0 1015 2 1048 15 49 21 81 52 103 100 17 38 19 79 19 685 0 604 -2 648 -19 685 -22 50 -69 91 -119 105 -24 6 -381 10 -1039 10 l-1003 0 0 1003 c0 658 -4 1015 -10 1039 -14 50 -55 97 -105 119 -37 17 -81 19 -685 19 -606 0 -647 -2 -685 -19z" />
-                      </g>
-                    </svg>
-                  </button>
                 </div>
 
                 <div v-if="turn.dead" class="absolute h-1 left-0 w-full bg-darkgreen"></div>
               </li>
             </template>
           </draggable>
-
-          <div class="flex gap-1 justify-between mt-5">
-            <button class="py-2 px-4 text-white text-lg uppercase bg-darkgreen rounded-md hover:bg-lightgreen" @click="addPlayer">add player</button>
-            <button class="py-2 px-4 text-white text-lg uppercase bg-stone-500 rounded-md hover:bg-stone-400" @click="addNeutral">add neutral</button>
-            <button class="py-2 px-4 text-white text-lg uppercase bg-red-700 rounded-md hover:bg-red-500" @click="addEnemy">add enemy</button>
-          </div>
+        </div>
+        <div class="flex gap-1 justify-between items-center mt-5">
+          <button class="py-2 px-4 text-white uppercase bg-lightgreen rounded-md hover:bg-darkgreen border-2 border-darkgreen" @click="addPlayer">player</button>
+          <div class="uppercase text-stone-500">⇠ add ⇢</div>
+          <button class="py-2 px-4 text-white uppercase bg-red-400 rounded-md hover:bg-red-500 border-2 border-red-500" @click="addEnemy">enemy</button>
         </div>
 
       </div>
@@ -66,13 +66,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, nextTick } from 'vue'
 import draggable from 'vuedraggable';
 
 const turns = ref([])
 
 onMounted(() => {
-  const players = ['Mirko', 'Fabio', 'Chiara'] // get players from store after players page
+  const players = ['Mirko', 'Fabio', 'Garcia', 'Oscar'] // get players from store after players page
   for (let i = 0; i < players.length; i++) {
     turns.value.push({
       name: players[i],
@@ -82,13 +82,26 @@ onMounted(() => {
   }
 })
 
+/**
+ * Removes a turn from the turns list and marks it as dead if it's a player turn.
+ * @param {Object} turn - The turn object to process.
+ * @param {string} turn.type - The type of turn ('player' or other).
+ * @param {boolean} [turn.dead] - Indicates if turn are already dead.
+ */
 const kill = (turn) => {
+  // If the turn type is 'player'
   if (turn.type === 'player') {
-    turn.dead = true
-    return
+    // Check if the turns are already dead
+    if (turn.dead) {
+      // Find the index of the current turn in turns.value and remove it
+      turns.value = turns.value.filter(t => t !== turn);
+    }
+    // Mark the current turn as dead
+    turn.dead = true;
+  } else {
+    // If the turn type is not 'player', simply remove it from turns.value
+    turns.value = turns.value.filter(t => t !== turn);
   }
-  const index = turns.value.indexOf(turn)
-  turns.value.splice(index, 1)
 }
 
 const addPlayer = () => {
@@ -97,13 +110,7 @@ const addPlayer = () => {
     type: 'player',
     dead: false,
   })
-}
-
-const addNeutral = () => {
-  turns.value.push({
-    name: 'New Neutral',
-    type: 'neutral',
-  })
+  focusOnNewInput()
 }
 
 const addEnemy = () => {
@@ -111,12 +118,22 @@ const addEnemy = () => {
     name: 'New Enemy',
     type: 'enemy',
   })
+  focusOnNewInput()
+}
+
+const focusOnNewInput = () => {
+  // focus on its input name
+  nextTick(() => {
+    const inputs = document.querySelectorAll('input')
+    inputs[inputs.length - 1].focus()
+    inputs[inputs.length - 1].select()
+  })
 }
 </script>
 
 <style scoped>
 .scrollable {
-  height: calc(100vh - 300px);
+  height: calc(100vh - 350px);
   overflow: auto;
 }
 </style>
