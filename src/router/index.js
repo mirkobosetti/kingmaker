@@ -52,6 +52,13 @@ const routes = [
     component: function () {
       return import('../views/Battle.vue')
     }
+  },
+  {
+    path: '/kobold',
+    name: 'kobold',
+    component: function () {
+      return import('../views/Kobold.vue')
+    }
   }
 ]
 
