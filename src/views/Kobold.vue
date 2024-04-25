@@ -37,6 +37,20 @@ const subCompanies = ref([
     description: 'Gassinger si occupa della produzione di gas',
     employees: 2,
   },
-  
+  {
+    name: 'Dragon Bull',
+    description: 'Gassinger si occupa della produzione di bevande energetiche',
+    employees: 2,
+  },
+  {
+    name: 'K.R.M.',
+    description: 'K.R.M. si occupa del riciclaggio di denaro sporco',
+    employees: 2,
+  },
+
+  // thorn
+  // primus
+  // dorean
+  // potius
 ])
 </script>
