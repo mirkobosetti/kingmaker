@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from './router'
+import { toast } from "vue3-toastify";
 
 const onFullfilled = (response) => response
 
@@ -23,6 +24,8 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
+    console.error(error);
+    toast.error(`Network error calling /${error.config.url}`);
     return Promise.reject(error);
   }
 );
