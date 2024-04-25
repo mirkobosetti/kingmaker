@@ -80,9 +80,9 @@
         <img v-if="map.hasCity('9.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
         <div v-if="map.getCellDescription('9.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('9.' + i) }}</div>
       </div>
-      <div @click="showCellModal('10.' + i,)" class="exagon" :class="{ active: cellId == '10.' + i, explored: map.isExplored('10.' + i), city: map.hasCity('10.' + i), expanded: map.isExpanded('10.' + i) }" v-for="i in 29" :key="'10.' + i" :style="{ left: `${i - 31 + (56.3 * (i - 1))}px`, top: '434px' }">
+      <div @click="showCellModal('10.' + i)" class="exagon" :class="{ active: cellId == '10.' + i, explored: map.isExplored('10.' + i), city: map.hasCity('10.' + i), expanded: map.isExpanded('10.' + i) }" v-for="i in 29" :key="'10.' + i" :style="{ left: `${i - 31 + (56.3 * (i - 1))}px`, top: '434px' }">
         <img v-if="map.hasCity('10.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
-        <div v-if="map.getCellDescription('10.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('11.' + i) }}</div>
+        <div v-if="map.getCellDescription('10.' + i)" class="text-white text-xs text-center p-2 line-clamp-2 overflow-hidden">{{ map.getCellDescription('10.' + i) }}</div>
       </div>
       <div @click="showCellModal('11.' + i,)" class="exagon" :class="{ active: cellId == '11.' + i, explored: map.isExplored('11.' + i), city: map.hasCity('11.' + i), expanded: map.isExpanded('11.' + i) }" v-for="i in 29" :key="'11.' + i" :style="{ left: `${i - 3 + (56.3 * (i - 1))}px`, top: '484px' }">
         <img v-if="map.hasCity('11.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
