@@ -43,7 +43,7 @@
       <div class="border-2 border-darkgreen bg-lightgreen rounded-xl overflow-hidden flex-1 p-2">
         <router-link key="Items" to="/items" class="flex justify-between items-center h-full">
           <div class="text-white text-2xl drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">Items</div>
-          <img src="@/assets/broom.svg" alt="items" class="h-full" />
+          <img src="@/assets/backpack.svg" alt="items" class="h-full" />
         </router-link>
       </div>
       <div class="border-2 border-darkgreen bg-lightgreen rounded-xl overflow-hidden flex-1 p-2">
