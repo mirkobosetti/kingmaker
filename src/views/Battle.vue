@@ -117,7 +117,7 @@ import draggable from 'vuedraggable';
 const turns = ref([])
 
 onMounted(() => {
-  const players = ['Mirko', 'Fabio', 'Garcia', 'Oscar'] // get players from store after players page
+  const players = ['Thorn', 'Potus', 'Dorean', 'Primus'] // get players from store after players page
   for (let i = 0; i < players.length; i++) {
     turns.value.push({
       name: players[i],

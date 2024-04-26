@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col w-full overflow-hidden">
 
-    <nav class="z-20 backdrop-blur-xl h-16 flex justify-center items-center">
+    <nav v-if="!isMobile" class="z-20 backdrop-blur-xl h-16 flex justify-center items-center">
       <img src="@/assets/kingmaker.png" alt="kingmaker logo" class="sm:w-48 hidden sm:block fixed left-3" />
       <img src="@/assets/pathfinder.png" alt="kingmaker logo" class="sm:w-48 hidden sm:block fixed right-3" />
       <!-- tailwind hide in mobile -->
@@ -15,9 +15,22 @@
       <router-link class="py-2 px-2 sm:px-3 md:px-5 bg-lightgreen border-2 border-r-4 border-darkgreen text-white rounded-r-md hover:bg-darkgreen" to="/cities">Cities</router-link>
     </nav>
 
-    <div class="overflow-y-auto -mt-16 pt-16 h-screen">
-       <!-- style="height: calc(100vh - 4rem);"> -->
+    <div class="h-screen overflow-y-auto" :class="{ '-mt-16 pt-16': !isMobile }">
       <router-view />
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const isMobile = ref(false)
+
+onMounted(() => {
+  isMobile.value = window.innerWidth < 640
+})
+
+window.addEventListener('resize', () => {
+  isMobile.value = window.innerWidth < 640
+})
+</script>

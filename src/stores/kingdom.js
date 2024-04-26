@@ -226,7 +226,7 @@ export const useKingdomStore = defineStore("kingdom", () => {
   const leaders = ref({
     ruler: {
       title: 'Ruler',
-      name: 'Oscar',
+      name: 'Primus',
       scaling: 'loyalty'
     },
     counselor: {
@@ -236,7 +236,7 @@ export const useKingdomStore = defineStore("kingdom", () => {
     },
     general: {
       title: 'General',
-      name: 'Garcia',
+      name: 'Dorean',
       scaling: 'stability'
     },
     emissary: {
@@ -251,12 +251,12 @@ export const useKingdomStore = defineStore("kingdom", () => {
     },
     treasurer: {
       title: 'Treasurer',
-      name: 'Mirko',
+      name: 'Thorn',
       scaling: 'economy'
     },
     viceroy: {
       title: 'Viceroy',
-      name: 'Fabio',
+      name: 'Potus',
       scaling: 'economy'
     },
     warden: {

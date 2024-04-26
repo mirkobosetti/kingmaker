@@ -1,15 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MapView from '../views/MapView.vue'
+import MenuView from '../views/MenuView.vue'
+
+const isMobile = window.innerWidth < 640
 
 const routes = [
   {
     path: '/',
-    redirect: '/map'
+    redirect: isMobile ? '/menu' : '/map'
   },
   {
     path: '/map',
     name: 'map',
     component: MapView
+  },
+  {
+    path: '/menu',
+    name: 'menu',
+    component: MenuView
   },
   {
     path: '/kingdom',

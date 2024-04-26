@@ -5,19 +5,19 @@
 
     <div class="flex gap-5 items-end justify-evenly h-16">
       <div class="flex flex-col gap-1 items-center">
-        <img v-show="isCharacterMoved('Mirko')" src="@/assets/characters/thieve.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Mirko')" />
-        <img src="@/assets/characters/thieve.png" class="h-14 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Mirko')" />
-        <span class="text-lightgreen">Mirko</span>
+        <img v-show="isCharacterMoved('Thorn')" src="@/assets/characters/thieve.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Thorn')" />
+        <img src="@/assets/characters/thieve.png" class="h-14 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Thorn')" />
+        <span class="text-lightgreen">Thorn</span>
       </div>
       <div class="flex flex-col gap-1 items-center">
-        <img v-show="isCharacterMoved('Fabio')" src="@/assets/characters/alchemist.png" class="h-12 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Fabio')" />
-        <img src="@/assets/characters/alchemist.png" class="h-12 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Fabio')" />
-        <span class="text-lightgreen">Fabio</span>
+        <img v-show="isCharacterMoved('Potus')" src="@/assets/characters/alchemist.png" class="h-12 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Potus')" />
+        <img src="@/assets/characters/alchemist.png" class="h-12 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Potus')" />
+        <span class="text-lightgreen">Potus</span>
       </div>
       <div class="flex flex-col gap-1 items-center">
-        <img v-show="isCharacterMoved('Oscar')" src="@/assets/characters/paladin.png" class="h-16 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Oscar')" />
-        <img src="@/assets/characters/paladin.png" class="h-16 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Oscar')" />
-        <span class="text-lightgreen">Oscar</span>
+        <img v-show="isCharacterMoved('Primus')" src="@/assets/characters/paladin.png" class="h-16 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Primus')" />
+        <img src="@/assets/characters/paladin.png" class="h-16 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Primus')" />
+        <span class="text-lightgreen">Primus</span>
       </div>
       <div class="flex flex-col gap-1 items-center">
         <img v-show="isCharacterMoved('Group')" src="@/assets/characters/group.png" class="h-16 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Group')" />
@@ -35,14 +35,14 @@
         <span class="text-lightgreen">Chiara</span>
       </div>
       <div class="flex flex-col gap-1 items-center">
-        <img v-show="isCharacterMoved('Garcia')" src="@/assets/characters/elegantelf.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Garcia')" />
-        <img src="@/assets/characters/elegantelf.png" class="h-14 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Garcia')" />
-        <span class="text-lightgreen">Garcia</span>
+        <img v-show="isCharacterMoved('Dorean')" src="@/assets/characters/elegantelf.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Dorean')" />
+        <img src="@/assets/characters/elegantelf.png" class="h-14 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Dorean')" />
+        <span class="text-lightgreen">Dorean</span>
       </div>
     </div>
 
 
-    <div class="relative mt-12 overflow-hidden">
+    <div class="relative mt-12 overflow-hidden rounded-2xl">
       <img id="map" alt="Map" class="-z-10 w-full" src="@/assets/map.jpg" />
       <div @click="showCellModal('1.' + i)" class="exagon" :class="{ active: cellId == '1.' + i, explored: map.isExplored('1.' + i), city: map.hasCity('1.' + i), expanded: map.isExpanded('1.' + i) }" v-for="i in 29" :key="'1.' + i" :style="{ left: `${i - 3 + (56.3 * (i - 1))}px`, top: '-16px' }">
         <img v-if="map.hasCity('1.' + i)" class="w-8 rounded-full bg-red-500 p-1" src="@/assets/city.svg" />
