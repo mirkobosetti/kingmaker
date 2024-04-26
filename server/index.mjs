@@ -6,10 +6,27 @@ import cities from "./routes/cities.mjs";
 import items from "./routes/items.mjs";
 import money from "./routes/money.mjs";
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 9996;
 const app = express();
 
-app.use(cors({ credentials: true, origin: true }));
+var allowedOrigins = ["http://localhost:8080", "http://192.168.1.10:8080", "http://mirkobosetti.drinkando.com"];
+
+app.use(
+  cors({
+    credentials: true,
+    origin: function (origin, callback) {
+      // allow requests with no origin
+      // (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg = "The CORS policy for this site does not " + "allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
+
 app.use(express.json());
 
 // Routes
