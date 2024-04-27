@@ -35,9 +35,9 @@
         <span class="text-lightgreen">Chiara</span>
       </div>
       <div class="flex flex-col gap-1 items-center">
-        <img v-show="isCharacterMoved('Dorean')" src="@/assets/characters/elegantelf.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Dorean')" />
-        <img src="@/assets/characters/elegantelf.png" class="h-14 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Dorean')" />
-        <span class="text-lightgreen">Dorean</span>
+        <img v-show="isCharacterMoved('Dorian')" src="@/assets/characters/elegantelf.png" class="h-14 z-10 opacity-40" alt="Legend" draggable="false" @click="resetCharacter('Dorian')" />
+        <img src="@/assets/characters/elegantelf.png" class="h-14 z-10" alt="Legend" draggable="true" @dragstart="handleDragStart" @dragend="handleDragEnd($event, 'Dorian')" />
+        <span class="text-lightgreen">Dorian</span>
       </div>
     </div>
 

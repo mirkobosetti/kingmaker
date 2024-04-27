@@ -2,7 +2,7 @@
   <PageTitle title="Battle" />
 
   <div class="flex flex-col justify-center items-center flex-wrap">
-    <div class="flex gap-2 w-full p-2 max-w-7xl">
+    <div class="flex gap-2 w-full p-2 max-w-7xl flex-col sm:flex-row">
       <div class="w-1/3 p-2">
         <h1 class="text-2xl text-center w-full text-darkgreen mb-2">Turni</h1>
 
@@ -15,6 +15,8 @@
                   <input v-model="turn.initiative" class="bg-transparent text-white text-lg w-6 outline-none border-none text-center" />
                   <!-- input for name -->
                   <input v-model="turn.name" class="bg-transparent text-white text-lg outline-none border-none" />
+                  <!-- input for hp damage dealt -->
+                  <input v-model="turn.initiative" class="bg-transparent text-white text-lg w-6 outline-none border-none text-center" />
                 </div>
                 <div class="h-7">
                   <button v-if="turn.dead" class="relative text-white rounded-md px-1 py-1 text-xs font-bold z-10 bg-darkgreen" @click="turn.dead = false">
@@ -54,11 +56,16 @@
           </draggable>
           <ul>
             <li v-for="turn in turns" class="relative w-full p-2 mb-1 border-2 rounded-md flex gap-1 justify-between text-white select-none cursor-grab items-center" :class="{ 'border-darkgreen bg-lightgreen': turn.type === 'player', 'border-red-500 bg-red-400': turn.type === 'enemy' }">
-                <div class="flex gap-2">
+                <div class="flex gap-2 w-full justify-between">
                   <!-- input for initiative -->
-                  <input v-model="turn.initiative" @change="sortTurns" class="bg-transparent text-white text-lg w-6 outline-none border-none text-center" />
+                  <input v-model="turn.initiative" type="number" pattern="\d*" @change="sortTurns" class="bg-transparent text-white text-lg w-6 outline-none border-none text-center" />
                   <!-- input for name -->
-                  <input v-model="turn.name" class="bg-transparent text-white text-lg outline-none border-none" />
+                  <input v-model="turn.name" class="bg-transparent text-white text-lg outline-none border-none flex-1" />
+                  <!-- input for hp damage dealt -->
+                  <div class="flex gap-1 items-center">
+                    <span>HP:</span>
+                    <input v-model="turn.damage" class="bg-transparent text-white text-lg w-8 outline-none border-none text-center" />
+                  </div>
                 </div>
                 <div class="h-7">
                   <button v-if="turn.dead" class="relative text-white rounded-md px-1 py-1 text-xs font-bold z-10 bg-darkgreen" @click="turn.dead = false">
@@ -117,13 +124,14 @@ import draggable from 'vuedraggable';
 const turns = ref([])
 
 onMounted(() => {
-  const players = ['Thorn', 'Potus', 'Dorean', 'Primus'] // get players from store after players page
+  const players = ['Thorn', 'Potus', 'Dorian', 'Primus'] // get players from store after players page
   for (let i = 0; i < players.length; i++) {
     turns.value.push({
       name: players[i],
       type: 'player',
       dead: false,
       initiative: 0,
+      damage: 0,
     })
   }
 })
@@ -156,6 +164,7 @@ const addPlayer = () => {
     type: 'player',
     dead: false,
     initiative: 0,
+    damage: 0,
   })
   focusOnNewInput()
 }
@@ -166,6 +175,7 @@ const addEnemy = () => {
     type: 'enemy',
     dead: false,
     initiative: 0,
+    damage: 0,
   })
   focusOnNewInput()
 }

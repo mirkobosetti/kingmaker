@@ -236,7 +236,7 @@ export const useKingdomStore = defineStore("kingdom", () => {
     },
     general: {
       title: 'General',
-      name: 'Dorean',
+      name: 'Dorian',
       scaling: 'stability'
     },
     emissary: {

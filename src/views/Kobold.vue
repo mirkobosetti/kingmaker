@@ -2,7 +2,7 @@
   <PageTitle title="Kobold S.P.A." />
 
   <div class="flex flex-col justify-center items-center mb-40 px-5">
-    <div class="grid divide-y divide-neutral-200 w-2/3">
+    <div class="grid divide-y divide-neutral-200 w-full sm:w-2/3">
       <h1 class="mb-5">!todo kobold spa stock price chart !todo</h1>
       <div class="py-5" v-for="sub in subCompanies" :key="sub.name">
         <details class="group">
@@ -50,7 +50,7 @@ const subCompanies = ref([
 
   // thorn
   // primus
-  // dorean
+  // Dorian
   // potius
 ])
 </script>
