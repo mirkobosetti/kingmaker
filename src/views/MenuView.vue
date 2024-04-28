@@ -47,7 +47,7 @@
         </router-link>
       </div>
       <div class="border-2 border-darkgreen bg-lightgreen rounded-xl overflow-hidden flex-1 p-2">
-        <router-link key="Items" to="/items" class="flex justify-between items-center h-full">
+        <router-link key="Items" to="/kingdom" class="flex justify-between items-center h-full">
           <img src="@/assets/castle.svg" alt="items" class="h-full" />
           <div class="text-white text-2xl drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">Kingdom</div>
         </router-link>
@@ -57,13 +57,13 @@
     <div class="flex gap-3 mt-3 w-full">
       <div class="flex flex-col gap-3 flex-1">
         <div class="border-2 border-darkgreen bg-lightgreen rounded-xl overflow-hidden flex-1">
-          <router-link key="Cities" to="/cities" class="h-full flex justify-around items-center">
+          <router-link key="Cities" to="/skills" class="h-full flex justify-around items-center">
             <img src="@/assets/skills.svg" alt="skills" class="w-11" />
             <div class="text-white text-2xl text-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">Skills</div>
           </router-link>
         </div>
         <div class="border-2 border-darkgreen bg-lightgreen rounded-xl overflow-hidden flex-1">
-          <router-link key="Cities" to="/cities" class="h-full flex justify-around items-center">
+          <router-link key="Cities" to="/feats" class="h-full flex justify-around items-center">
             <img src="@/assets/feats.svg" alt="skills" class="w-11" />
             <div class="text-white text-2xl text-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">Feats</div>
           </router-link>
