@@ -8,7 +8,7 @@ const onRejected = (error) => Promise.reject(error)
 
 export const api = axios.create({
   withCredentials: true,
-  baseURL: "http://192.168.1.10:9996/"
+  baseURL: "https://express-kingmaker.onrender.com/"
 })
 
 
