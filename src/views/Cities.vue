@@ -98,10 +98,17 @@ import { useCitiesStore } from "@/stores/cities";
 const cities = useCitiesStore();
 
 onBeforeMount(async () => {
-  const response = await api.get("cities");
+  try {
+    const response = await api.get("cities");
+    console.log(response);
 
-  if (response.status !== 200) toast.error("Failed to fetch map data");
-  else cities.cities = response.data;
+    if (response.data) {
+      cities.setCities(response.data);
+    }
+  } catch (error) {
+    toast.error("Error fetching cities");
+    console.error("Error fetching cities:", error);
+  }
 });
 
 const displayedStructure = ref(0);
