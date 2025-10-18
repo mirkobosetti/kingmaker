@@ -5,6 +5,9 @@ export const useMapStore = defineStore("map", () => {
   const cells = ref([]);
 
   const getCellById = (id) => {
+    if (!Array.isArray(cells.value)) {
+      cells.value = [];
+    }
     return cells.value.find((cell) => cell.id == id);
   };
 
